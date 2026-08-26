@@ -1,53 +1,423 @@
 ---
-title: "Relatório 01 - Introdução ao R"
-author: "Ben Dêivide"
-date: "12/04/2022"
-header-includes:
-  - \usepackage{titling}
-  - \pretitle{\begin{center}
-    \includegraphics[width=2in,height=2in]{ufsj.png}\LARGE\\}
-  - \posttitle{\end{center}}
-toc-title: "Sumário"
+title: "GUIA SIMPLIFICADO PARA CRIAR E PUBLICAR UM RELATÓRIO NO RSTUDIO E GITHUB"
+author: "Luciano Vaz"
+date: "26/08/2026"
 output:
-  
-  bookdown::html_document2: 
-    theme: journal
-    highlight: tango
-    toc: yes
-    number_sections: yes
-    includes:
-      in_header: logo.html
-  pdf_document:
-    
-    toc: yes
-    number_sections: yes
+  html_document:
+    toc: true
+    toc_depth: 1
+    number_sections: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
---- 
+<div style="position: absolute; top: 20px; right: 20px;">
+<img src="ufsj.png" width="100px">
+</div>
 
-# Objetivo
+# 1. PREPARAÇÃO E INSTALAÇÃO DAS FERRAMENTAS
 
-Descrever as ideias básicas sobre o ambiente R:
+Este guia foi elaborado para uma pessoa que está utilizando o RStudio pela primeira vez e não possui conhecimento de programação.
 
-- Como instalar o R e RStudio;
-- Diferenças entre o R e a IDE RStudio;
-- Como o R trabalha;
-- Comandos elementares;
-- Objetos;
-- Manipulação com objetos;
-- Importação de dados;
-- Pacotes:
-  - Instalação;
-  - Como usar.
+O objetivo é ensinar, de maneira simples, como criar um relatório no RStudio e disponibilizá-lo na internet utilizando o GitHub.
 
-# Apresentação do relatório
+Para isso, serão utilizadas quatro ferramentas:
 
-Diante do objetivo do relatório, apresentaremos nas próximas subseções, os pontos a serem discutidos.
+- **R:** executa os códigos e realiza os cálculos;
+- **RStudio:** é o programa onde vamos criar o relatório;
+- **Git:** registra e controla as alterações do projeto;
+- **GitHub:** armazena os arquivos do projeto na internet.
 
-## Como instalar o R e o RStudio
+Uma forma simples de entender:
 
+**R → executa os códigos**
 
+**RStudio → lugar onde trabalhamos**
 
+**Git → registra as alterações**
+
+**GitHub → guarda o projeto na internet**
+
+## 1.1 Instalação do R
+
+O primeiro programa a ser instalado é o **R**.
+
+Baixe o R no site oficial e faça a instalação seguindo as orientações apresentadas na tela.
+
+Para quem está começando, é recomendado manter as configurações sugeridas pelo instalador.
+
+## 1.2 Instalação do RStudio
+
+Depois de instalar o R, instale o **RStudio Desktop**.
+
+O RStudio será o principal programa utilizado para criar e organizar o relatório.
+
+Após a instalação, abra o RStudio.
+
+## 1.3 Instalação do Git
+
+Agora instale o **Git**.
+
+O Git será utilizado posteriormente para enviar os arquivos do computador para o GitHub.
+
+Depois da instalação, podemos verificar se ele foi reconhecido pelo RStudio.
+
+No **Console do RStudio**, digite:
+
+    system("git --version")
+
+Pressione **Enter**.
+
+Se aparecer a versão do Git, a instalação está funcionando corretamente.
+
+## 1.4 Criação da conta no GitHub
+
+Acesse o GitHub e clique em **Sign up**.
+
+Preencha as informações solicitadas e confirme sua conta.
+
+Depois de entrar no GitHub, crie um novo repositório utilizando:
+
+**New repository**
+
+Escolha um nome para o repositório.
+
+Exemplo:
+
+    relatorio-rstudio
+
+Esse será o local onde os arquivos do projeto serão armazenados.
+
+# 2. CRIAÇÃO DO PROJETO E DO RELATÓRIO NO RSTUDIO
+
+Agora vamos começar o trabalho no RStudio.
+
+## 2.1 Criando o projeto
+
+No RStudio, clique em:
+
+**File → New Project → New Directory → New Project**
+
+Escolha o nome do projeto.
+
+Exemplo:
+
+    Relatorio 1
+
+Escolha onde deseja salvar e clique em:
+
+**Create Project**
+
+O RStudio criará uma pasta específica para o projeto.
+
+Essa pasta será importante porque nela ficarão todos os arquivos relacionados ao relatório.
+
+## 2.2 Criando o relatório
+
+No RStudio, clique em:
+
+**File → New File → R Markdown**
+
+Escolha:
+
+**Document**
+
+Digite o título do relatório e o nome do autor.
+
+Em formato de saída, escolha:
+
+**HTML**
+
+Depois clique em **OK**.
+
+Será criado um arquivo com extensão:
+
+    .Rmd
+
+Por exemplo:
+
+    index.Rmd
+
+É nesse arquivo que vamos escrever o relatório.
+
+# 3. ORGANIZAÇÃO E GERAÇÃO DO RELATÓRIO
+
+Agora vamos começar a montar o conteúdo.
+
+## 3.1 Inserindo títulos e textos
+
+Os textos podem ser escritos normalmente.
+
+Para criar um título, utilizamos:
+
+    # Introdução
+
+Para criar um subtítulo:
+
+    ## Objetivos
+
+Não é necessário saber programação para escrever os textos.
+
+## 3.2 Inserindo códigos
+
+Quando quisermos utilizar o R para fazer cálculos ou análises, utilizaremos um **chunk**.
+
+Um exemplo simples é:
+
+    ```{r}
+    x <- 10
+    y <- 20
+    x + y
+    ```
+
+O RStudio executará esse código e apresentará o resultado no relatório.
+
+Nesse exemplo:
+
+**10 + 20 = 30**
+
+## 3.3 Criando um gráfico
+
+Também podemos utilizar o R para criar gráficos.
+
+Por exemplo:
+
+    ```{r}
+    x <- c(1, 2, 3, 4, 5)
+    y <- c(2, 4, 6, 8, 10)
+
+    plot(x, y)
+    ```
+
+Quando o relatório for gerado, o gráfico aparecerá automaticamente.
+
+## 3.4 Inserindo imagens
+
+Dentro da pasta do projeto, crie uma pasta chamada:
+
+    imagens
+
+Coloque as imagens utilizadas no relatório dentro dessa pasta.
+
+Por exemplo:
+
+    Relatorio 1/
+    ├── index.Rmd
+    └── imagens/
+        └── foto.png
+
+Para inserir a imagem no relatório, utilize:
+
+    ![Imagem do projeto](imagens/foto.png)
+
+É recomendável utilizar nomes simples nos arquivos, evitando espaços, acentos e caracteres especiais.
+
+## 3.5 Salvando o relatório
+
+Durante o desenvolvimento, salve o arquivo frequentemente.
+
+Você pode utilizar:
+
+**Ctrl + S**
+
+## 3.6 Gerando o relatório em HTML
+
+Depois de terminar o relatório, clique no botão:
+
+**Knit**
+
+O RStudio executará os códigos e criará o arquivo:
+
+    index.html
+
+Antes de enviar o projeto para o GitHub, abra o arquivo HTML e confira se:
+
+- os textos estão corretos;
+- as imagens aparecem;
+- os gráficos foram gerados;
+- não existem erros.
+
+# 4. ENVIO DO PROJETO PARA O GITHUB
+
+Agora o relatório está pronto no computador.
+
+Vamos enviar os arquivos para o repositório criado no GitHub.
+
+## 4.1 Verificando a conexão
+
+No **Terminal do RStudio**, digite:
+
+    git remote -v
+
+Esse comando mostra qual repositório do GitHub está conectado ao projeto.
+
+Se aparecer um endereço correto, podemos continuar.
+
+Se aparecer uma mensagem relacionada a **origin**, primeiro verifique o endereço apresentado. Se for o repositório correto, não é necessário criar outro.
+
+## 4.2 Configurando o acesso ao GitHub
+
+Para permitir que o computador envie os arquivos para o GitHub, pode ser necessário configurar um **Personal Access Token (PAT)**.
+
+Primeiro, instale o pacote `usethis`.
+
+No **Console do RStudio**, digite:
+
+    install.packages("usethis")
+
+Depois carregue o pacote:
+
+    library(usethis)
+
+Agora podemos iniciar a criação do token:
+
+    usethis::create_github_token()
+
+Siga as instruções apresentadas para concluir a autenticação.
+
+## 4.3 Verificando os arquivos
+
+No **Terminal do RStudio**, digite:
+
+    git status
+
+Esse comando mostra quais arquivos foram modificados ou ainda não foram enviados.
+
+## 4.4 Adicionando os arquivos
+
+Agora vamos preparar os arquivos para serem enviados.
+
+Digite:
+
+    git add .
+
+O ponto significa que queremos adicionar os arquivos do projeto que foram alterados.
+
+## 4.5 Criando o commit
+
+Agora vamos registrar essa versão do projeto.
+
+Digite:
+
+    git commit -m "Primeiro envio do relatório"
+
+O **commit** funciona como um registro das alterações realizadas.
+
+## 4.6 Enviando para o GitHub
+
+Agora chegou a hora de enviar os arquivos.
+
+Digite:
+
+    git push
+
+Depois volte ao navegador e abra o repositório no GitHub.
+
+Os arquivos deverão aparecer, incluindo:
+
+    index.Rmd
+    index.html
+    imagens/
+
+# 5. PUBLICAÇÃO E ATUALIZAÇÃO DO RELATÓRIO
+
+## 5.1 Publicando com GitHub Pages
+
+Agora vamos transformar o arquivo HTML em uma página da internet.
+
+No repositório do GitHub:
+
+1. Clique em **Settings**;
+2. Procure **Pages**;
+3. Em **Build and deployment**, escolha **Deploy from a branch**;
+4. Selecione a branch **main**;
+5. Escolha **/ (root)**;
+6. Clique em **Save**.
+
+O GitHub começará a publicar o relatório.
+
+Depois de concluída a publicação, será disponibilizado um endereço para acessar a página.
+
+## 5.2 Atualizando o relatório
+
+Se precisar alterar o relatório, abra novamente:
+
+    index.Rmd
+
+Faça as alterações e salve.
+
+Depois clique novamente em:
+
+**Knit**
+
+Confira o novo `index.html`.
+
+Em seguida, abra o **Terminal** e execute os comandos abaixo, um de cada vez.
+
+### 1. Verificar alterações
+
+    git status
+
+### 2. Adicionar arquivos
+
+    git add .
+
+### 3. Registrar a atualização
+
+    git commit -m "Atualização do relatório"
+
+### 4. Enviar para o GitHub
+
+    git push
+
+Depois disso, o GitHub Pages atualizará a página.
+
+## 5.3 Problemas comuns
+
+### O Git não aparece no RStudio
+
+Verifique se o Git foi instalado corretamente e reinicie o RStudio.
+
+### Os arquivos não aparecem na aba Git
+
+Confira se os arquivos foram salvos e estão dentro da pasta correta do projeto.
+
+### A imagem não aparece
+
+Confira se ela está dentro da pasta `imagens` e se o caminho utilizado no código está correto.
+
+Exemplo:
+
+    ![Foto](imagens/foto.png)
+
+### Aparece erro relacionado ao origin
+
+Verifique o endereço do repositório utilizando:
+
+    git remote -v
+
+Se o endereço estiver correto, não é necessário criar outro `origin`.
+
+# 6. CONCLUSÃO
+
+Criar um relatório no RStudio e publicá-lo no GitHub pode parecer difícil no início, principalmente para quem nunca teve contato com programação.
+
+Porém, seguindo as etapas com calma, o processo se torna mais simples.
+
+Primeiro instalamos o **R, RStudio e Git** e criamos uma conta no **GitHub**.
+
+Depois criamos um projeto no RStudio e, dentro dele, um arquivo **R Markdown**. Nesse arquivo podemos escrever textos, inserir códigos, gráficos e imagens.
+
+Quando o relatório estiver pronto, utilizamos o botão **Knit** para gerar o arquivo `index.html`.
+
+Depois utilizamos o Git para registrar e enviar os arquivos para o GitHub:
+
+    git add .
+    git commit -m "Primeiro envio do relatório"
+    git push
+
+Por fim, ativamos o **GitHub Pages** para publicar o relatório na internet.
+
+## Caminho completo
+
+**Instalar → Criar projeto → Criar R Markdown → Escrever → Inserir códigos e imagens → Knit → Gerar HTML → Git → GitHub → GitHub Pages → Publicar**
+
+Seguindo esse passo a passo, mesmo uma pessoa que nunca programou poderá criar seu primeiro relatório no RStudio e disponibilizá-lo na internet.
