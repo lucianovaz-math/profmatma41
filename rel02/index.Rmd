@@ -1,37 +1,1364 @@
+````rmd
 ---
-title: "Relatório 02 - Como usar o projeto Relatórios"
-author: "Ben Dêivide"
-date: "12/04/2022"
-header-includes:
-  - \usepackage{titling}
-  - \pretitle{\begin{center}
-    \includegraphics[width=2in,height=2in]{ufsj.png}\LARGE\\}
-  - \posttitle{\end{center}}
-toc-title: "Sumário"
+title: "RELATÓRIO DE ANÁLISE ESTATÍSTICA"
+author: "Luciano Vaz"
+date: "02/09/2026"
 output:
-  bookdown::html_document2: 
-    theme: journal
-    highlight: tango
-    toc: yes
-    number_sections: yes
-    includes:
-      in_header: logo.html
-  pdf_document:
-    
-    toc: yes
-    number_sections: yes
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    theme: cosmo
+    df_print: paged
+---
+```text
+SUMÁRIO
+
+1. Introdução
+
+2. Preparação do ambiente
+
+3. Importação dos dados
+
+4. Tratamento das variáveis
+
+5. Conhecendo o banco de dados
+
+6. Valores ausentes
+
+7. Estatística descritiva
+   7.1 Número de faltas
+   7.2 Nota média
+
+8. Distribuição das faltas
+
+9. Distribuição das notas
+
+10. Análise das variáveis qualitativas
+    10.1 Distribuição por turno
+    10.2 Escolaridade da mãe
+    10.3 Acesso à internet
+
+11. Internet e desempenho acadêmico
+    11.1 Estatísticas por acesso à internet
+    11.2 Boxplot das notas
+    11.3 Teste t
+
+12. Escolaridade da mãe e desempenho acadêmico
+    12.1 Estatísticas por escolaridade
+    12.2 Boxplot
+    12.3 ANOVA
+
+13. Faltas e desempenho acadêmico
+    13.1 Correlação de Pearson
+    13.2 Correlação de Spearman
+    13.3 Relação entre faltas e notas
+
+14. Faixas de faltas
+    14.1 Estatísticas por faixa
+
+15. Perfil dos estudantes do turno noturno
+    15.1 Quantidade de estudantes no turno noturno
+    15.2 Estatísticas dos estudantes do noturno
+    15.3 Acesso à internet no turno noturno
+    15.4 Escolaridade das mães dos estudantes do noturno
+
+16. Comparação entre os turnos
+    16.1 Notas por turno
+    16.2 Boxplot das notas por turno
+    16.3 ANOVA das notas por turno
+
+17. Faltas segundo o turno
+
+18. Análise multivariada
+    18.1 Modelo de regressão
+    18.2 Coeficientes do modelo
+    18.3 R² do modelo
+
+19. Diagnóstico da regressão
+
+20. Turno e acesso à internet
+    20.1 Tabela de contingência
+    20.2 Percentuais por turno
+    20.3 Teste qui-quadrado
+
+21. Escolaridade da mãe e acesso à internet
+
+22. Turno e escolaridade da mãe
+
+23. Síntese dos resultados
+
+24. Conclusões
+
+25. Recomendações
+
+26. Limitações
+
+27. Considerações finais
+
+28. Referências bibliográficas
+```
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# 1. Introdução
+
+Este relatório apresenta uma análise estatística de um conjunto de dados referente a estudantes. O objetivo é investigar possíveis relações entre desempenho acadêmico, número de faltas, turno de estudo, escolaridade da mãe e acesso à internet.
+
+As análises são organizadas em três etapas principais:
+
+- análise univariada;
+- análise bivariada;
+- análise multivariada.
+
+O conjunto de dados contém as seguintes variáveis:
+
+- `faltas`: número de faltas do estudante;
+- `nota_media`: nota média do estudante;
+- `turno`: turno em que o estudante está matriculado;
+- `escolaridade_mae`: nível de escolaridade da mãe;
+- `acesso_internet`: indicação de acesso à internet.
+
+# 2. Preparação do ambiente
+
+```{r configuracao, message=FALSE, warning=FALSE}
+
+# Pacotes necessários
+pacotes <- c("ggplot2", "knitr")
+
+# Instala somente os pacotes que ainda não estão instalados
+instalar <- pacotes[!(pacotes %in% rownames(installed.packages()))]
+
+if (length(instalar) > 0) {
+  install.packages(
+    instalar,
+    repos = "https://cloud.r-project.org"
+  )
+}
+
+library(ggplot2)
+library(knitr)
+
+options(stringsAsFactors = FALSE)
+
 ```
---- 
 
-# Objetivo
+# 3. Importação dos dados
 
-Descrever como realizar os relatórios.
+O arquivo utilizado nesta análise deve se chamar `dados_alunos.csv`.
 
-# Apresentação do relatório
+O código abaixo tenta inicialmente realizar a leitura no formato mais comum de arquivos CSV utilizados no Brasil, com `;` como separador e `,` como separador decimal.
 
-Aqui será o local para apresentar o material sobre o relatório.
+```{r importacao, message=FALSE, warning=FALSE}
+
+arquivo <- "dados_alunos.csv"
+
+# Verifica se o arquivo existe
+if (!file.exists(arquivo)) {
+  stop(
+    "O arquivo 'dados_alunos.csv' não foi encontrado. ",
+    "Coloque o arquivo CSV na mesma pasta do arquivo index.Rmd."
+  )
+}
+
+# Tenta ler como CSV brasileiro
+dados_alunos <- tryCatch(
+  read.csv2(
+    arquivo,
+    header = TRUE,
+    stringsAsFactors = FALSE,
+    check.names = FALSE,
+    na.strings = c("", "NA", "NaN")
+  ),
+  error = function(e) NULL
+)
+
+# Variáveis esperadas
+variaveis_esperadas <- c(
+  "faltas",
+  "nota_media",
+  "turno",
+  "escolaridade_mae",
+  "acesso_internet"
+)
+
+# Se a primeira leitura não funcionar,
+# tenta o formato CSV convencional
+if (
+  is.null(dados_alunos) ||
+  !all(variaveis_esperadas %in% names(dados_alunos))
+) {
+
+  dados_alunos <- read.csv(
+    arquivo,
+    header = TRUE,
+    stringsAsFactors = FALSE,
+    check.names = FALSE,
+    na.strings = c("", "NA", "NaN")
+  )
+}
+
+# Confere se todas as variáveis existem
+if (!all(variaveis_esperadas %in% names(dados_alunos))) {
+
+  stop(
+    "As colunas esperadas não foram encontradas no arquivo CSV.\n\n",
+    "Colunas encontradas: ",
+    paste(names(dados_alunos), collapse = ", "),
+    "\n\nColunas esperadas: ",
+    paste(variaveis_esperadas, collapse = ", ")
+  )
+}
+
+```
+
+# 4. Tratamento das variáveis
+
+Nesta etapa, as variáveis quantitativas são convertidas para formato numérico e as variáveis qualitativas são transformadas em fatores.
+
+```{r tratamento, message=FALSE, warning=FALSE}
+
+# Variáveis quantitativas
+dados_alunos$faltas <- as.numeric(
+  gsub(
+    ",",
+    ".",
+    as.character(dados_alunos$faltas),
+    fixed = TRUE
+  )
+)
+
+dados_alunos$nota_media <- as.numeric(
+  gsub(
+    ",",
+    ".",
+    as.character(dados_alunos$nota_media),
+    fixed = TRUE
+  )
+)
+
+# Variável turno
+dados_alunos$turno <- factor(
+  trimws(as.character(dados_alunos$turno)),
+  levels = c(
+    "Matutino",
+    "Vespertino",
+    "Noturno"
+  )
+)
+
+# Escolaridade da mãe
+dados_alunos$escolaridade_mae <- factor(
+  trimws(as.character(dados_alunos$escolaridade_mae)),
+  levels = c(
+    "Fundamental",
+    "Médio",
+    "Superior"
+  ),
+  ordered = TRUE
+)
+
+# Acesso à internet
+dados_alunos$acesso_internet <- factor(
+  trimws(as.character(dados_alunos$acesso_internet)),
+  levels = c(
+    "Não",
+    "Sim"
+  )
+)
+
+```
+
+# 5. Conhecendo o banco de dados
+
+```{r estrutura}
+
+# Primeiras observações
+head(dados_alunos)
+
+```
+
+```{r estrutura2}
+
+# Dimensões do banco
+dim(dados_alunos)
+
+```
+
+```{r estrutura3}
+
+# Estrutura das variáveis
+str(dados_alunos)
+
+```
+
+# 6. Valores ausentes
+
+A quantidade de valores ausentes em cada variável é apresentada abaixo.
+
+```{r ausentes}
+
+colSums(is.na(dados_alunos))
+
+```
+
+# 7. Estatística descritiva
+
+## 7.1 Número de faltas
+
+As principais estatísticas descritivas do número de faltas são calculadas a seguir.
+
+```{r estatisticas_faltas}
+
+estatisticas_faltas <- data.frame(
+  Estatistica = c(
+    "Mínimo",
+    "1º Quartil",
+    "Mediana",
+    "Média",
+    "3º Quartil",
+    "Máximo",
+    "Desvio-padrão"
+  ),
+  Valor = c(
+    min(dados_alunos$faltas, na.rm = TRUE),
+    quantile(dados_alunos$faltas, 0.25, na.rm = TRUE),
+    median(dados_alunos$faltas, na.rm = TRUE),
+    mean(dados_alunos$faltas, na.rm = TRUE),
+    quantile(dados_alunos$faltas, 0.75, na.rm = TRUE),
+    max(dados_alunos$faltas, na.rm = TRUE),
+    sd(dados_alunos$faltas, na.rm = TRUE)
+  )
+)
+
+kable(
+  estatisticas_faltas,
+  digits = 2,
+  caption = "Estatísticas descritivas do número de faltas"
+)
+
+```
+
+## 7.2 Nota média
+
+```{r estatisticas_notas}
+
+estatisticas_notas <- data.frame(
+  Estatistica = c(
+    "Mínimo",
+    "1º Quartil",
+    "Mediana",
+    "Média",
+    "3º Quartil",
+    "Máximo",
+    "Desvio-padrão"
+  ),
+  Valor = c(
+    min(dados_alunos$nota_media, na.rm = TRUE),
+    quantile(dados_alunos$nota_media, 0.25, na.rm = TRUE),
+    median(dados_alunos$nota_media, na.rm = TRUE),
+    mean(dados_alunos$nota_media, na.rm = TRUE),
+    quantile(dados_alunos$nota_media, 0.75, na.rm = TRUE),
+    max(dados_alunos$nota_media, na.rm = TRUE),
+    sd(dados_alunos$nota_media, na.rm = TRUE)
+  )
+)
+
+kable(
+  estatisticas_notas,
+  digits = 2,
+  caption = "Estatísticas descritivas das notas"
+)
+
+```
+
+# 8. Distribuição das faltas
+
+```{r grafico_faltas, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(x = faltas)
+) +
+  geom_histogram(
+    bins = 15,
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Distribuição do número de faltas",
+    x = "Número de faltas",
+    y = "Frequência"
+  ) +
+  theme_minimal()
+
+```
+
+# 9. Distribuição das notas
+
+```{r grafico_notas, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(x = nota_media)
+) +
+  geom_histogram(
+    bins = 15,
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Distribuição das notas médias",
+    x = "Nota média",
+    y = "Frequência"
+  ) +
+  theme_minimal()
+
+```
+
+# 10. Análise das variáveis qualitativas
+
+## 10.1 Distribuição por turno
+
+```{r frequencia_turno}
+
+frequencia_turno <- as.data.frame(
+  table(dados_alunos$turno, useNA = "ifany")
+)
+
+names(frequencia_turno) <- c(
+  "Turno",
+  "Frequencia"
+)
+
+frequencia_turno$Percentual <- round(
+  100 *
+    frequencia_turno$Frequencia /
+    sum(frequencia_turno$Frequencia),
+  2
+)
+
+kable(
+  frequencia_turno,
+  caption = "Distribuição dos estudantes por turno"
+)
+
+```
+
+```{r grafico_turno, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(x = turno)
+) +
+  geom_bar(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Distribuição dos estudantes por turno",
+    x = "Turno",
+    y = "Número de estudantes"
+  ) +
+  theme_minimal()
+
+```
+
+## 10.2 Escolaridade da mãe
+
+```{r frequencia_mae}
+
+frequencia_mae <- as.data.frame(
+  table(
+    dados_alunos$escolaridade_mae,
+    useNA = "ifany"
+  )
+)
+
+names(frequencia_mae) <- c(
+  "Escolaridade",
+  "Frequencia"
+)
+
+frequencia_mae$Percentual <- round(
+  100 *
+    frequencia_mae$Frequencia /
+    sum(frequencia_mae$Frequencia),
+  2
+)
+
+kable(
+  frequencia_mae,
+  caption = "Escolaridade das mães dos estudantes"
+)
+
+```
+
+```{r grafico_mae, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(x = escolaridade_mae)
+) +
+  geom_bar(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Escolaridade das mães",
+    x = "Escolaridade da mãe",
+    y = "Número de estudantes"
+  ) +
+  theme_minimal()
+
+```
+
+## 10.3 Acesso à internet
+
+```{r frequencia_internet}
+
+frequencia_internet <- as.data.frame(
+  table(
+    dados_alunos$acesso_internet,
+    useNA = "ifany"
+  )
+)
+
+names(frequencia_internet) <- c(
+  "Acesso",
+  "Frequencia"
+)
+
+frequencia_internet$Percentual <- round(
+  100 *
+    frequencia_internet$Frequencia /
+    sum(frequencia_internet$Frequencia),
+  2
+)
+
+kable(
+  frequencia_internet,
+  caption = "Acesso à internet"
+)
+
+```
+
+```{r grafico_internet, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(x = acesso_internet)
+) +
+  geom_bar(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Acesso à internet entre os estudantes",
+    x = "Acesso à internet",
+    y = "Número de estudantes"
+  ) +
+  theme_minimal()
+
+```
+
+# 11. Internet e desempenho acadêmico
+
+Uma das questões centrais da análise é verificar se existe diferença nas notas médias entre estudantes que possuem e não possuem acesso à internet.
+
+## 11.1 Estatísticas por acesso à internet
+
+```{r internet_notas}
+
+media_internet <- aggregate(
+  nota_media ~ acesso_internet,
+  data = dados_alunos,
+  FUN = function(x) {
+    c(
+      Media = mean(x, na.rm = TRUE),
+      Mediana = median(x, na.rm = TRUE),
+      DesvioPadrao = sd(x, na.rm = TRUE),
+      N = sum(!is.na(x))
+    )
+  }
+)
+
+resultado_internet <- data.frame(
+  Acesso = media_internet$acesso_internet,
+  Media = media_internet$nota_media[, "Media"],
+  Mediana = media_internet$nota_media[, "Mediana"],
+  DesvioPadrao = media_internet$nota_media[, "DesvioPadrao"],
+  N = media_internet$nota_media[, "N"]
+)
+
+kable(
+  resultado_internet,
+  digits = 2,
+  caption = "Desempenho acadêmico segundo acesso à internet"
+)
+
+```
+
+## 11.2 Boxplot das notas
+
+```{r boxplot_internet, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(
+    x = acesso_internet,
+    y = nota_media
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Notas médias segundo acesso à internet",
+    x = "Acesso à internet",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+
+```
+
+## 11.3 Teste t
+
+O teste t de Welch é utilizado para verificar se as médias dos dois grupos apresentam diferença estatisticamente significativa.
+
+```{r teste_t}
+
+dados_t <- dados_alunos[
+  !is.na(dados_alunos$nota_media) &
+    !is.na(dados_alunos$acesso_internet),
+]
+
+teste_t <- t.test(
+  nota_media ~ acesso_internet,
+  data = dados_t
+)
+
+teste_t
+
+```
+
+# 12. Escolaridade da mãe e desempenho acadêmico
+
+Nesta seção é analisada a relação entre escolaridade da mãe e nota média dos estudantes.
+
+## 12.1 Estatísticas por escolaridade
+
+```{r mae_notas}
+
+media_mae <- aggregate(
+  nota_media ~ escolaridade_mae,
+  data = dados_alunos,
+  FUN = function(x) {
+    c(
+      Media = mean(x, na.rm = TRUE),
+      Mediana = median(x, na.rm = TRUE),
+      DesvioPadrao = sd(x, na.rm = TRUE),
+      N = sum(!is.na(x))
+    )
+  }
+)
+
+resultado_mae <- data.frame(
+  Escolaridade = media_mae$escolaridade_mae,
+  Media = media_mae$nota_media[, "Media"],
+  Mediana = media_mae$nota_media[, "Mediana"],
+  DesvioPadrao = media_mae$nota_media[, "DesvioPadrao"],
+  N = media_mae$nota_media[, "N"]
+)
+
+kable(
+  resultado_mae,
+  digits = 2,
+  caption = "Notas segundo escolaridade da mãe"
+)
+
+```
+
+## 12.2 Boxplot
+
+```{r boxplot_mae, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(
+    x = escolaridade_mae,
+    y = nota_media
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Notas médias segundo escolaridade da mãe",
+    x = "Escolaridade da mãe",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+
+```
+
+## 12.3 ANOVA
+
+```{r anova_mae}
+
+dados_anova_mae <- dados_alunos[
+  !is.na(dados_alunos$nota_media) &
+    !is.na(dados_alunos$escolaridade_mae),
+]
+
+modelo_anova_mae <- aov(
+  nota_media ~ escolaridade_mae,
+  data = dados_anova_mae
+)
+
+summary(modelo_anova_mae)
+
+```
+
+# 13. Faltas e desempenho acadêmico
+
+Nesta seção é analisada a relação entre número de faltas e nota média.
+
+## 13.1 Correlação de Pearson
+
+```{r correlacao_pearson}
+
+dados_cor <- dados_alunos[
+  !is.na(dados_alunos$faltas) &
+    !is.na(dados_alunos$nota_media),
+]
+
+cor_pearson <- cor.test(
+  dados_cor$faltas,
+  dados_cor$nota_media,
+  method = "pearson"
+)
+
+cor_pearson
+
+```
+
+## 13.2 Correlação de Spearman
+
+```{r correlacao_spearman}
+
+cor_spearman <- cor.test(
+  dados_cor$faltas,
+  dados_cor$nota_media,
+  method = "spearman",
+  exact = FALSE
+)
+
+cor_spearman
+
+```
+
+## 13.3 Relação entre faltas e notas
+
+```{r dispersao_faltas_notas, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_cor,
+  aes(
+    x = faltas,
+    y = nota_media
+  )
+) +
+  geom_point(
+    alpha = 0.5
+  ) +
+  geom_smooth(
+    method = "lm",
+    se = TRUE
+  ) +
+  labs(
+    title = "Relação entre faltas e nota média",
+    x = "Número de faltas",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+
+```
+
+# 14. Faixas de faltas
+
+Para facilitar a interpretação, os estudantes são divididos em quatro grupos de faltas:
+
+* 0 a 5 faltas;
+* 6 a 8 faltas;
+* 9 a 10 faltas;
+* 11 ou mais faltas.
+
+```{r grupos_faltas}
+
+dados_alunos$faixa_faltas <- cut(
+  dados_alunos$faltas,
+  breaks = c(
+    -Inf,
+    5,
+    8,
+    10,
+    Inf
+  ),
+  labels = c(
+    "0-5",
+    "6-8",
+    "9-10",
+    "11+"
+  ),
+  right = TRUE
+)
+
+```
+
+## 14.1 Estatísticas por faixa
+
+```{r estatisticas_faixa}
+
+estatisticas_faixa <- aggregate(
+  nota_media ~ faixa_faltas,
+  data = dados_alunos,
+  FUN = function(x) {
+    c(
+      Media = mean(x, na.rm = TRUE),
+      Mediana = median(x, na.rm = TRUE),
+      N = sum(!is.na(x))
+    )
+  }
+)
+
+resultado_faixa <- data.frame(
+  Faixa = estatisticas_faixa$faixa_faltas,
+  Media = estatisticas_faixa$nota_media[, "Media"],
+  Mediana = estatisticas_faixa$nota_media[, "Mediana"],
+  N = estatisticas_faixa$nota_media[, "N"]
+)
+
+kable(
+  resultado_faixa,
+  digits = 2,
+  caption = "Notas médias segundo faixa de faltas"
+)
+
+```
+
+# 15. Perfil dos estudantes do turno noturno
+
+Nesta seção é analisado o perfil dos estudantes matriculados no período noturno.
+
+## 15.1 Quantidade de estudantes no turno noturno
+
+```{r noturno}
+
+noturno <- dados_alunos[
+  dados_alunos$turno == "Noturno" &
+    !is.na(dados_alunos$turno),
+]
+
+n_noturno <- nrow(noturno)
+
+n_noturno
+
+```
+
+## 15.2 Estatísticas dos estudantes do noturno
+
+```{r estatisticas_noturno}
+
+estatisticas_noturno <- data.frame(
+  Variavel = c(
+    "Número de estudantes",
+    "Média de faltas",
+    "Mediana de faltas",
+    "Média das notas",
+    "Mediana das notas"
+  ),
+  Valor = c(
+    nrow(noturno),
+    mean(noturno$faltas, na.rm = TRUE),
+    median(noturno$faltas, na.rm = TRUE),
+    mean(noturno$nota_media, na.rm = TRUE),
+    median(noturno$nota_media, na.rm = TRUE)
+  )
+)
+
+kable(
+  estatisticas_noturno,
+  digits = 2,
+  caption = "Perfil quantitativo dos estudantes do turno noturno"
+)
+
+```
+
+## 15.3 Acesso à internet no turno noturno
+
+```{r noturno_internet}
+
+tabela_noturno_internet <- table(
+  noturno$acesso_internet,
+  useNA = "ifany"
+)
+
+tabela_noturno_internet
+
+```
+
+## 15.4 Escolaridade das mães dos estudantes do noturno
+
+```{r noturno_mae}
+
+tabela_noturno_mae <- table(
+  noturno$escolaridade_mae,
+  useNA = "ifany"
+)
+
+tabela_noturno_mae
+
+```
+
+# 16. Comparação entre os turnos
+
+## 16.1 Notas por turno
+
+```{r notas_turno}
+
+media_turno <- aggregate(
+  nota_media ~ turno,
+  data = dados_alunos,
+  FUN = function(x) {
+    c(
+      Media = mean(x, na.rm = TRUE),
+      Mediana = median(x, na.rm = TRUE),
+      DesvioPadrao = sd(x, na.rm = TRUE),
+      N = sum(!is.na(x))
+    )
+  }
+)
+
+resultado_turno <- data.frame(
+  Turno = media_turno$turno,
+  Media = media_turno$nota_media[, "Media"],
+  Mediana = media_turno$nota_media[, "Mediana"],
+  DesvioPadrao = media_turno$nota_media[, "DesvioPadrao"],
+  N = media_turno$nota_media[, "N"]
+)
+
+kable(
+  resultado_turno,
+  digits = 2,
+  caption = "Desempenho acadêmico segundo turno"
+)
+
+```
+
+## 16.2 Boxplot das notas por turno
+
+```{r boxplot_turno, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(
+    x = turno,
+    y = nota_media
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Notas médias segundo turno",
+    x = "Turno",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+
+```
+
+## 16.3 ANOVA das notas por turno
+
+```{r anova_turno}
+
+dados_anova_turno <- dados_alunos[
+  !is.na(dados_alunos$nota_media) &
+    !is.na(dados_alunos$turno),
+]
+
+modelo_anova_turno <- aov(
+  nota_media ~ turno,
+  data = dados_anova_turno
+)
+
+summary(modelo_anova_turno)
+
+```
+
+# 17. Faltas segundo o turno
+
+```{r faltas_turno}
+
+media_faltas_turno <- aggregate(
+  faltas ~ turno,
+  data = dados_alunos,
+  FUN = function(x) {
+    c(
+      Media = mean(x, na.rm = TRUE),
+      Mediana = median(x, na.rm = TRUE),
+      DesvioPadrao = sd(x, na.rm = TRUE),
+      N = sum(!is.na(x))
+    )
+  }
+)
+
+resultado_faltas_turno <- data.frame(
+  Turno = media_faltas_turno$turno,
+  Media = media_faltas_turno$faltas[, "Media"],
+  Mediana = media_faltas_turno$faltas[, "Mediana"],
+  DesvioPadrao = media_faltas_turno$faltas[, "DesvioPadrao"],
+  N = media_faltas_turno$faltas[, "N"]
+)
+
+kable(
+  resultado_faltas_turno,
+  digits = 2,
+  caption = "Número de faltas segundo turno"
+)
+
+```
+
+```{r boxplot_faltas_turno, fig.width=7, fig.height=5}
+
+ggplot(
+  dados_alunos,
+  aes(
+    x = turno,
+    y = faltas
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Distribuição das faltas segundo turno",
+    x = "Turno",
+    y = "Número de faltas"
+  ) +
+  theme_minimal()
+
+```
+
+# 18. Análise multivariada
+
+A análise multivariada procura avaliar simultaneamente o efeito de diferentes variáveis sobre a nota média.
+
+Será utilizado um modelo de regressão linear múltipla.
+
+O modelo considera:
+
+* faltas;
+* turno;
+* escolaridade da mãe;
+* acesso à internet.
+
+## 18.1 Modelo de regressão
+
+```{r regressao}
+
+dados_regressao <- dados_alunos[
+  complete.cases(
+    dados_alunos[
+      ,
+      c(
+        "nota_media",
+        "faltas",
+        "turno",
+        "escolaridade_mae",
+        "acesso_internet"
+      )
+    ]
+  ),
+]
+
+modelo_regressao <- lm(
+  nota_media ~
+    faltas +
+    turno +
+    escolaridade_mae +
+    acesso_internet,
+  data = dados_regressao
+)
+
+summary(modelo_regressao)
+
+```
+
+## 18.2 Coeficientes do modelo
+
+```{r coeficientes_regressao}
+
+coeficientes <- as.data.frame(
+  summary(modelo_regressao)$coefficients
+)
+
+coeficientes$Variavel <- rownames(coeficientes)
+
+rownames(coeficientes) <- NULL
+
+names(coeficientes) <- c(
+  "Estimativa",
+  "Erro_Padrao",
+  "Estatistica_t",
+  "P_valor",
+  "Variavel"
+)
+
+coeficientes <- coeficientes[
+  ,
+  c(
+    "Variavel",
+    "Estimativa",
+    "Erro_Padrao",
+    "Estatistica_t",
+    "P_valor"
+  )
+]
+
+kable(
+  coeficientes,
+  digits = 4,
+  caption = "Coeficientes da regressão linear múltipla"
+)
+
+```
+
+## 18.3 R² do modelo
+
+```{r rquadrado}
+
+resumo_modelo <- summary(modelo_regressao)
+
+r2 <- resumo_modelo$r.squared
+
+r2_ajustado <- resumo_modelo$adj.r.squared
+
+data.frame(
+  Medida = c(
+    "R²",
+    "R² ajustado"
+  ),
+  Valor = c(
+    r2,
+    r2_ajustado
+  )
+) |>
+  kable(
+    digits = 4,
+    caption = "Qualidade de ajuste do modelo"
+  )
+
+```
+
+# 19. Diagnóstico da regressão
+
+Os gráficos abaixo permitem avaliar visualmente os principais pressupostos do modelo de regressão.
+
+```{r diagnostico_regressao, fig.width=8, fig.height=8}
+
+par(
+  mfrow = c(2, 2)
+)
+
+plot(modelo_regressao)
+
+par(
+  mfrow = c(1, 1)
+)
+
+```
+
+# 20. Turno e acesso à internet
+
+Nesta seção é investigada a associação entre o turno de estudo e o acesso à internet.
+
+## 20.1 Tabela de contingência
+
+```{r turno_internet}
+
+tabela_turno_internet <- table(
+  dados_alunos$turno,
+  dados_alunos$acesso_internet,
+  useNA = "no"
+)
+
+kable(
+  tabela_turno_internet,
+  caption = "Turno segundo acesso à internet"
+)
+
+```
+
+## 20.2 Percentuais por turno
+
+```{r percentual_turno_internet}
+
+percentual_turno_internet <- prop.table(
+  tabela_turno_internet,
+  margin = 1
+) * 100
+
+round(
+  percentual_turno_internet,
+  2
+)
+
+```
+
+## 20.3 Teste qui-quadrado
+
+```{r quiquadrado_turno_internet}
+
+teste_chi_turno_internet <- chisq.test(
+  tabela_turno_internet
+)
+
+teste_chi_turno_internet
+
+```
+
+# 21. Escolaridade da mãe e acesso à internet
+
+Também é analisada a associação entre escolaridade da mãe e acesso à internet.
+
+```{r mae_internet}
+
+tabela_mae_internet <- table(
+  dados_alunos$escolaridade_mae,
+  dados_alunos$acesso_internet,
+  useNA = "no"
+)
+
+kable(
+  tabela_mae_internet,
+  caption = "Escolaridade da mãe segundo acesso à internet"
+)
+
+```
+
+```{r quiquadrado_mae_internet}
+
+teste_chi_mae_internet <- chisq.test(
+  tabela_mae_internet
+)
+
+teste_chi_mae_internet
+
+```
+
+# 22. Turno e escolaridade da mãe
+
+```{r turno_mae}
+
+tabela_turno_mae <- table(
+  dados_alunos$turno,
+  dados_alunos$escolaridade_mae,
+  useNA = "no"
+)
+
+kable(
+  tabela_turno_mae,
+  caption = "Turno segundo escolaridade da mãe"
+)
+
+```
+
+```{r quiquadrado_turno_mae}
+
+teste_chi_turno_mae <- chisq.test(
+  tabela_turno_mae
+)
+
+teste_chi_turno_mae
+
+```
+
+# 23. Síntese dos resultados
+
+As análises realizadas permitem avaliar diferentes dimensões relacionadas ao desempenho acadêmico dos estudantes.
+
+A relação entre acesso à internet e desempenho foi analisada por meio da comparação das médias e do teste t de Welch.
+
+A relação entre escolaridade da mãe e desempenho foi avaliada por meio de estatísticas descritivas e análise de variância (ANOVA).
+
+A associação entre faltas e notas foi investigada por meio dos coeficientes de correlação de Pearson e Spearman, além da representação gráfica da relação entre as duas variáveis.
+
+O turno dos estudantes também foi analisado em relação às notas e ao número de faltas.
+
+Por fim, a regressão linear múltipla permitiu analisar simultaneamente o comportamento da nota média em função de faltas, turno, escolaridade da mãe e acesso à internet.
+
+# 24. Conclusões
+
+A análise estatística realizada permite identificar padrões e possíveis associações entre características socioeducacionais e o desempenho dos estudantes.
+
+De modo geral, as conclusões devem ser baseadas nos valores apresentados pelos testes estatísticos, médias, correlações e coeficientes da regressão.
+
+É importante observar que associação estatística não significa necessariamente causalidade. Assim, diferenças encontradas entre grupos devem ser interpretadas como evidências de associação dentro do conjunto de dados analisado.
+
+A análise das faltas possibilita avaliar se maior frequência escolar está relacionada ao desempenho acadêmico.
+
+A comparação entre estudantes com e sem acesso à internet permite avaliar possíveis desigualdades relacionadas ao acesso a recursos tecnológicos.
+
+A escolaridade da mãe fornece uma dimensão socioeducacional importante para avaliar possíveis diferenças no desempenho.
+
+A análise dos turnos permite verificar se existem diferenças no perfil dos estudantes matriculados nos períodos matutino, vespertino e noturno.
+
+# 25. Recomendações
+
+Com base na análise realizada, podem ser consideradas as seguintes recomendações:
+
+1. acompanhar estudantes com elevado número de faltas;
+
+2. identificar estudantes com baixo desempenho acadêmico;
+
+3. ampliar o acesso a recursos tecnológicos e internet quando houver desigualdade de acesso;
+
+4. desenvolver estratégias específicas para estudantes do turno noturno;
+
+5. acompanhar indicadores de desempenho de forma periódica;
+
+6. utilizar os resultados estatísticos como apoio à tomada de decisões educacionais.
+
+# 26. Limitações
+
+Os resultados devem ser interpretados considerando as limitações do conjunto de dados.
+
+A análise estatística identifica associações, mas não permite afirmar causalidade sem um desenho de pesquisa adequado.
+
+Além disso, outras variáveis que podem influenciar o desempenho acadêmico não estão necessariamente presentes no banco de dados.
+
+Portanto, os resultados apresentados devem ser entendidos dentro do contexto específico da amostra analisada.
+
+# 27. Considerações finais
+
+O presente relatório utilizou técnicas de estatística descritiva, análise bivariada e regressão linear múltipla para investigar fatores associados ao desempenho acadêmico.
+
+Foram consideradas variáveis relacionadas às faltas, turno, escolaridade da mãe e acesso à internet.
+
+A combinação dessas análises fornece uma visão mais ampla do perfil dos estudantes e permite identificar possíveis desigualdades e fatores associados ao desempenho.
+
+Os resultados estatísticos apresentados ao longo do relatório devem servir como instrumento de apoio para a interpretação da realidade educacional e para o planejamento de ações que contribuam para a melhoria do desempenho dos estudantes.
+
+```
+
+ 28 Referências bibliográficas
+
+BUSSAB, Wilton de Oliveira; MORETTIN, Pedro Alberto. *Estatística básica*. 9. ed. São Paulo: Saraiva, 2017.
+
+FIELD, Andy. *Discovering statistics using IBM SPSS statistics*. 5. ed. London: SAGE Publications, 2018.
+
+MONTGOMERY, Douglas C.; RUNGER, George C. *Applied statistics and probability for engineers*. 7. ed. Hoboken: Wiley, 2018.
+
+R CORE TEAM. *R: A language and environment for statistical computing*. Vienna: R Foundation for Statistical Computing, 2026.
+
+WICKHAM, Hadley. *ggplot2: Elegant graphics for data analysis*. New York: Springer, 2016.
+
+WICKHAM, Hadley et al. *Welcome to the tidyverse*. Journal of Open Source Software, v. 4, n. 43, p. 1686, 2019.
+```
 
