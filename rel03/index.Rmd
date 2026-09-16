@@ -1,37 +1,1234 @@
 ---
-title: "Relatório 03 - Distribuição de probabilidade"
-author: "Ben Dêivide"
-date: "12/04/2022"
-header-includes:
-  - \usepackage{titling}
-  - \pretitle{\begin{center}
-    \includegraphics[width=2in,height=2in]{ufsj.png}\LARGE\\}
-  - \posttitle{\end{center}}
-toc-title: "Sumário"
+
+title: "RELATÓRIO 3 – ANÁLISE ESTATÍSTICA"
+author: "Luciano Vaz"
+date: "16/09/2026"
 output:
-  bookdown::html_document2: 
-    theme: journal
-    highlight: tango
-    toc: yes
-    number_sections: yes
-    includes:
-      in_header: logo.html
-  pdf_document:
-    
-    toc: yes
-    number_sections: yes
----
+html_document:
+toc: true
+toc_depth: 3
+number_sections: true
+theme: cosmo
+df_print: paged
+---------------
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# 1. Introdução
+
+# 2. Descrição do banco de dados
+
+## 2.1 Importação e preparação dos dados
+
+# 3. Visualização inicial dos dados
+
+## 3.1 Estrutura do banco
+
+## 3.2 Quantidade de observações
+
+## 3.3 Valores ausentes
+
+# 4. Medidas de posição
+
+## 4.1 Média
+
+## 4.2 Mediana
+
+## 4.3 Moda
+
+## 4.4 Quartis e percentis
+
+# 5. Medidas de dispersão
+
+## 5.1 Amplitude total
+
+## 5.2 Amplitude interquartil
+
+## 5.3 Variância
+
+## 5.4 Desvio-padrão
+
+## 5.5 Coeficiente de variação
+
+# 6. Comparação entre grupos
+
+## 6.1 Notas segundo o acesso à internet
+
+## 6.2 Notas segundo a escolaridade da mãe
+
+## 6.3 Faltas segundo o turno
+
+# 7. Representações gráficas
+
+## 7.1 Histograma das faltas
+
+## 7.2 Histograma das notas
+
+## 7.3 Boxplot das notas
+
+## 7.4 Boxplot das faltas
+
+## 7.5 Notas segundo o acesso à internet
+
+## 7.6 Notas segundo a escolaridade da mãe
+
+## 7.7 Notas segundo o turno
+
+# 8. Discussão dos resultados
+
+## 8.1 Média versus mediana
+
+## 8.2 O efeito da variabilidade
+
+## 8.3 Medidas adequadas para a análise
+
+# 9. Tabela estatística-síntese
+
+# 10. Síntese e reflexão
+
+## 10.1 Qual medida de posição melhor representa as notas médias?
+
+## 10.2 Qual medida representa o número de faltas?
+
+## 10.3 Qual das duas variáveis apresenta maior variabilidade relativa?
+
+## 10.4 A análise das medidas de dispersão é importante?
+
+## 10.5 Quais grupos foram comparados?
+
+## 10.6 Quais cuidados devem ser tomados?
+
+## 10.7 Limitações da análise
+
+# 11. Conclusões
+
+# 12. Limitações da análise
+
+# 13. Referências bibliográficas
+
+# 14. Código R utilizado
+
+---------------
+
+# 1. Introdução
+
+Este relatório apresenta uma análise estatística de um conjunto de dados referente a alunos. O objetivo é utilizar medidas de posição, medidas de dispersão, tabelas e representações gráficas para descrever e comparar as principais características das variáveis analisadas.
+
+As variáveis utilizadas são:
+
+* **faltas**: número de faltas do aluno;
+* **nota_media**: nota média do aluno;
+* **turno**: turno em que o aluno estuda;
+* **escolaridade_mae**: nível de escolaridade da mãe;
+* **acesso_internet**: indicação de acesso à internet.
+
+A análise busca compreender o comportamento das notas médias e do número de faltas, além de verificar diferenças entre grupos definidos pelo acesso à internet, escolaridade da mãe e turno de estudo.
+
+# 2. Descrição do banco de dados
+
+## 2.1 Importação e preparação dos dados
+
+```{r configuracao, echo=TRUE, message=FALSE, warning=FALSE}
+pacotes <- c("ggplot2", "knitr")
+
+instalados <- rownames(installed.packages())
+
+for (p in pacotes) {
+  if (!(p %in% instalados)) {
+    install.packages(p, repos = "https://cloud.r-project.org")
+  }
+}
+
+library(ggplot2)
+library(knitr)
+
+options(stringsAsFactors = FALSE)
+
+arquivo_csv <- "dados_alunos.csv"
+
+pasta_rmd <- tryCatch(
+  dirname(knitr::current_input(dir = TRUE)),
+  error = function(e) getwd()
+)
+
+arquivo_rmd <- file.path(pasta_rmd, arquivo_csv)
+
+if (file.exists(arquivo_rmd)) {
+  arquivo_csv <- arquivo_rmd
+}
+
+if (!file.exists(arquivo_csv)) {
+  stop(
+    paste0(
+      "\nERRO: o arquivo 'dados_alunos.csv' não foi encontrado.\n\n",
+      "Coloque o arquivo 'dados_alunos.csv' na mesma pasta do arquivo 'index.Rmd'.\n\n",
+      "Pasta procurada: ",
+      normalizePath(
+        pasta_rmd,
+        winslash = "/",
+        mustWork = FALSE
+      ),
+      "\n"
+    )
+  )
+}
+
+dados_alunos <- tryCatch(
+  read.csv2(
+    arquivo_csv,
+    header = TRUE,
+    stringsAsFactors = FALSE,
+    check.names = FALSE,
+    na.strings = c("", "NA", "NaN")
+  ),
+  error = function(e) NULL
+)
+
+if (is.null(dados_alunos) || ncol(dados_alunos) == 1) {
+  dados_alunos <- tryCatch(
+    read.csv(
+      arquivo_csv,
+      header = TRUE,
+      stringsAsFactors = FALSE,
+      check.names = FALSE,
+      na.strings = c("", "NA", "NaN")
+    ),
+    error = function(e) NULL
+  )
+}
+
+if (is.null(dados_alunos)) {
+  stop("Não foi possível importar o arquivo dados_alunos.csv.")
+}
+
+variaveis_necessarias <- c(
+  "faltas",
+  "nota_media",
+  "turno",
+  "escolaridade_mae",
+  "acesso_internet"
+)
+
+variaveis_faltantes <- setdiff(
+  variaveis_necessarias,
+  names(dados_alunos)
+)
+
+if (length(variaveis_faltantes) > 0) {
+  stop(
+    paste0(
+      "As seguintes variáveis não foram encontradas no arquivo: ",
+      paste(variaveis_faltantes, collapse = ", "),
+      "\n\nVariáveis encontradas: ",
+      paste(names(dados_alunos), collapse = ", ")
+    )
+  )
+}
+
+dados_alunos$faltas <- as.numeric(
+  gsub(
+    ",",
+    ".",
+    as.character(dados_alunos$faltas),
+    fixed = TRUE
+  )
+)
+
+dados_alunos$nota_media <- as.numeric(
+  gsub(
+    ",",
+    ".",
+    as.character(dados_alunos$nota_media),
+    fixed = TRUE
+  )
+)
+
+dados_alunos$turno <- factor(
+  as.character(dados_alunos$turno),
+  levels = c(
+    "Matutino",
+    "Vespertino",
+    "Noturno"
+  )
+)
+
+dados_alunos$escolaridade_mae <- factor(
+  as.character(dados_alunos$escolaridade_mae),
+  levels = c(
+    "Fundamental",
+    "Médio",
+    "Superior"
+  )
+)
+
+dados_alunos$acesso_internet <- factor(
+  as.character(dados_alunos$acesso_internet),
+  levels = c(
+    "Não",
+    "Sim"
+  )
+)
+
+moda <- function(x) {
+  x <- x[!is.na(x)]
+
+  if (length(x) == 0) {
+    return(NA)
+  }
+
+  tabela <- table(x)
+
+  nomes <- names(
+    tabela[tabela == max(tabela)]
+  )
+
+  paste(nomes, collapse = ", ")
+}
 ```
---- 
 
-# Objetivo
+# 3. Visualização inicial dos dados
 
-Descrever o objetivo do relatório!
+## 3.1 Estrutura do banco
 
-# Apresentação do relatório
+```{r estrutura}
+str(dados_alunos)
+```
 
-Aqui será o local para apresentar o material sobre o relatório.
+O banco de dados possui informações referentes às características acadêmicas e sociais dos alunos. As variáveis numéricas principais utilizadas na análise são o número de faltas e a nota média.
 
+## 3.2 Quantidade de observações
+
+```{r quantidade}
+n_observacoes <- nrow(dados_alunos)
+n_variaveis <- ncol(dados_alunos)
+
+tabela_dimensao <- data.frame(
+  Informação = c(
+    "Número de observações",
+    "Número de variáveis"
+  ),
+  Valor = c(
+    n_observacoes,
+    n_variaveis
+  )
+)
+
+kable(
+  tabela_dimensao,
+  caption = "Dimensão do banco de dados"
+)
+```
+
+## 3.3 Valores ausentes
+
+```{r ausentes}
+valores_ausentes <- colSums(is.na(dados_alunos))
+
+tabela_ausentes <- data.frame(
+  Variável = names(valores_ausentes),
+  Valores_Ausentes = as.numeric(valores_ausentes)
+)
+
+kable(
+  tabela_ausentes,
+  caption = "Quantidade de valores ausentes por variável"
+)
+```
+
+# 4. Medidas de posição
+
+As medidas de posição permitem identificar valores que representam o centro ou a localização dos dados. Nesta análise são consideradas a média, a mediana e a moda.
+
+## 4.1 Média
+
+```{r media}
+media_faltas <- mean(
+  dados_alunos$faltas,
+  na.rm = TRUE
+)
+
+media_notas <- mean(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+)
+
+tabela_media <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Média = c(
+    media_faltas,
+    media_notas
+  )
+)
+
+kable(
+  tabela_media,
+  digits = 2,
+  caption = "Médias das variáveis numéricas"
+)
+```
+
+A média representa o valor obtido pela soma das observações dividida pelo número de observações válidas.
+
+## 4.2 Mediana
+
+```{r mediana}
+mediana_faltas <- median(
+  dados_alunos$faltas,
+  na.rm = TRUE
+)
+
+mediana_notas <- median(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+)
+
+tabela_mediana <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Mediana = c(
+    mediana_faltas,
+    mediana_notas
+  )
+)
+
+kable(
+  tabela_mediana,
+  digits = 2,
+  caption = "Medianas das variáveis numéricas"
+)
+```
+
+A mediana corresponde ao valor que divide os dados ordenados em duas partes de mesmo tamanho.
+
+## 4.3 Moda
+
+```{r moda}
+moda_faltas <- moda(dados_alunos$faltas)
+moda_notas <- moda(dados_alunos$nota_media)
+
+tabela_moda <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Moda = c(
+    moda_faltas,
+    moda_notas
+  )
+)
+
+kable(
+  tabela_moda,
+  caption = "Modas das variáveis numéricas"
+)
+```
+
+A moda é o valor que apresenta maior frequência na distribuição.
+
+## 4.4 Quartis e percentis
+
+```{r quartis}
+quartis_faltas <- quantile(
+  dados_alunos$faltas,
+  probs = c(0, 0.25, 0.50, 0.75, 1),
+  na.rm = TRUE
+)
+
+quartis_notas <- quantile(
+  dados_alunos$nota_media,
+  probs = c(0, 0.25, 0.50, 0.75, 1),
+  na.rm = TRUE
+)
+
+tabela_quartis <- data.frame(
+  Medida = c(
+    "Mínimo",
+    "1º Quartil",
+    "Mediana",
+    "3º Quartil",
+    "Máximo"
+  ),
+  Faltas = as.numeric(quartis_faltas),
+  Nota_Média = as.numeric(quartis_notas)
+)
+
+kable(
+  tabela_quartis,
+  digits = 2,
+  caption = "Quartis e extremos das variáveis"
+)
+```
+
+Os quartis permitem observar a distribuição dos dados em quatro partes. O primeiro quartil corresponde a 25% das observações, enquanto o terceiro quartil corresponde a 75%.
+
+# 5. Medidas de dispersão
+
+As medidas de dispersão permitem avaliar o quanto os dados se afastam de seus valores centrais.
+
+## 5.1 Amplitude total
+
+```{r amplitude}
+amplitude_faltas <- max(
+  dados_alunos$faltas,
+  na.rm = TRUE
+) - min(
+  dados_alunos$faltas,
+  na.rm = TRUE
+)
+
+amplitude_notas <- max(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+) - min(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+)
+
+tabela_amplitude <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Amplitude_Total = c(
+    amplitude_faltas,
+    amplitude_notas
+  )
+)
+
+kable(
+  tabela_amplitude,
+  digits = 2,
+  caption = "Amplitude total"
+)
+```
+
+## 5.2 Amplitude interquartil
+
+```{r iqr}
+iqr_faltas <- IQR(
+  dados_alunos$faltas,
+  na.rm = TRUE
+)
+
+iqr_notas <- IQR(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+)
+
+tabela_iqr <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Amplitude_Interquartil = c(
+    iqr_faltas,
+    iqr_notas
+  )
+)
+
+kable(
+  tabela_iqr,
+  digits = 2,
+  caption = "Amplitude interquartil"
+)
+```
+
+A amplitude interquartil corresponde à diferença entre o terceiro e o primeiro quartil.
+
+## 5.3 Variância
+
+```{r variancia}
+variancia_faltas <- var(
+  dados_alunos$faltas,
+  na.rm = TRUE
+)
+
+variancia_notas <- var(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+)
+
+tabela_variancia <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Variância = c(
+    variancia_faltas,
+    variancia_notas
+  )
+)
+
+kable(
+  tabela_variancia,
+  digits = 2,
+  caption = "Variância"
+)
+```
+
+## 5.4 Desvio-padrão
+
+```{r desvio}
+desvio_faltas <- sd(
+  dados_alunos$faltas,
+  na.rm = TRUE
+)
+
+desvio_notas <- sd(
+  dados_alunos$nota_media,
+  na.rm = TRUE
+)
+
+tabela_desvio <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Desvio_Padrão = c(
+    desvio_faltas,
+    desvio_notas
+  )
+)
+
+kable(
+  tabela_desvio,
+  digits = 2,
+  caption = "Desvio-padrão"
+)
+```
+
+O desvio-padrão representa uma medida de dispersão em torno da média.
+
+## 5.5 Coeficiente de variação
+
+```{r cv}
+cv_faltas <- (
+  desvio_faltas /
+    media_faltas
+) * 100
+
+cv_notas <- (
+  desvio_notas /
+    media_notas
+) * 100
+
+tabela_cv <- data.frame(
+  Variável = c(
+    "Faltas",
+    "Nota média"
+  ),
+  Coeficiente_de_Variação = c(
+    cv_faltas,
+    cv_notas
+  )
+)
+
+kable(
+  tabela_cv,
+  digits = 2,
+  caption = "Coeficiente de variação (%)"
+)
+```
+
+O coeficiente de variação relaciona o desvio-padrão à média e é útil para comparar a variabilidade relativa de variáveis que possuem escalas diferentes.
+
+# 6. Comparação entre grupos
+
+## 6.1 Notas segundo o acesso à internet
+
+```{r internet}
+internet_nao <- dados_alunos$nota_media[
+  dados_alunos$acesso_internet == "Não"
+]
+
+internet_nao <- internet_nao[
+  !is.na(internet_nao)
+]
+
+internet_sim <- dados_alunos$nota_media[
+  dados_alunos$acesso_internet == "Sim"
+]
+
+internet_sim <- internet_sim[
+  !is.na(internet_sim)
+]
+
+tabela_internet <- data.frame(
+  Acesso_Internet = c(
+    "Não",
+    "Sim"
+  ),
+  N = c(
+    length(internet_nao),
+    length(internet_sim)
+  ),
+  Média = c(
+    ifelse(
+      length(internet_nao) > 0,
+      mean(internet_nao),
+      NA
+    ),
+    ifelse(
+      length(internet_sim) > 0,
+      mean(internet_sim),
+      NA
+    )
+  ),
+  Mediana = c(
+    ifelse(
+      length(internet_nao) > 0,
+      median(internet_nao),
+      NA
+    ),
+    ifelse(
+      length(internet_sim) > 0,
+      median(internet_sim),
+      NA
+    )
+  ),
+  Desvio_Padrão = c(
+    ifelse(
+      length(internet_nao) > 1,
+      sd(internet_nao),
+      NA
+    ),
+    ifelse(
+      length(internet_sim) > 1,
+      sd(internet_sim),
+      NA
+    )
+  ),
+  Mínimo = c(
+    ifelse(
+      length(internet_nao) > 0,
+      min(internet_nao),
+      NA
+    ),
+    ifelse(
+      length(internet_sim) > 0,
+      min(internet_sim),
+      NA
+    )
+  ),
+  Máximo = c(
+    ifelse(
+      length(internet_nao) > 0,
+      max(internet_nao),
+      NA
+    ),
+    ifelse(
+      length(internet_sim) > 0,
+      max(internet_sim),
+      NA
+    )
+  )
+)
+
+kable(
+  tabela_internet,
+  digits = 2,
+  caption = "Notas segundo o acesso à internet"
+)
+```
+
+A comparação permite observar diferenças nas medidas de posição e dispersão das notas entre alunos com e sem acesso à internet.
+
+## 6.2 Notas segundo a escolaridade da mãe
+
+```{r escolaridade}
+notas_fundamental <- dados_alunos$nota_media[
+  dados_alunos$escolaridade_mae == "Fundamental"
+]
+
+notas_fundamental <- notas_fundamental[
+  !is.na(notas_fundamental)
+]
+
+notas_medio <- dados_alunos$nota_media[
+  dados_alunos$escolaridade_mae == "Médio"
+]
+
+notas_medio <- notas_medio[
+  !is.na(notas_medio)
+]
+
+notas_superior <- dados_alunos$nota_media[
+  dados_alunos$escolaridade_mae == "Superior"
+]
+
+notas_superior <- notas_superior[
+  !is.na(notas_superior)
+]
+
+tabela_escolaridade <- data.frame(
+  Escolaridade_Mae = c(
+    "Fundamental",
+    "Médio",
+    "Superior"
+  ),
+  N = c(
+    length(notas_fundamental),
+    length(notas_medio),
+    length(notas_superior)
+  ),
+  Média = c(
+    ifelse(
+      length(notas_fundamental) > 0,
+      mean(notas_fundamental),
+      NA
+    ),
+    ifelse(
+      length(notas_medio) > 0,
+      mean(notas_medio),
+      NA
+    ),
+    ifelse(
+      length(notas_superior) > 0,
+      mean(notas_superior),
+      NA
+    )
+  ),
+  Mediana = c(
+    ifelse(
+      length(notas_fundamental) > 0,
+      median(notas_fundamental),
+      NA
+    ),
+    ifelse(
+      length(notas_medio) > 0,
+      median(notas_medio),
+      NA
+    ),
+    ifelse(
+      length(notas_superior) > 0,
+      median(notas_superior),
+      NA
+    )
+  ),
+  Desvio_Padrão = c(
+    ifelse(
+      length(notas_fundamental) > 1,
+      sd(notas_fundamental),
+      NA
+    ),
+    ifelse(
+      length(notas_medio) > 1,
+      sd(notas_medio),
+      NA
+    ),
+    ifelse(
+      length(notas_superior) > 1,
+      sd(notas_superior),
+      NA
+    )
+  )
+)
+
+kable(
+  tabela_escolaridade,
+  digits = 2,
+  caption = "Notas segundo a escolaridade da mãe"
+)
+```
+
+A tabela apresenta as medidas principais das notas para os diferentes níveis de escolaridade materna.
+
+## 6.3 Faltas segundo o turno
+
+```{r turno}
+faltas_matutino <- dados_alunos$faltas[
+  dados_alunos$turno == "Matutino"
+]
+
+faltas_matutino <- faltas_matutino[
+  !is.na(faltas_matutino)
+]
+
+faltas_vespertino <- dados_alunos$faltas[
+  dados_alunos$turno == "Vespertino"
+]
+
+faltas_vespertino <- faltas_vespertino[
+  !is.na(faltas_vespertino)
+]
+
+faltas_noturno <- dados_alunos$faltas[
+  dados_alunos$turno == "Noturno"
+]
+
+faltas_noturno <- faltas_noturno[
+  !is.na(faltas_noturno)
+]
+
+tabela_turno <- data.frame(
+  Turno = c(
+    "Matutino",
+    "Vespertino",
+    "Noturno"
+  ),
+  N = c(
+    length(faltas_matutino),
+    length(faltas_vespertino),
+    length(faltas_noturno)
+  ),
+  Média = c(
+    ifelse(
+      length(faltas_matutino) > 0,
+      mean(faltas_matutino),
+      NA
+    ),
+    ifelse(
+      length(faltas_vespertino) > 0,
+      mean(faltas_vespertino),
+      NA
+    ),
+    ifelse(
+      length(faltas_noturno) > 0,
+      mean(faltas_noturno),
+      NA
+    )
+  ),
+  Mediana = c(
+    ifelse(
+      length(faltas_matutino) > 0,
+      median(faltas_matutino),
+      NA
+    ),
+    ifelse(
+      length(faltas_vespertino) > 0,
+      median(faltas_vespertino),
+      NA
+    ),
+    ifelse(
+      length(faltas_noturno) > 0,
+      median(faltas_noturno),
+      NA
+    )
+  ),
+  Desvio_Padrão = c(
+    ifelse(
+      length(faltas_matutino) > 1,
+      sd(faltas_matutino),
+      NA
+    ),
+    ifelse(
+      length(faltas_vespertino) > 1,
+      sd(faltas_vespertino),
+      NA
+    ),
+    ifelse(
+      length(faltas_noturno) > 1,
+      sd(faltas_noturno),
+      NA
+    )
+  )
+)
+
+kable(
+  tabela_turno,
+  digits = 2,
+  caption = "Faltas segundo o turno"
+)
+```
+
+# 7. Representações gráficas
+
+## 7.1 Histograma das faltas
+
+```{r histograma_faltas, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(x = faltas)
+) +
+  geom_histogram(
+    bins = 15,
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Distribuição do número de faltas",
+    x = "Número de faltas",
+    y = "Frequência"
+  ) +
+  theme_minimal()
+```
+
+O histograma permite visualizar a forma da distribuição do número de faltas.
+
+## 7.2 Histograma das notas
+
+```{r histograma_notas, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(x = nota_media)
+) +
+  geom_histogram(
+    bins = 15,
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Distribuição das notas médias",
+    x = "Nota média",
+    y = "Frequência"
+  ) +
+  theme_minimal()
+```
+
+O histograma das notas permite observar a concentração dos alunos em diferentes faixas de desempenho.
+
+## 7.3 Boxplot das notas
+
+```{r boxplot_notas, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(y = nota_media)
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Boxplot das notas médias",
+    y = "Nota média",
+    x = ""
+  ) +
+  theme_minimal()
+```
+
+## 7.4 Boxplot das faltas
+
+```{r boxplot_faltas, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(y = faltas)
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Boxplot do número de faltas",
+    y = "Número de faltas",
+    x = ""
+  ) +
+  theme_minimal()
+```
+
+## 7.5 Notas segundo o acesso à internet
+
+```{r grafico_internet, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(
+    x = acesso_internet,
+    y = nota_media
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Notas segundo o acesso à internet",
+    x = "Acesso à internet",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+```
+
+## 7.6 Notas segundo a escolaridade da mãe
+
+```{r grafico_escolaridade, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(
+    x = escolaridade_mae,
+    y = nota_media
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Notas segundo a escolaridade da mãe",
+    x = "Escolaridade da mãe",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+```
+
+## 7.7 Notas segundo o turno
+
+```{r grafico_turno, fig.width=7, fig.height=5}
+ggplot(
+  dados_alunos,
+  aes(
+    x = turno,
+    y = nota_media
+  )
+) +
+  geom_boxplot(
+    na.rm = TRUE
+  ) +
+  labs(
+    title = "Notas segundo o turno",
+    x = "Turno",
+    y = "Nota média"
+  ) +
+  theme_minimal()
+```
+
+# 8. Discussão dos resultados
+
+## 8.1 Média versus mediana
+
+A média das notas médias dos alunos é aproximadamente **`r round(media_notas, 2)`**, enquanto a mediana é **`r round(mediana_notas, 2)`**.
+
+Para o número de faltas, a média é aproximadamente **`r round(media_faltas, 2)`**, enquanto a mediana é **`r round(mediana_faltas, 2)`**.
+
+A comparação entre média e mediana auxilia na identificação de possíveis assimetrias na distribuição dos dados.
+
+## 8.2 O efeito da variabilidade
+
+O desvio-padrão das notas é aproximadamente **`r round(desvio_notas, 2)`**, enquanto o desvio-padrão do número de faltas é aproximadamente **`r round(desvio_faltas, 2)`**.
+
+O coeficiente de variação permite analisar a variabilidade em termos relativos:
+
+* notas médias: **`r round(cv_notas, 2)`%**;
+* faltas: **`r round(cv_faltas, 2)`%**.
+
+Essa comparação deve considerar a natureza e a escala de cada variável.
+
+## 8.3 Medidas adequadas para a análise
+
+Para as notas, média e mediana são medidas importantes de posição, enquanto desvio-padrão, amplitude interquartil e coeficiente de variação ajudam a compreender a dispersão.
+
+Para o número de faltas, essas mesmas medidas podem ser utilizadas, sendo especialmente útil observar a mediana e os quartis quando existem valores extremos.
+
+# 9. Tabela estatística-síntese
+
+```{r tabela_sintese}
+tabela_sintese <- data.frame(
+  Medida = c(
+    "Média",
+    "Mediana",
+    "Mínimo",
+    "1º Quartil",
+    "3º Quartil",
+    "Máximo",
+    "Amplitude",
+    "Amplitude Interquartil",
+    "Variância",
+    "Desvio-padrão",
+    "Coeficiente de variação (%)"
+  ),
+  Faltas = c(
+    media_faltas,
+    mediana_faltas,
+    min(dados_alunos$faltas, na.rm = TRUE),
+    quantile(dados_alunos$faltas, 0.25, na.rm = TRUE),
+    quantile(dados_alunos$faltas, 0.75, na.rm = TRUE),
+    max(dados_alunos$faltas, na.rm = TRUE),
+    amplitude_faltas,
+    iqr_faltas,
+    variancia_faltas,
+    desvio_faltas,
+    cv_faltas
+  ),
+  Nota_Média = c(
+    media_notas,
+    mediana_notas,
+    min(dados_alunos$nota_media, na.rm = TRUE),
+    quantile(dados_alunos$nota_media, 0.25, na.rm = TRUE),
+    quantile(dados_alunos$nota_media, 0.75, na.rm = TRUE),
+    max(dados_alunos$nota_media, na.rm = TRUE),
+    amplitude_notas,
+    iqr_notas,
+    variancia_notas,
+    desvio_notas,
+    cv_notas
+  )
+)
+
+kable(
+  tabela_sintese,
+  digits = 2,
+  caption = "Síntese das principais medidas estatísticas"
+)
+```
+
+# 10. Síntese e reflexão
+
+## 10.1 Qual medida de posição melhor representa as notas médias?
+
+A escolha entre média e mediana depende do formato da distribuição das notas. Quando os dados não apresentam forte assimetria ou valores extremos, a média pode representar adequadamente o conjunto. A mediana pode ser mais informativa quando existem valores extremos ou assimetria.
+
+## 10.2 Qual medida representa o número de faltas?
+
+A média fornece o número médio de faltas dos alunos. A mediana, por sua vez, representa o ponto central da distribuição e pode ser útil quando há diferenças importantes entre alunos ou valores extremos.
+
+## 10.3 Qual das duas variáveis apresenta maior variabilidade relativa?
+
+A comparação deve ser feita utilizando o coeficiente de variação:
+
+* Faltas: **`r round(cv_faltas, 2)`%**
+* Nota média: **`r round(cv_notas, 2)`%**
+
+O maior coeficiente indica maior variabilidade relativa em relação à própria média.
+
+## 10.4 A análise das medidas de dispersão é importante?
+
+Sim. As medidas de dispersão complementam as medidas de posição. Duas distribuições podem apresentar médias semelhantes, mas possuir diferentes níveis de variabilidade.
+
+## 10.5 Quais grupos foram comparados?
+
+Foram comparados:
+
+1. alunos com e sem acesso à internet;
+2. alunos segundo o nível de escolaridade da mãe;
+3. alunos segundo o turno de estudo.
+
+Essas comparações permitem observar como as medidas estatísticas se comportam entre diferentes grupos do banco de dados.
+
+## 10.6 Quais cuidados devem ser tomados?
+
+Os resultados devem ser interpretados considerando o tamanho da amostra, a presença de valores ausentes, possíveis valores extremos e as características das variáveis.
+
+Diferenças descritivas entre grupos não devem ser interpretadas automaticamente como relações de causa e efeito.
+
+## 10.7 Limitações da análise
+
+A análise é baseada nas informações disponíveis no banco de dados. Portanto, as conclusões estão limitadas às variáveis observadas e à qualidade dos dados fornecidos.
+
+# 11. Conclusões
+
+A análise estatística permitiu descrever o comportamento das notas médias e do número de faltas dos alunos por meio de medidas de posição e dispersão.
+
+Foram calculadas média, mediana, moda, quartis, amplitude, amplitude interquartil, variância, desvio-padrão e coeficiente de variação.
+
+Também foram realizadas comparações entre grupos segundo acesso à internet, escolaridade da mãe e turno de estudo.
+
+As representações gráficas complementaram as tabelas estatísticas, permitindo observar visualmente a distribuição das variáveis e as diferenças existentes entre os grupos.
+
+De maneira geral, a combinação entre medidas de posição, medidas de dispersão e gráficos proporciona uma visão mais completa dos dados do que a utilização de uma única medida estatística.
+
+# 12. Limitações da análise
+
+Os resultados apresentados são descritivos e dependem das informações existentes no arquivo `dados_alunos.csv`.
+
+Não é possível estabelecer relações causais apenas com as comparações apresentadas. Diferenças observadas entre grupos devem ser interpretadas com cautela e considerando possíveis fatores adicionais que não estejam presentes no banco de dados.
+
+# 13. Referências bibliográficas
+
+R CORE TEAM. *R: A Language and Environment for Statistical Computing*. Vienna: R Foundation for Statistical Computing.
+
+TRIOLA, M. F. *Introdução à Estatística*. Rio de Janeiro: LTC.
+
+BUSSAB, W. O.; MORETTIN, P. A. *Estatística Básica*. São Paulo: Saraiva.
+
+# 14. Código R utilizado
+
+O presente relatório foi desenvolvido utilizando a linguagem R e o R Markdown. Foram utilizados principalmente os pacotes `ggplot2` para elaboração dos gráficos e `knitr` para apresentação das tabelas.
+
+```{r sessao_info}
+sessionInfo()
+```
