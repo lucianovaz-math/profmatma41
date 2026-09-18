@@ -2,6 +2,7 @@
 title: "Relatórios da Disciplina MA 41 - Estatística e Probabilidade (PROFMAT)"
 author: "[Luciano Vaz](https://bendeivide.github.io) | [PROFMAT/UFSJ](https://ufsj.edu.br)"
 date: "`r format(Sys.time(), '%d %B, %Y, %Hh:%Mmin:%Sseg')`"
+---
 toc-title: "Sumário"
 output:
   bookdown::html_document2: 
