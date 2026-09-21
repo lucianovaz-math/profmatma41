@@ -1,109 +1,116 @@
 ---
-title:
-"Relatório 03 - Medidas de Posição e Dispersão
-Luciano Vaz
-16/09/2026"
+title: "Relatório 03 - Medidas de Posição e Dispersão"
+author: "Luciano Vaz"
+date: "16/09/2026"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    theme: flatly
+---
 
+# Sumário
+
+<!-- O sumário será gerado automaticamente pelo RMarkdown no menu lateral/superior conforme você adiciona os títulos com # -->
+
+1. Introdução
+
+2. Descrição do banco de dados
+
+2.1 Importação e preparação dos dados
+
+3. Visualização inicial dos dados
+
+3.1 Estrutura do banco
+
+3.2 Quantidade de observações
+
+3.3 Valores ausentes
+
+4. Medidas de posição
+
+4.1 Média
+
+4.2 Mediana
+
+4.3 Moda
+
+4.4 Quartis e percentis
+
+5. Medidas de dispersão
+
+5.1 Amplitude total
+
+5.2 Amplitude interquartil
+
+5.3 Variância
+
+5.4 Desvio-padrão
+
+5.5 Coeficiente de variação
+
+6. Comparação entre grupos
+
+6.1 Notas segundo o acesso à internet
+
+6.2 Notas segundo a escolaridade da mãe
+
+6.3 Faltas segundo o turno
+
+7. Representações gráficas
+
+7.1 Histograma das faltas
+
+7.2 Histograma das notas
+
+7.3 Boxplot das notas
+
+7.4 Boxplot das faltas
+
+7.5 Notas segundo o acesso à internet
+
+7.6 Notas segundo a escolaridade da mãe
+
+7.7 Notas segundo o turno
+
+8. Discussão dos resultados
+
+8.1 Média versus mediana
+
+8.2 O efeito da variabilidade
+
+8.3 Medidas adequadas para a análise
+
+9. Tabela estatística-síntese
+
+10. Síntese e reflexão
+
+10.1 Qual medida de posição melhor representa as notas médias?
+
+10.2 Qual medida representa o número de faltas?
+
+10.3 Qual das duas variáveis apresenta maior variabilidade relativa?
+
+10.4 A análise das medidas de dispersão é importante?
+
+10.5 Quais grupos foram comparados?
+
+10.6 Quais cuidados devem ser tomados?
+
+10.7 Limitações da análise
+
+11. Conclusões
+
+12. Limitações da análise
+
+13. Referências bibliográficas
+
+14. Código R utilizado
 
 ---------------
 
-# 1. Introdução
-
-# 2. Descrição do banco de dados
-
-## 2.1 Importação e preparação dos dados
-
-# 3. Visualização inicial dos dados
-
-## 3.1 Estrutura do banco
-
-## 3.2 Quantidade de observações
-
-## 3.3 Valores ausentes
-
-# 4. Medidas de posição
-
-## 4.1 Média
-
-## 4.2 Mediana
-
-## 4.3 Moda
-
-## 4.4 Quartis e percentis
-
-# 5. Medidas de dispersão
-
-## 5.1 Amplitude total
-
-## 5.2 Amplitude interquartil
-
-## 5.3 Variância
-
-## 5.4 Desvio-padrão
-
-## 5.5 Coeficiente de variação
-
-# 6. Comparação entre grupos
-
-## 6.1 Notas segundo o acesso à internet
-
-## 6.2 Notas segundo a escolaridade da mãe
-
-## 6.3 Faltas segundo o turno
-
-# 7. Representações gráficas
-
-## 7.1 Histograma das faltas
-
-## 7.2 Histograma das notas
-
-## 7.3 Boxplot das notas
-
-## 7.4 Boxplot das faltas
-
-## 7.5 Notas segundo o acesso à internet
-
-## 7.6 Notas segundo a escolaridade da mãe
-
-## 7.7 Notas segundo o turno
-
-# 8. Discussão dos resultados
-
-## 8.1 Média versus mediana
-
-## 8.2 O efeito da variabilidade
-
-## 8.3 Medidas adequadas para a análise
-
-# 9. Tabela estatística-síntese
-
-# 10. Síntese e reflexão
-
-## 10.1 Qual medida de posição melhor representa as notas médias?
-
-## 10.2 Qual medida representa o número de faltas?
-
-## 10.3 Qual das duas variáveis apresenta maior variabilidade relativa?
-
-## 10.4 A análise das medidas de dispersão é importante?
-
-## 10.5 Quais grupos foram comparados?
-
-## 10.6 Quais cuidados devem ser tomados?
-
-## 10.7 Limitações da análise
-
-# 11. Conclusões
-
-# 12. Limitações da análise
-
-# 13. Referências bibliográficas
-
-# 14. Código R utilizado
-
----------------
-
-# 1. Introdução
+# Introdução
 
 Este relatório apresenta uma análise estatística de um conjunto de dados referente a alunos. O objetivo é utilizar medidas de posição, medidas de dispersão, tabelas e representações gráficas para descrever e comparar as principais características das variáveis analisadas.
 
@@ -117,9 +124,9 @@ As variáveis utilizadas são:
 
 A análise busca compreender o comportamento das notas médias e do número de faltas, além de verificar diferenças entre grupos definidos pelo acesso à internet, escolaridade da mãe e turno de estudo.
 
-# 2. Descrição do banco de dados
+# Descrição do banco de dados
 
-## 2.1 Importação e preparação dos dados
+## Importação e preparação dos dados
 
 ```{r configuracao, echo=TRUE, message=FALSE, warning=FALSE}
 pacotes <- c("ggplot2", "knitr")
@@ -312,7 +319,7 @@ kable(
 )
 ```
 
-## 3.3 Valores ausentes
+## Valores ausentes
 
 ```{r ausentes}
 valores_ausentes <- colSums(is.na(dados_alunos))
@@ -328,11 +335,11 @@ kable(
 )
 ```
 
-# 4. Medidas de posição
+# Medidas de posição
 
 As medidas de posição permitem identificar valores que representam o centro ou a localização dos dados. Nesta análise são consideradas a média, a mediana e a moda.
 
-## 4.1 Média
+## Média
 
 ```{r media}
 media_faltas <- mean(
@@ -365,7 +372,7 @@ kable(
 
 A média representa o valor obtido pela soma das observações dividida pelo número de observações válidas.
 
-## 4.2 Mediana
+## Mediana
 
 ```{r mediana}
 mediana_faltas <- median(
@@ -398,7 +405,7 @@ kable(
 
 A mediana corresponde ao valor que divide os dados ordenados em duas partes de mesmo tamanho.
 
-## 4.3 Moda
+## Moda
 
 ```{r moda}
 moda_faltas <- moda(dados_alunos$faltas)
@@ -423,7 +430,7 @@ kable(
 
 A moda é o valor que apresenta maior frequência na distribuição.
 
-## 4.4 Quartis e percentis
+## Quartis e percentis
 
 ```{r quartis}
 quartis_faltas <- quantile(
@@ -459,11 +466,11 @@ kable(
 
 Os quartis permitem observar a distribuição dos dados em quatro partes. O primeiro quartil corresponde a 25% das observações, enquanto o terceiro quartil corresponde a 75%.
 
-# 5. Medidas de dispersão
+# Medidas de dispersão
 
 As medidas de dispersão permitem avaliar o quanto os dados se afastam de seus valores centrais.
 
-## 5.1 Amplitude total
+## Amplitude total
 
 ```{r amplitude}
 amplitude_faltas <- max(
@@ -500,7 +507,7 @@ kable(
 )
 ```
 
-## 5.2 Amplitude interquartil
+## Amplitude interquartil
 
 ```{r iqr}
 iqr_faltas <- IQR(
@@ -533,7 +540,7 @@ kable(
 
 A amplitude interquartil corresponde à diferença entre o terceiro e o primeiro quartil.
 
-## 5.3 Variância
+## Variância
 
 ```{r variancia}
 variancia_faltas <- var(
@@ -564,7 +571,7 @@ kable(
 )
 ```
 
-## 5.4 Desvio-padrão
+## Desvio-padrão
 
 ```{r desvio}
 desvio_faltas <- sd(
@@ -597,7 +604,7 @@ kable(
 
 O desvio-padrão representa uma medida de dispersão em torno da média.
 
-## 5.5 Coeficiente de variação
+## Coeficiente de variação
 
 ```{r cv}
 cv_faltas <- (
@@ -630,9 +637,9 @@ kable(
 
 O coeficiente de variação relaciona o desvio-padrão à média e é útil para comparar a variabilidade relativa de variáveis que possuem escalas diferentes.
 
-# 6. Comparação entre grupos
+# Comparação entre grupos
 
-## 6.1 Notas segundo o acesso à internet
+## Notas segundo o acesso à internet
 
 ```{r internet}
 internet_nao <- dados_alunos$nota_media[
@@ -731,7 +738,7 @@ kable(
 
 A comparação permite observar diferenças nas medidas de posição e dispersão das notas entre alunos com e sem acesso à internet.
 
-## 6.2 Notas segundo a escolaridade da mãe
+## Notas segundo a escolaridade da mãe
 
 ```{r escolaridade}
 notas_fundamental <- dados_alunos$nota_media[
@@ -831,7 +838,7 @@ kable(
 
 A tabela apresenta as medidas principais das notas para os diferentes níveis de escolaridade materna.
 
-## 6.3 Faltas segundo o turno
+## Faltas segundo o turno
 
 ```{r turno}
 faltas_matutino <- dados_alunos$faltas[
@@ -929,9 +936,9 @@ kable(
 )
 ```
 
-# 7. Representações gráficas
+# Representações gráficas
 
-## 7.1 Histograma das faltas
+## Histograma das faltas
 
 ```{r histograma_faltas, fig.width=7, fig.height=5}
 ggplot(
@@ -952,7 +959,7 @@ ggplot(
 
 O histograma permite visualizar a forma da distribuição do número de faltas.
 
-## 7.2 Histograma das notas
+## Histograma das notas
 
 ```{r histograma_notas, fig.width=7, fig.height=5}
 ggplot(
@@ -973,7 +980,7 @@ ggplot(
 
 O histograma das notas permite observar a concentração dos alunos em diferentes faixas de desempenho.
 
-## 7.3 Boxplot das notas
+## Boxplot das notas
 
 ```{r boxplot_notas, fig.width=7, fig.height=5}
 ggplot(
@@ -991,7 +998,7 @@ ggplot(
   theme_minimal()
 ```
 
-## 7.4 Boxplot das faltas
+## Boxplot das faltas
 
 ```{r boxplot_faltas, fig.width=7, fig.height=5}
 ggplot(
@@ -1009,7 +1016,7 @@ ggplot(
   theme_minimal()
 ```
 
-## 7.5 Notas segundo o acesso à internet
+## Notas segundo o acesso à internet
 
 ```{r grafico_internet, fig.width=7, fig.height=5}
 ggplot(
@@ -1030,7 +1037,7 @@ ggplot(
   theme_minimal()
 ```
 
-## 7.6 Notas segundo a escolaridade da mãe
+## Notas segundo a escolaridade da mãe
 
 ```{r grafico_escolaridade, fig.width=7, fig.height=5}
 ggplot(
@@ -1051,7 +1058,7 @@ ggplot(
   theme_minimal()
 ```
 
-## 7.7 Notas segundo o turno
+## Notas segundo o turno
 
 ```{r grafico_turno, fig.width=7, fig.height=5}
 ggplot(
@@ -1072,9 +1079,9 @@ ggplot(
   theme_minimal()
 ```
 
-# 8. Discussão dos resultados
+# Discussão dos resultados
 
-## 8.1 Média versus mediana
+## Média versus mediana
 
 A média das notas médias dos alunos é aproximadamente **`r round(media_notas, 2)`**, enquanto a mediana é **`r round(mediana_notas, 2)`**.
 
@@ -1082,7 +1089,7 @@ Para o número de faltas, a média é aproximadamente **`r round(media_faltas, 2
 
 A comparação entre média e mediana auxilia na identificação de possíveis assimetrias na distribuição dos dados.
 
-## 8.2 O efeito da variabilidade
+## O efeito da variabilidade
 
 O desvio-padrão das notas é aproximadamente **`r round(desvio_notas, 2)`**, enquanto o desvio-padrão do número de faltas é aproximadamente **`r round(desvio_faltas, 2)`**.
 
@@ -1093,13 +1100,13 @@ O coeficiente de variação permite analisar a variabilidade em termos relativos
 
 Essa comparação deve considerar a natureza e a escala de cada variável.
 
-## 8.3 Medidas adequadas para a análise
+## Medidas adequadas para a análise
 
 Para as notas, média e mediana são medidas importantes de posição, enquanto desvio-padrão, amplitude interquartil e coeficiente de variação ajudam a compreender a dispersão.
 
 Para o número de faltas, essas mesmas medidas podem ser utilizadas, sendo especialmente útil observar a mediana e os quartis quando existem valores extremos.
 
-# 9. Tabela estatística-síntese
+# Tabela estatística-síntese
 
 ```{r tabela_sintese}
 tabela_sintese <- data.frame(
@@ -1151,17 +1158,17 @@ kable(
 )
 ```
 
-# 10. Síntese e reflexão
+# Síntese e reflexão
 
-## 10.1 Qual medida de posição melhor representa as notas médias?
+## Qual medida de posição melhor representa as notas médias?
 
 A escolha entre média e mediana depende do formato da distribuição das notas. Quando os dados não apresentam forte assimetria ou valores extremos, a média pode representar adequadamente o conjunto. A mediana pode ser mais informativa quando existem valores extremos ou assimetria.
 
-## 10.2 Qual medida representa o número de faltas?
+## Qual medida representa o número de faltas?
 
 A média fornece o número médio de faltas dos alunos. A mediana, por sua vez, representa o ponto central da distribuição e pode ser útil quando há diferenças importantes entre alunos ou valores extremos.
 
-## 10.3 Qual das duas variáveis apresenta maior variabilidade relativa?
+## Qual das duas variáveis apresenta maior variabilidade relativa?
 
 A comparação deve ser feita utilizando o coeficiente de variação:
 
@@ -1170,11 +1177,11 @@ A comparação deve ser feita utilizando o coeficiente de variação:
 
 O maior coeficiente indica maior variabilidade relativa em relação à própria média.
 
-## 10.4 A análise das medidas de dispersão é importante?
+## A análise das medidas de dispersão é importante?
 
 Sim. As medidas de dispersão complementam as medidas de posição. Duas distribuições podem apresentar médias semelhantes, mas possuir diferentes níveis de variabilidade.
 
-## 10.5 Quais grupos foram comparados?
+## Quais grupos foram comparados?
 
 Foram comparados:
 
@@ -1184,17 +1191,17 @@ Foram comparados:
 
 Essas comparações permitem observar como as medidas estatísticas se comportam entre diferentes grupos do banco de dados.
 
-## 10.6 Quais cuidados devem ser tomados?
+## Quais cuidados devem ser tomados?
 
 Os resultados devem ser interpretados considerando o tamanho da amostra, a presença de valores ausentes, possíveis valores extremos e as características das variáveis.
 
 Diferenças descritivas entre grupos não devem ser interpretadas automaticamente como relações de causa e efeito.
 
-## 10.7 Limitações da análise
+## Limitações da análise
 
 A análise é baseada nas informações disponíveis no banco de dados. Portanto, as conclusões estão limitadas às variáveis observadas e à qualidade dos dados fornecidos.
 
-# 11. Conclusões
+# Conclusões
 
 A análise estatística permitiu descrever o comportamento das notas médias e do número de faltas dos alunos por meio de medidas de posição e dispersão.
 
@@ -1206,13 +1213,13 @@ As representações gráficas complementaram as tabelas estatísticas, permitind
 
 De maneira geral, a combinação entre medidas de posição, medidas de dispersão e gráficos proporciona uma visão mais completa dos dados do que a utilização de uma única medida estatística.
 
-# 12. Limitações da análise
+# Limitações da análise
 
 Os resultados apresentados são descritivos e dependem das informações existentes no arquivo `dados_alunos.csv`.
 
 Não é possível estabelecer relações causais apenas com as comparações apresentadas. Diferenças observadas entre grupos devem ser interpretadas com cautela e considerando possíveis fatores adicionais que não estejam presentes no banco de dados.
 
-# 13. Referências bibliográficas
+# Referências bibliográficas
 
 R CORE TEAM. *R: A Language and Environment for Statistical Computing*. Vienna: R Foundation for Statistical Computing.
 
@@ -1220,7 +1227,7 @@ TRIOLA, M. F. *Introdução à Estatística*. Rio de Janeiro: LTC.
 
 BUSSAB, W. O.; MORETTIN, P. A. *Estatística Básica*. São Paulo: Saraiva.
 
-# 14. Código R utilizado
+# Código R utilizado
 
 O presente relatório foi desenvolvido utilizando a linguagem R e o R Markdown. Foram utilizados principalmente os pacotes `ggplot2` para elaboração dos gráficos e `knitr` para apresentação das tabelas.
 
