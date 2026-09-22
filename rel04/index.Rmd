@@ -1,38 +1,179 @@
 ---
-title: "Relatório 04"
+title: "RELATÓRIO 04 DE ANÁLISE ESTATÍSTICA"
+subtitle: "Fundamentos de Probabilidade e Aplicações Práticas"
 author: "Luciano Vaz"
-date: "23/09/2026"
-header-includes:
-  - \usepackage{titling}
-  - \pretitle{\begin{center}
-    \includegraphics[width=2in,height=2in]{ufsj.png}\LARGE\\}
-  - \posttitle{\end{center}}
-toc-title: "Sumário"
+date: "22/09/2026"
 output:
-  
   html_document:
-    theme: journal
-    highlight: tango
-    toc: yes
-    number_sections: yes
-    includes:
-      in_header: logo.html
+    toc: true
+    toc_depth: 2
+    theme: united
   pdf_document:
-    
-    toc: yes
-    number_sections: yes
+    toc: true
+    toc_depth: 2
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
---- 
 
-# Objetivo
+# 1. Conceitos Básicos de Conjuntos no Contexto Probabilístico
 
-Descrever o objetivo do relatório!
+A Teoria da Probabilidade moderna traduz a incerteza de fenômenos aleatórios para uma linguagem matemática baseada na teoria dos conjuntos.
 
-# Apresentação do relatório
+*   **Experimento Aleatório ($\mathcal{E}$):** Processo cujo resultado não pode ser previsto com certeza antes de sua ocorrência, mas cujo conjunto de possibilidades é conhecido.
+*   **Espaço Amostral ($\Omega$):** Conjunto não vazio de todos os resultados possíveis de um experimento aleatório.
+    *   *Exemplo Próprio:* No lançamento de duas moedas honestas, $\Omega = \{(K, K), (K, C), (C, K), (C, C)\}$, em que $K$ representa "cara" e $C$ representa "coroa".
+*   **Evento ($A$):** Qualquer subconjunto do espaço amostral ($A \subseteq \Omega$).
+    *   *Exemplo Próprio:* No lançamento de um dado não viciado de 6 faces ($\Omega = \{1, 2, 3, 4, 5, 6\}$), o evento $A =$ "obter número primo" é representado pelo subconjunto $A = \{2, 3, 5\}$.
 
-Aqui será o local para apresentar o material sobre o relatório.
+## Operações Entre Eventos
+
+*   **União ($A \cup B$):** Ocorre se pelo menos um dos eventos ocorre ($A$ ou $B$).
+    $$A \cup B = \{\omega \in \Omega \mid \omega \in A \text{ ou } \omega \in B\}$$
+*   **Interseção ($A \cap B$):** Ocorre quando ambos os eventos ocorrem simultaneamente ($A$ e $B$).
+    $$A \cap B = \{\omega \in \Omega \mid \omega \in A \text{ e } \omega \in B\}$$
+*   **Complementar ($A^c$):** Ocorre quando o evento $A$ não ocorre (não $A$).
+    $$A^c = \{\omega \in \Omega \mid \omega \notin A\}$$
+*   **Eventos Mutuamente Exclusivos (Disjuntos):** Dois eventos $A$ e $B$ são mutuamente exclusivos se a sua ocorrência simultânea for impossível:
+    $$A \cap B = \emptyset$$
+
+> **Reflexão para a Educação Básica:**
+> Na Educação Básica, estudantes frequentemente confundem o "OU" lógico/matemático com o "OU" exclusivo do cotidiano. Em matemática, $A \cup B$ inclui a ocorrência de ambos simultaneamente. Utilizar Diagramas de Venn com contagens concretas ajuda a fixar que a união engloba as três regiões: apenas $A$, apenas $B$, e a interseção $A \cap B$.
+
+---
+
+# 2. Definição da Medida de Probabilidade pelos Axiomas de Kolmogorov
+
+Em 1933, Andrei Kolmogorov formalizou a Teoria da Probabilidade através de termos axiomáticos. Para um espaço amostral discreto $\Omega$, a Medida de Probabilidade é uma função $P : \mathcal{P}(\Omega) \rightarrow \mathbb{R}$ que satisfaz três axiomas fundamentais:
+
+*   **Axioma 1 (Não-negatividade):** Para todo evento $A \subseteq \Omega$,
+    $$P(A) \geq 0$$
+*   **Axioma 2 (Normalização / Certeza):** A probabilidade do espaço amostral completo é 1,
+    $$P(\Omega) = 1$$
+*   **Axioma 3 (Aditividade Contável):** Se $A_1, A_2, A_3, \dots$ for uma sequência de eventos mutuamente exclusivos par a par ($A_i \cap A_j = \emptyset$ para $i \neq j$), então:
+    $$P\left(\bigcup_{i=1}^{\infty} A_i\right) = \sum_{i=1}^{\infty} P(A_i)$$
+
+---
+
+# 3. Propriedades de Probabilidade e Demonstrações
+
+A partir dos três axiomas de Kolmogorov, derivam-se as propriedades fundamentais:
+
+### Propriedade 3.1: Probabilidade do Evento Impossível
+**Teorema:** $P(\emptyset) = 0$.
+
+*Demonstração:* Considere $A = \Omega$ e $B = \emptyset$. Como $\Omega \cap \emptyset = \emptyset$, eles são mutuamente exclusivos. Pela união de conjuntos, $\Omega \cup \emptyset = \Omega$. Aplicando o Axioma 3:
+$$P(\Omega \cup \emptyset) = P(\Omega) + P(\emptyset) \implies P(\Omega) = P(\Omega) + P(\emptyset)$$
+Como $P(\Omega) = 1$ (Axioma 2), subtraindo 1 de ambos os lados temos $P(\emptyset) = 0$. $\blacksquare$
+
+### Propriedade 3.2: Probabilidade do Evento Complementar
+**Teorema:** $P(A^c) = 1 - P(A)$.
+
+*Demonstração:* Note que $A \cup A^c = \Omega$ e $A \cap A^c = \emptyset$. Aplicando o Axioma 3:
+$$P(A \cup A^c) = P(A) + P(A^c)$$
+Como $P(A \cup A^c) = P(\Omega) = 1$ (Axioma 2):
+$$1 = P(A) + P(A^c) \implies P(A^c) = 1 - P(A) \quad \blacksquare$$
+
+### Propriedade 3.3: Aditividade Geral (Eventos Não Disjuntos)
+**Teorema:** Para quaisquer eventos $A$ e $B$:
+$$P(A \cup B) = P(A) + P(B) - P(A \cap B)$$
+
+*Demonstração:* Decomponha $A \cup B$ na união disjunta de três eventos: $A \setminus B$, $B \setminus A$ e $A \cap B$. Como $A = (A \setminus B) \cup (A \cap B)$, temos $P(A \setminus B) = P(A) - P(A \cap B)$. Analogamente, $P(B \setminus A) = P(B) - P(A \cap B)$. Somando as três partes:
+$$P(A \cup B) = [P(A) - P(A \cap B)] + [P(B) - P(A \cap B)] + P(A \cap B) = P(A) + P(B) - P(A \cap B) \quad \blacksquare$$
+
+---
+
+# 4. Independência de Eventos
+
+## Definição Formal
+Dois eventos $A$ e $B$ são independentes se e somente se:
+$$P(A \cap B) = P(A) \cdot P(B)$$
+
+## Distinção Crucial: Mutuamente Exclusivos vs. Independentes
+*   **Mutuamente Exclusivos:** Conceito geométrico ($A \cap B = \emptyset$). Se um ocorre, o outro não pode ocorrer.
+*   **Independentes:** Conceito informacional ($P(A \cap B) = P(A) \cdot P(B)$). A ocorrência de um não altera a probabilidade do outro.
+
+*Atenção:* Se dois eventos têm probabilidades não nulas ($P(A) > 0$ e $P(B) > 0$) e são mutuamente exclusivos, eles **nunca** podem ser independentes, pois $P(A \cap B) = 0 \neq P(A) \cdot P(B)$.
+
+---
+
+# 5. Teorema da Probabilidade Total
+
+Seja $\{A_1, A_2, \dots, A_n\}$ uma partição do espaço amostral $\Omega$ (eventos disjuntos cuja união é $\Omega$). Para qualquer evento $B \subseteq \Omega$:
+$$P(B) = \sum_{i=1}^{n} P(B \cap A_i) = \sum_{i=1}^{n} P(B \mid A_i) \cdot P(A_i)$$
+
+## Demonstração
+Como $B = B \cap \Omega = B \cap \left(\bigcup_{i=1}^{n} A_i\right) = \bigcup_{i=1}^{n}(B \cap A_i)$, e os eventos $(B \cap A_i)$ são disjuntos, pelo Axioma 3:
+$$P(B) = \sum_{i=1}^{n} P(B \cap A_i)$$
+Pela definição de probabilidade condicional $P(B \cap A_i) = P(B \mid A_i) \cdot P(A_i)$, obtém-se a fórmula final. $\blacksquare$
+
+---
+
+# 6. Teorema de Bayes
+
+O Teorema de Bayes permite atualizar a probabilidade de um evento (probabilidade a priori) após observar novas evidências.
+
+## Enunciado e Demonstração
+Dado uma partição $\{A_1, \dots, A_n\}$ de $\Omega$ e um evento $B$ com $P(B) > 0$:
+$$P(A_k \mid B) = \frac{P(B \mid A_k) \cdot P(A_k)}{P(B)} = \frac{P(B \mid A_k) \cdot P(A_k)}{\sum_{i=1}^{n} P(B \mid A_i) \cdot P(A_i)}$$
+
+*Demonstração:* Pela definição de probabilidade condicional: $P(A_k \mid B) = \frac{P(A_k \cap B)}{P(B)}$. Substituindo $P(A_k \cap B) = P(B \mid A_k) \cdot P(A_k)$ no numerador e aplicando o Teorema da Probabilidade Total no denominador, obtém-se diretamente a expressão do teorema. $\blacksquare$
+
+---
+
+# 7. Situação-Problema: “O Teste da Doença Rara na Escola”
+
+## Contexto e Dados
+```{r dados}
+N <- 1200          # População escolar
+p_D <- 0.01        # Prevalência da Doença P(D)
+p_Dc <- 1 - p_D    # P(Dc)
+p_T_d <- 0.90      # Sensibilidade P(T+ | D)
+p_T_dc_neg <- 0.95 # Especificidade P(T- | Dc)
+p_T_dc <- 1 - p_T_dc_neg # Taxa de Falsos Positivos P(T+ | Dc)
+```
+
+## Solução Formal pelo Teorema de Bayes
+Calculando a probabilidade de o teste dar positivo ($P(T^+)$) via Probabilidade Total:
+```{r prob_total}
+p_T_pos <- (p_T_d * p_D) + (p_T_dc * p_Dc)
+p_T_pos
+```
+
+Aplicando o Teorema de Bayes para encontrar a probabilidade de o aluno ter a doença sabendo que testou positivo ($P(D \mid T^+)$):
+```{r bayes}
+p_D_T_pos <- (p_T_d * p_D) / p_T_pos
+p_D_T_pos
+```
+A probabilidade exata é de **`r round(p_D_T_pos * 100, 2)`%** (ou $\frac{2}{13}$).
+
+## Análise Didática e Resposta às Perguntas
+*   **Pergunta Central:** A probabilidade de o estudante realmente ter a doença é de aproximadamente **15,38%**.
+*   **Pergunta Secundária:** Esse resultado não é intuitivo. Muitos responderiam erroneamente "90%" devido ao viés cognitivo da *Negligência da Taxa Base (Base Rate Neglect)*, confundindo a sensibilidade $P(T^+ \mid D)$ com o valor preditivo $P(D \mid T^+)$.
+
+### Abordagem por Frequências Naturais (Matriz Base)
+```{r frequencias, echo=FALSE}
+doentes <- N * p_D
+saudaveis <- N * p_Dc
+verdadeiros_positivos <- doentes * p_T_d
+falsos_positivos <- saudaveis * p_T_dc
+total_positivos <- verdadeiros_positivos + falsos_positivos
+
+df_freq <- data.frame(
+  Categoria = c("Alunos Doentes (1%)", "Testes Positivos Verdadeiros (90%)", "Alunos Saudáveis (99%)", "Falsos Positivos (5%)", "Total de Testes Positivos"),
+  Calculo = c("1.200 x 0,01", "12 x 0,90", "1.200 x 0,99", "1.188 x 0,05", "9 + 59"),
+  Total = c(doentes, verdadeiros_positivos, saudaveis, falsos_positivos, total_positivos)
+)
+knitr::kable(df_freq, caption = "Abordagem por Frequências Naturais em 1.200 alunos")
+```
+
+$$\text{Probabilidade Real} = \frac{9 \text{ doentes reais}}{68 \text{ testes positivos}} \approx 13,2\% \text{ (com arredondamentos intermediários) ou } 15,38\% \text{ no cálculo exato.}$$
+
+---
+
+# 8. Referências Bibliográficas
+
+1. BUSSAB, Wilton de O.; MORETTIN, Pedro A. **Estatística Básica**. 9. ed. São Paulo: Saraiva, 2017.
+2. GIGERENZER, Gerd. **Calculated Risks: How to Know When Numbers Deceive You**. New York: Simon and Schuster, 2002.
 
