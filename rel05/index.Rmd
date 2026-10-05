@@ -1,38 +1,215 @@
----
-title: "Relatório 05"
-author: "Luciano Vaz"
-date: "07/10/2026"
-header-includes:
-  - \usepackage{titling}
-  - \pretitle{\begin{center}
-    \includegraphics[width=2in,height=2in]{ufsj.png}\LARGE\\}
-  - \posttitle{\end{center}}
-toc-title: "Sumário"
-output:
-  
-  html_document:
-    theme: journal
-    highlight: tango
-    toc: yes
-    number_sections: yes
-    includes:
-      in_header: logo.html
-  pdf_document:
-    
-    toc: yes
-    number_sections: yes
----
+# ==============================================================================
+# RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA - CÓDIGO INTEGRADO
+# Autor: Luciano Vaz
+# Distribuições especiais de probabilidade segundo a BNCC
+# ==============================================================================
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
---- 
+# Configuração de semente para reprodutibilidade das simulações
+set.seed(2026)
 
-# Objetivo
+# ==============================================================================
+# PARTE 1 - DESEMPENHO NO ENEM (DISTRIBUIÇÃO NORMAL)
+# X ~ N(mu = 520, sigma = 80)
+# ==============================================================================
+cat("--- PARTE 1: DISTRIBUIÇÃO NORMAL ---\n")
 
-Descrever o objetivo do relatório!
+mu <- 520
+sigma <- 80
 
-# Apresentação do relatório
+# a) P(X < 400)
+p_a_norm <- pnorm(400, mean = mu, sd = sigma)
+cat("a) Probabilidade de nota inferior a 400:", round(p_a_norm * 100, 2), "%\n")
 
-Aqui será o local para apresentar o material sobre o relatório.
+# b) P(500 <= X <= 650)
+p_b_norm <- pnorm(650, mean = mu, sd = sigma) - pnorm(500, mean = mu, sd = sigma)
+cat("b) Probabilidade da nota estar entre 500 e 650:", round(p_b_norm * 100, 2), "%\n")
 
+# c) Percentil 10
+p10_norm <- qnorm(0.10, mean = mu, sd = sigma)
+cat("c) Nota limite para os 10% inferiores (P10):", round(p10_norm, 2), "pontos\n")
+
+# d) Média de 25 alunos ser superior a 550: P(X_barra > 550)
+n_amostra <- 25
+sigma_amostral <- sigma / sqrt(n_amostra)
+p_d_norm <- 1 - pnorm(550, mean = mu, sd = sigma_amostral)
+cat("d) Probabilidade da média de 25 alunos ser superior a 550:", round(p_d_norm * 100, 2), "%\n")
+
+# e) Simulação de 1.000 notas
+notas_sim_1k <- rnorm(1000, mean = mu, sd = sigma)
+cat("e) Simulação (1000 notas) - Média:", round(mean(notas_sim_1k), 2), "| DP:", round(sd(notas_sim_1k), 2), "\n\n")
+
+
+# ==============================================================================
+# PARTE 2 - APROVAÇÃO EM OLÍMPIADAS (DISTRIBUIÇÃO BINOMIAL)
+# X ~ Binomial(n = 20, p = 0.25)
+# ==============================================================================
+cat("--- PARTE 2: DISTRIBUIÇÃO BINOMIAL ---\n")
+
+n_bin <- 20
+p_bin <- 0.25
+
+# a) P(X = 0)
+p_a_bin <- dbinom(0, size = n_bin, prob = p_bin)
+cat("a) Probabilidade de nenhum aluno se classificar:", round(p_a_bin * 100, 2), "%\n")
+
+# b) P(X <= 3)
+p_b_bin <- pbinom(3, size = n_bin, prob = p_bin)
+cat("b) Probabilidade de no máximo 3 se classificarem:", round(p_b_bin * 100, 2), "%\n")
+
+# c) P(X >= 8)
+p_c_bin <- 1 - pbinom(7, size = n_bin, prob = p_bin)
+cat("c) Probabilidade de 8 ou mais se classificarem:", round(p_c_bin * 100, 2), "%\n")
+
+# d) Esperança e Variância Teóricas
+esp_bin <- n_bin * p_bin
+var_bin <- n_bin * p_bin * (1 - p_bin)
+cat("d) Teórico - Esperança:", esp_bin, "| Variância:", var_bin, "\n")
+
+# e) Simulação de 1.000 turmas
+turmas_sim <- rbinom(1000, size = n_bin, prob = p_bin)
+cat("e) Simulação (1000 turmas) - Média:", round(mean(turmas_sim), 2), "| Variância:", round(var(turmas_sim), 2), "\n\n")
+
+
+# ==============================================================================
+# PARTE 3 - EVASÃO ESCOLAR POR SEMANA (DISTRIBUIÇÃO POISSON)
+# X ~ Poisson(lambda = 3)
+# ==============================================================================
+cat("--- PARTE 3: DISTRIBUIÇÃO POISSON ---\n")
+
+lambda_pois <- 3
+
+# a) P(X = 0)
+p_a_pois <- dpois(0, lambda = lambda_pois)
+cat("a) Probabilidade de nenhuma evasão em uma semana:", round(p_a_pois * 100, 2), "%\n")
+
+# b) P(X >= 5)
+p_b_pois <- 1 - pbinom(4, size = lambda_pois, prob = p_bin) # Correção lógica usando ppois
+p_b_pois_correto <- 1 - ppois(4, lambda = lambda_pois)
+cat("b) Probabilidade de 5 ou mais evasões em uma semana:", round(p_b_pois_correto * 100, 2), "%\n")
+
+# c) P(2 <= X <= 4)
+p_c_pois <- ppois(4, lambda = lambda_pois) - ppois(1, lambda = lambda_pois)
+cat("c) Probabilidade de entre 2 e 4 evasões:", round(p_c_pois * 100, 2), "%\n")
+
+# d) P(Y = 7) em duas semanas (lambda = 6)
+lambda_duas_semanas <- 6
+p_d_pois <- dpois(7, lambda = lambda_duas_semanas)
+cat("d) Probabilidade de exatamente 7 evasões em duas semanas:", round(p_d_pois * 100, 2), "%\n")
+
+# e) Esperança e Variância Teóricas
+cat("e) Teórico - Esperança:", lambda_pois, "| Variância:", lambda_pois, "\n\n")
+
+
+# ==============================================================================
+# PARTE 4 - TEMPO DE ESPERA NO ATENDIMENTO (DISTRIBUIÇÃO EXPONENCIAL)
+# T ~ Exp(beta = 12 min => taxa lambda = 1/12)
+# ==============================================================================
+cat("--- PARTE 4: DISTRIBUIÇÃO EXPONENCIAL ---\n")
+
+taxa_exp <- 1 / 12
+
+# a) P(T > 20)
+p_a_exp <- 1 - pexp(20, rate = taxa_exp)
+cat("a) Probabilidade de espera superior a 20 minutos:", round(p_a_exp * 100, 2), "%\n")
+
+# b) P(T < 5)
+p_b_exp <- pexp(5, rate = taxa_exp)
+cat("b) Probabilidade de espera inferior a 5 minutos:", round(p_b_exp * 100, 2), "%\n")
+
+# c) Tempo mediano (Percentil 50)
+mediana_exp <- qexp(0.50, rate = taxa_exp)
+cat("c) Tempo mediano de espera:", round(mediana_exp, 2), "minutos\n")
+
+# d) Falta de Memória: P(T > 18 | T > 10) = P(T > 8)
+p_d_exp <- 1 - pexp(8, rate = taxa_exp)
+cat("d) Probabilidade de espera adicional de 8 min:", round(p_d_exp * 100, 2), "%\n")
+
+# e) Simulação de 1.000 tempos
+tempos_sim <- rexp(1000, rate = taxa_exp)
+cat("e) Simulação (1000 tempos) - Média simulada:", round(mean(tempos_sim), 2), "minutos\n\n")
+
+
+# ==============================================================================
+# PARTE 5 - ALTURA DOS ALUNOS DO 9º ANO (DISTRIBUIÇÃO WEIBULL)
+# H ~ Weibull(shape k = 2, scale lambda = 160)
+# ==============================================================================
+cat("--- PARTE 5: DISTRIBUIÇÃO WEIBULL ---\n")
+
+k_weib <- 2
+lambda_weib <- 160
+
+# a) P(H < 140)
+p_a_weib <- pweibull(140, shape = k_weib, scale = lambda_weib)
+cat("a) Probabilidade de altura inferior a 140 cm:", round(p_a_weib * 100, 2), "%\n")
+
+# b) P(150 <= H <= 175)
+p_b_weib <- pweibull(175, shape = k_weib, scale = lambda_weib) - pweibull(150, shape = k_weib, scale = lambda_weib)
+cat("b) Probabilidade da altura estar entre 150 cm e 175 cm:", round(p_b_weib * 100, 2), "%\n")
+
+# c) Percentil 90 (P90)
+p90_weib <- qweibull(0.90, shape = k_weib, scale = lambda_weib)
+cat("c) Percentil 90 das alturas:", round(p90_weib, 2), "cm\n")
+
+# d) Média e Desvio Padrão Teóricos
+media_teorica_weib <- lambda_weib * gamma(1 + 1/k_weib)
+var_teorica_weib <- (lambda_weib^2) * (gamma(1 + 2/k_weib) - (gamma(1 + 1/k_weib))^2)
+dp_teorico_weib <- sqrt(var_teorica_weib)
+cat("d) Teórico - Média:", round(media_teorica_weib, 2), "cm | Desvio Padrão:", round(dp_teorico_weib, 2), "cm\n")
+
+# e) Função de Risco (Hazard) para uma altura de exemplo h = 150
+h_exemplo <- 150
+hazard_weib <- (k_weib / lambda_weib) * (h_exemplo / lambda_weib)^(k_weib - 1)
+cat("e) Taxa de risco instantânea calculada para h=150:", round(hazard_weib, 5), "\n\n")
+
+
+# ==============================================================================
+# PARTE 6 - PRECIPITAÇÃO MENSAL (DISTRIBUIÇÃO GAMA)
+# X ~ Gama(shape alpha = 4, rate beta = 0.02)
+# ==============================================================================
+cat("--- PARTE 6: DISTRIBUIÇÃO GAMA ---\n")
+
+alpha_gam <- 4
+beta_gam <- 0.02
+
+# a) P(X > 300)
+p_a_gam <- 1 - pgamma(300, shape = alpha_gam, rate = beta_gam)
+cat("a) Probabilidade de chuva superior a 300 mm:", round(p_a_gam * 100, 2), "%\n")
+
+# b) P(150 <= X <= 250)
+p_b_gam <- pgamma(250, shape = alpha_gam, rate = beta_gam) - pgamma(150, shape = alpha_gam, rate = beta_gam)
+cat("b) Probabilidade de chuva entre 150 mm e 250 mm:", round(p_b_gam * 100, 2), "%\n")
+
+# c) Percentil 95 (Evento extremo)
+p95_gam <- qgamma(0.95, shape = alpha_gam, rate = beta_gam)
+cat("c) Percentil 95 (Precipitação extrema):", round(p95_gam, 2), "mm\n")
+
+# d) Média e Variância Teóricas
+media_teorica_gam <- alpha_gam / beta_gam
+var_teorica_gam <- alpha_gam / (beta_gam^2)
+cat("d) Teórico - Média:", media_teorica_gam, "mm | Variância:", var_teorica_gam, "mm²\n")
+
+# e) Simulação de 120 meses (10 anos)
+chuva_sim <- rgamma(120, shape = alpha_gam, rate = beta_gam)
+cat("e) Simulação (120 meses) - Média empírica:", round(mean(chuva_sim), 2), "mm\n\n")
+
+
+# ==============================================================================
+# PARTE 7 - ANÁLISE INTEGRADA COM SIMULAÇÃO DE MONTE CARLO
+# Validação de P(X < 400) na Distribuição Normal com N = 10.000
+# ==============================================================================
+cat("--- PARTE 7: SIMULAÇÃO DE MONTE CARLO (N = 10.000) ---\n")
+
+N_mc <- 10000
+notas_sim_mc <- rnorm(N_mc, mean = mu, sd = sigma)
+
+# Resultados empíricos
+alunos_vulneraveis <- sum(notas_sim_mc < 400)
+prop_empirica <- mean(notas_sim_mc < 400)
+
+# Tabela Comparativa de Saída
+cat("Método          | Função R / Fórmula         | Resultado | Erro Absoluto\n")
+cat("----------------|----------------------------|-----------|---------------\n")
+cat(sprintf("Teórico Analítico| pnorm(400, 520, 80)        | %.4f%%   | 0.0000%%\n", p_a_norm * 100))
+cat(sprintf("Monte Carlo     | mean(notas_sim_mc < 400)   | %.4f%%   | %.4f%%\n", prop_empirica * 100, abs(p_a_norm - prop_empirica) * 100))
+cat("------------------------------------------------------------------------\n")
+cat("Total de alunos simulados com nota < 400:", alunos_vulneraveis, "de", N_mc, "\n")
