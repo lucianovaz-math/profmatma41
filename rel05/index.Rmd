@@ -1,215 +1,1764 @@
-# ==============================================================================
-# RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA - CÓDIGO INTEGRADO
-# Autor: Luciano Vaz
-# Distribuições especiais de probabilidade segundo a BNCC
-# ==============================================================================
+---
+title: "RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA"
+subtitle: "Distribuições especiais de probabilidade segundo BNCC"
+author: "Luciano Vaz"
+date: "07/10/2026"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    theme: cosmo
+    df_print: paged
+---
 
-# Configuração de semente para reprodutibilidade das simulações
-set.seed(2026)
+# RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA
 
-# ==============================================================================
-# PARTE 1 - DESEMPENHO NO ENEM (DISTRIBUIÇÃO NORMAL)
-# X ~ N(mu = 520, sigma = 80)
-# ==============================================================================
-cat("--- PARTE 1: DISTRIBUIÇÃO NORMAL ---\n")
+**Autor:** Luciano Vaz
 
-mu <- 520
-sigma <- 80
+**Data de Entrega:** 07/10/2026
 
-# a) P(X < 400)
-p_a_norm <- pnorm(400, mean = mu, sd = sigma)
-cat("a) Probabilidade de nota inferior a 400:", round(p_a_norm * 100, 2), "%\n")
+**Atuação:** Coordenador do Lab. de Estatística
 
-# b) P(500 <= X <= 650)
-p_b_norm <- pnorm(650, mean = mu, sd = sigma) - pnorm(500, mean = mu, sd = sigma)
-cat("b) Probabilidade da nota estar entre 500 e 650:", round(p_b_norm * 100, 2), "%\n")
+**Formato:** Relatório Técnico-Pedagógico
 
-# c) Percentil 10
-p10_norm <- qnorm(0.10, mean = mu, sd = sigma)
-cat("c) Nota limite para os 10% inferiores (P10):", round(p10_norm, 2), "pontos\n")
+## Contextualização Profissional
 
-# d) Média de 25 alunos ser superior a 550: P(X_barra > 550)
-n_amostra <- 25
-sigma_amostral <- sigma / sqrt(n_amostra)
-p_d_norm <- 1 - pnorm(550, mean = mu, sd = sigma_amostral)
-cat("d) Probabilidade da média de 25 alunos ser superior a 550:", round(p_d_norm * 100, 2), "%\n")
+Relatório desenvolvido por solicitação da Secretaria de Educação para fundamentar um projeto interdisciplinar de modelagem estatística em escola pública. Articula soluções analíticas, simulações computacionais em R de 7 distribuições especiais e orientações didáticas integradas às competências de Matemática e suas Tecnologias da BNCC.
 
-# e) Simulação de 1.000 notas
-notas_sim_1k <- rnorm(1000, mean = mu, sd = sigma)
-cat("e) Simulação (1000 notas) - Média:", round(mean(notas_sim_1k), 2), "| DP:", round(sd(notas_sim_1k), 2), "\n\n")
+# CONTEXTUALIZAÇÃO E OBJETIVOS DIDÁTICOS
 
+O ensino de Estatística na Educação Básica, estruturado pela Base Nacional Comum Curricular (BNCC), busca ultrapassar a mera construção gráfica ou cálculo mecânico de médias. O foco reside na formação do pensamento estatístico, permitindo que o estudante interprete incertezas, modele fenômenos do cotidiano escolar e compreenda a variabilidade natural de dados contínuos e discretos (habilidades EM13MAT311, EM13MAT312 e EM13MAT511).
 
-# ==============================================================================
-# PARTE 2 - APROVAÇÃO EM OLÍMPIADAS (DISTRIBUIÇÃO BINOMIAL)
-# X ~ Binomial(n = 20, p = 0.25)
-# ==============================================================================
-cat("--- PARTE 2: DISTRIBUIÇÃO BINOMIAL ---\n")
+Este relatório técnico-pedagógico aborda 7 modelos probabilísticos fundamentais, desenvolvendo para cada um a solução matemática rigorosa de suas 5 subperguntas, a interpretação sociopedagógica dos resultados no ambiente da comunidade escolar e a validação por meio de simulação de Monte Carlo.
 
+# PARTE 1 – DESEMPENHO NO ENEM (DISTRIBUIÇÃO NORMAL)
+
+## Modelo probabilístico
+
+Modelo:
+
+\[
+X \sim N(\mu=520,\sigma=80)
+\]
+
+Variável contínua modelando pontuações padronizadas do ENEM. Permite discutir escores padronizados (Z) e distribuições amostrais de médias.
+
+## Probabilidade de nota inferior a 400 pontos
+
+Deseja-se calcular:
+
+\[
+P(X<400)
+\]
+
+Padronização para a variável Z:
+
+\[
+Z=\frac{400-520}{80}
+=\frac{-120}{80}
+=-1,50
+\]
+
+Na Tabela Normal Padrão:
+
+\[
+P(Z<-1,50)=0,0668
+\]
+
+Portanto:
+
+\[
+P(X<400)=0,0668=6,68\%
+\]
+
+**Interpretação:** Apenas 6,68% dos estudantes estão na faixa de extrema vulnerabilidade acadêmica (abaixo de 400 pontos).
+
+## Probabilidade da nota estar entre 500 e 650 pontos
+
+Deseja-se calcular:
+
+\[
+P(500\leq X\leq650)
+\]
+
+Calculando os valores padronizados:
+
+\[
+Z_1=\frac{500-520}{80}=-0,25
+\]
+
+\[
+P(Z<-0,25)=0,4013
+\]
+
+Para 650 pontos:
+
+\[
+Z_2=\frac{650-520}{80}=1,625
+\]
+
+\[
+P(Z<1,625)=0,9479
+\]
+
+Assim:
+
+\[
+P(500\leq X\leq650)
+=0,9479-0,4013
+=0,5466
+\]
+
+\[
+P(500\leq X\leq650)=54,66\%
+\]
+
+**Interpretação:** Mais da metade do corpo discente concentra-se nessa faixa intermediária-alta.
+
+## Nota limite para os 10% inferiores – Percentil 10
+
+Deseja-se encontrar \(x\) tal que:
+
+\[
+P(X<x)=0,10
+\]
+
+O escore Z correspondente ao percentil 10 é:
+
+\[
+Z=-1,2815
+\]
+
+Despadronizando:
+
+\[
+x=\mu+Z\sigma
+\]
+
+\[
+x=520+(-1,2815)(80)
+\]
+
+\[
+x=520-102,52
+\]
+
+\[
+x=417,48\text{ pontos}
+\]
+
+**Interpretação:** Alunos com notas abaixo de 417,5 devem ser prioritariamente inscritos em programas de reforço.
+
+## Probabilidade da média de 25 alunos ser superior a 550
+
+Deseja-se calcular:
+
+\[
+P(\bar X>550),\quad n=25
+\]
+
+Pelo Teorema Central do Limite, a média amostral segue:
+
+\[
+\bar X\sim N\left(\mu=520,\sigma_{\bar X}=\frac{\sigma}{\sqrt n}\right)
+\]
+
+O erro-padrão é:
+
+\[
+\sigma_{\bar X}=\frac{80}{\sqrt{25}}=\frac{80}{5}=16
+\]
+
+Padronizando:
+
+\[
+Z=\frac{550-520}{16}=\frac{30}{16}=1,875
+\]
+
+Logo:
+
+\[
+P(\bar X>550)=1-P(Z<1,875)
+\]
+
+\[
+P(\bar X>550)=1-0,9696=0,0304
+\]
+
+\[
+P(\bar X>550)=3,04\%
+\]
+
+**Interpretação:** É raro (3,04%) que uma turma inteira de 25 alunos obtenha uma média superior a 550 pontos sem intervenção pedagógica específica.
+
+## Simulação de 1.000 notas no R e comparação teórica
+
+A amostragem pseudorrandômica via `rnorm(1000, 520, 80)` gera notas com média e desvio padrão próximos dos valores teóricos.
+
+```{r simulacao-normal, echo=TRUE}
+set.seed(123)
+
+notas_1000 <- rnorm(
+  1000,
+  mean = 520,
+  sd = 80
+)
+
+media_sim <- mean(notas_1000)
+desvio_sim <- sd(notas_1000)
+
+media_sim
+desvio_sim
+```
+
+O relatório original apresenta como referência uma média simulada próxima de 519,8 e um desvio padrão próximo de 79,6. Os resultados exatos dependem da semente e da sequência de geração utilizada.
+
+O histograma sobreposto à curva de densidade normal permite verificar visualmente a simetria da distribuição.
+
+```{r grafico-normal, echo=TRUE}
+hist(
+  notas_1000,
+  probability = TRUE,
+  breaks = 20,
+  main = "Simulação de 1.000 notas do ENEM",
+  xlab = "Pontuação",
+  ylab = "Densidade"
+)
+
+curve(
+  dnorm(x, mean = 520, sd = 80),
+  add = TRUE,
+  lwd = 2
+)
+```
+
+A comparação confirma o formato aproximadamente simétrico da distribuição normal e ilustra a aproximação entre resultados empíricos e teóricos.
+
+# PARTE 2 – APROVAÇÃO EM OLIMPÍADAS (DISTRIBUIÇÃO BINOMIAL)
+
+## Modelo probabilístico
+
+Modelo:
+
+\[
+X\sim Binomial(n=20,p=0,25)
+\]
+
+Variável discreta representando a contagem de sucessos em 20 ensaios independentes de Bernoulli para a classificação na OBMEP.
+
+## Probabilidade de nenhum aluno se classificar
+
+Deseja-se:
+
+\[
+P(X=0)
+\]
+
+A fórmula da distribuição binomial é:
+
+\[
+P(X=x)=\binom{n}{x}p^x(1-p)^{n-x}
+\]
+
+Logo:
+
+\[
+P(X=0)=\binom{20}{0}(0,25)^0(0,75)^{20}
+\]
+
+\[
+P(X=0)=1\times1\times(0,75)^{20}
+\]
+
+\[
+P(X=0)\approx0,0032
+\]
+
+\[
+P(X=0)\approx0,32\%
+\]
+
+**Interpretação:** É extremamente improvável que uma turma de 20 alunos fique totalmente sem aprovados na primeira fase.
+
+```{r binomial-zero, echo=TRUE}
+p_binomial_0 <- dbinom(
+  0,
+  size = 20,
+  prob = 0.25
+)
+
+p_binomial_0
+```
+
+## Probabilidade de no máximo 3 alunos se classificarem
+
+Deseja-se:
+
+\[
+P(X\leq3)
+\]
+
+Portanto:
+
+\[
+P(X\leq3)=P(X=0)+P(X=1)+P(X=2)+P(X=3)
+\]
+
+Para \(X=1\):
+
+\[
+P(X=1)=20(0,25)^1(0,75)^{19}
+\]
+
+\[
+P(X=1)\approx0,02114
+\]
+
+Para \(X=2\):
+
+\[
+P(X=2)=190(0,25)^2(0,75)^{18}
+\]
+
+\[
+P(X=2)\approx0,06694
+\]
+
+Para \(X=3\):
+
+\[
+P(X=3)=1140(0,25)^3(0,75)^{17}
+\]
+
+\[
+P(X=3)\approx0,13389
+\]
+
+A probabilidade acumulada pode ser calculada com `pbinom()`.
+
+```{r binomial-ate-tres, echo=TRUE}
+p_binomial_3 <- pbinom(
+  3,
+  size = 20,
+  prob = 0.25
+)
+
+p_binomial_3
+```
+
+O resultado teórico é aproximadamente:
+
+\[
+P(X\leq3)\approx0,2252
+\]
+
+\[
+P(X\leq3)\approx22,52\%
+\]
+
+## Probabilidade de 8 ou mais alunos se classificarem
+
+Deseja-se:
+
+\[
+P(X\geq8)
+\]
+
+Usando o complemento:
+
+\[
+P(X\geq8)=1-P(X\leq7)
+\]
+
+Assim:
+
+\[
+P(X\geq8)=1-0,8982=0,1018
+\]
+
+\[
+P(X\geq8)=10,18\%
+\]
+
+```{r binomial-oito, echo=TRUE}
+p_binomial_8_ou_mais <- pbinom(
+  7,
+  size = 20,
+  prob = 0.25,
+  lower.tail = FALSE
+)
+
+p_binomial_8_ou_mais
+```
+
+**Interpretação:** Há aproximadamente 10,18% de chance de a turma ter um desempenho excepcional com 8 ou mais qualificados.
+
+## Esperança, variância e desvio padrão teóricos
+
+Para a distribuição binomial:
+
+\[
+E[X]=np
+\]
+
+\[
+E[X]=20(0,25)=5,0\text{ alunos}
+\]
+
+A variância é:
+
+\[
+Var(X)=np(1-p)
+\]
+
+\[
+Var(X)=20(0,25)(0,75)=3,75
+\]
+
+O desvio padrão é:
+
+\[
+\sigma=\sqrt{3,75}\approx1,936\text{ alunos}
+\]
+
+```{r momentos-binomial, echo=TRUE}
 n_bin <- 20
 p_bin <- 0.25
 
-# a) P(X = 0)
-p_a_bin <- dbinom(0, size = n_bin, prob = p_bin)
-cat("a) Probabilidade de nenhum aluno se classificar:", round(p_a_bin * 100, 2), "%\n")
+esperanca_bin <- n_bin * p_bin
+variancia_bin <- n_bin * p_bin * (1 - p_bin)
+desvio_bin <- sqrt(variancia_bin)
 
-# b) P(X <= 3)
-p_b_bin <- pbinom(3, size = n_bin, prob = p_bin)
-cat("b) Probabilidade de no máximo 3 se classificarem:", round(p_b_bin * 100, 2), "%\n")
+esperanca_bin
+variancia_bin
+desvio_bin
+```
 
-# c) P(X >= 8)
-p_c_bin <- 1 - pbinom(7, size = n_bin, prob = p_bin)
-cat("c) Probabilidade de 8 ou mais se classificarem:", round(p_c_bin * 100, 2), "%\n")
+## Simulação de 1.000 turmas e comparação de frequências
 
-# d) Esperança e Variância Teóricas
-esp_bin <- n_bin * p_bin
-var_bin <- n_bin * p_bin * (1 - p_bin)
-cat("d) Teórico - Esperança:", esp_bin, "| Variância:", var_bin, "\n")
+```{r simulacao-binomial, echo=TRUE}
+set.seed(123)
 
-# e) Simulação de 1.000 turmas
-turmas_sim <- rbinom(1000, size = n_bin, prob = p_bin)
-cat("e) Simulação (1000 turmas) - Média:", round(mean(turmas_sim), 2), "| Variância:", round(var(turmas_sim), 2), "\n\n")
+turmas_sim <- rbinom(
+  1000,
+  size = 20,
+  prob = 0.25
+)
 
+media_bin_sim <- mean(turmas_sim)
+variancia_bin_sim <- var(turmas_sim)
 
-# ==============================================================================
-# PARTE 3 - EVASÃO ESCOLAR POR SEMANA (DISTRIBUIÇÃO POISSON)
-# X ~ Poisson(lambda = 3)
-# ==============================================================================
-cat("--- PARTE 3: DISTRIBUIÇÃO POISSON ---\n")
+media_bin_sim
+variancia_bin_sim
+```
 
-lambda_pois <- 3
+A referência apresentada no relatório original é uma média amostral próxima de 5,02 alunos e uma variância de 3,71. Os resultados podem variar de acordo com a semente e a sequência de simulação.
 
-# a) P(X = 0)
-p_a_pois <- dpois(0, lambda = lambda_pois)
-cat("a) Probabilidade de nenhuma evasão em uma semana:", round(p_a_pois * 100, 2), "%\n")
+Comparação entre as frequências empíricas e as probabilidades teóricas:
 
-# b) P(X >= 5)
-p_b_pois <- 1 - pbinom(4, size = lambda_pois, prob = p_bin) # Correção lógica usando ppois
-p_b_pois_correto <- 1 - ppois(4, lambda = lambda_pois)
-cat("b) Probabilidade de 5 ou mais evasões em uma semana:", round(p_b_pois_correto * 100, 2), "%\n")
+```{r tabela-binomial, echo=TRUE}
+valores_bin <- 0:20
 
-# c) P(2 <= X <= 4)
-p_c_pois <- ppois(4, lambda = lambda_pois) - ppois(1, lambda = lambda_pois)
-cat("c) Probabilidade de entre 2 e 4 evasões:", round(p_c_pois * 100, 2), "%\n")
+freq_empirica <- as.numeric(
+  table(
+    factor(
+      turmas_sim,
+      levels = valores_bin
+    )
+  )
+) / length(turmas_sim)
 
-# d) P(Y = 7) em duas semanas (lambda = 6)
-lambda_duas_semanas <- 6
-p_d_pois <- dpois(7, lambda = lambda_duas_semanas)
-cat("d) Probabilidade de exatamente 7 evasões em duas semanas:", round(p_d_pois * 100, 2), "%\n")
+prob_teorica <- dbinom(
+  valores_bin,
+  size = 20,
+  prob = 0.25
+)
 
-# e) Esperança e Variância Teóricas
-cat("e) Teórico - Esperança:", lambda_pois, "| Variância:", lambda_pois, "\n\n")
+comparacao_binomial <- data.frame(
+  Alunos_Classificados = valores_bin,
+  Frequencia_Empirica = freq_empirica,
+  Probabilidade_Teorica = prob_teorica
+)
 
+knitr::kable(
+  comparacao_binomial,
+  digits = 4,
+  caption = "Frequências empíricas e probabilidades teóricas da distribuição binomial"
+)
+```
 
-# ==============================================================================
-# PARTE 4 - TEMPO DE ESPERA NO ATENDIMENTO (DISTRIBUIÇÃO EXPONENCIAL)
-# T ~ Exp(beta = 12 min => taxa lambda = 1/12)
-# ==============================================================================
-cat("--- PARTE 4: DISTRIBUIÇÃO EXPONENCIAL ---\n")
+```{r grafico-binomial, echo=TRUE}
+barplot(
+  prob_teorica,
+  names.arg = valores_bin,
+  col = "lightblue",
+  main = "Distribuição Binomial Teórica",
+  xlab = "Número de alunos classificados",
+  ylab = "Probabilidade"
+)
+```
 
-taxa_exp <- 1 / 12
+As frequências relativas tendem a aproximar-se das probabilidades analíticas, ilustrando didaticamente a Lei dos Grandes Números.
 
-# a) P(T > 20)
-p_a_exp <- 1 - pexp(20, rate = taxa_exp)
-cat("a) Probabilidade de espera superior a 20 minutos:", round(p_a_exp * 100, 2), "%\n")
+# PARTE 3 – EVASÃO ESCOLAR POR SEMANA (DISTRIBUIÇÃO POISSON)
 
-# b) P(T < 5)
-p_b_exp <- pexp(5, rate = taxa_exp)
-cat("b) Probabilidade de espera inferior a 5 minutos:", round(p_b_exp * 100, 2), "%\n")
+## Modelo probabilístico
 
-# c) Tempo mediano (Percentil 50)
-mediana_exp <- qexp(0.50, rate = taxa_exp)
-cat("c) Tempo mediano de espera:", round(mediana_exp, 2), "minutos\n")
+Modelo:
 
-# d) Falta de Memória: P(T > 18 | T > 10) = P(T > 8)
-p_d_exp <- 1 - pexp(8, rate = taxa_exp)
-cat("d) Probabilidade de espera adicional de 8 min:", round(p_d_exp * 100, 2), "%\n")
+\[
+X\sim Poisson(\lambda=3)
+\]
 
-# e) Simulação de 1.000 tempos
-tempos_sim <- rexp(1000, rate = taxa_exp)
-cat("e) Simulação (1000 tempos) - Média simulada:", round(mean(tempos_sim), 2), "minutos\n\n")
+Variável discreta de contagem para taxas de eventos num intervalo fixo. Essencial para planejar busca ativa e combate ao abandono.
 
+## Probabilidade de nenhuma evasão em uma semana
 
-# ==============================================================================
-# PARTE 5 - ALTURA DOS ALUNOS DO 9º ANO (DISTRIBUIÇÃO WEIBULL)
-# H ~ Weibull(shape k = 2, scale lambda = 160)
-# ==============================================================================
-cat("--- PARTE 5: DISTRIBUIÇÃO WEIBULL ---\n")
+Deseja-se:
 
-k_weib <- 2
-lambda_weib <- 160
+\[
+P(X=0)
+\]
 
-# a) P(H < 140)
-p_a_weib <- pweibull(140, shape = k_weib, scale = lambda_weib)
-cat("a) Probabilidade de altura inferior a 140 cm:", round(p_a_weib * 100, 2), "%\n")
+A fórmula da distribuição de Poisson é:
 
-# b) P(150 <= H <= 175)
-p_b_weib <- pweibull(175, shape = k_weib, scale = lambda_weib) - pweibull(150, shape = k_weib, scale = lambda_weib)
-cat("b) Probabilidade da altura estar entre 150 cm e 175 cm:", round(p_b_weib * 100, 2), "%\n")
+\[
+P(X=x)=\frac{e^{-\lambda}\lambda^x}{x!}
+\]
 
-# c) Percentil 90 (P90)
-p90_weib <- qweibull(0.90, shape = k_weib, scale = lambda_weib)
-cat("c) Percentil 90 das alturas:", round(p90_weib, 2), "cm\n")
+Logo:
 
-# d) Média e Desvio Padrão Teóricos
-media_teorica_weib <- lambda_weib * gamma(1 + 1/k_weib)
-var_teorica_weib <- (lambda_weib^2) * (gamma(1 + 2/k_weib) - (gamma(1 + 1/k_weib))^2)
-dp_teorico_weib <- sqrt(var_teorica_weib)
-cat("d) Teórico - Média:", round(media_teorica_weib, 2), "cm | Desvio Padrão:", round(dp_teorico_weib, 2), "cm\n")
+\[
+P(X=0)=\frac{e^{-3}3^0}{0!}=e^{-3}
+\]
 
-# e) Função de Risco (Hazard) para uma altura de exemplo h = 150
-h_exemplo <- 150
-hazard_weib <- (k_weib / lambda_weib) * (h_exemplo / lambda_weib)^(k_weib - 1)
-cat("e) Taxa de risco instantânea calculada para h=150:", round(hazard_weib, 5), "\n\n")
+\[
+P(X=0)\approx0,0498=4,98\%
+\]
 
+```{r poisson-zero, echo=TRUE}
+p_poisson_0 <- dpois(
+  0,
+  lambda = 3
+)
 
-# ==============================================================================
-# PARTE 6 - PRECIPITAÇÃO MENSAL (DISTRIBUIÇÃO GAMA)
-# X ~ Gama(shape alpha = 4, rate beta = 0.02)
-# ==============================================================================
-cat("--- PARTE 6: DISTRIBUIÇÃO GAMA ---\n")
+p_poisson_0
+```
 
-alpha_gam <- 4
-beta_gam <- 0.02
+**Interpretação:** Em aproximadamente 5% das semanas, o município não registrará nenhum abandono escolar, segundo o modelo.
 
-# a) P(X > 300)
-p_a_gam <- 1 - pgamma(300, shape = alpha_gam, rate = beta_gam)
-cat("a) Probabilidade de chuva superior a 300 mm:", round(p_a_gam * 100, 2), "%\n")
+## Probabilidade de 5 ou mais evasões em uma semana
 
-# b) P(150 <= X <= 250)
-p_b_gam <- pgamma(250, shape = alpha_gam, rate = beta_gam) - pgamma(150, shape = alpha_gam, rate = beta_gam)
-cat("b) Probabilidade de chuva entre 150 mm e 250 mm:", round(p_b_gam * 100, 2), "%\n")
+Deseja-se:
 
-# c) Percentil 95 (Evento extremo)
-p95_gam <- qgamma(0.95, shape = alpha_gam, rate = beta_gam)
-cat("c) Percentil 95 (Precipitação extrema):", round(p95_gam, 2), "mm\n")
+\[
+P(X\geq5)=1-P(X\leq4)
+\]
 
-# d) Média e Variância Teóricas
-media_teorica_gam <- alpha_gam / beta_gam
-var_teorica_gam <- alpha_gam / (beta_gam^2)
-cat("d) Teórico - Média:", media_teorica_gam, "mm | Variância:", var_teorica_gam, "mm²\n")
+Temos:
 
-# e) Simulação de 120 meses (10 anos)
-chuva_sim <- rgamma(120, shape = alpha_gam, rate = beta_gam)
-cat("e) Simulação (120 meses) - Média empírica:", round(mean(chuva_sim), 2), "mm\n\n")
+\[
+P(X\leq4)=P(0)+P(1)+P(2)+P(3)+P(4)
+\]
 
+Os valores aproximados são:
 
-# ==============================================================================
-# PARTE 7 - ANÁLISE INTEGRADA COM SIMULAÇÃO DE MONTE CARLO
-# Validação de P(X < 400) na Distribuição Normal com N = 10.000
-# ==============================================================================
-cat("--- PARTE 7: SIMULAÇÃO DE MONTE CARLO (N = 10.000) ---\n")
+\[
+0,0498+0,1494+0,2240+0,2240+0,1680
+\]
 
-N_mc <- 10000
-notas_sim_mc <- rnorm(N_mc, mean = mu, sd = sigma)
+\[
+P(X\leq4)\approx0,8153
+\]
 
-# Resultados empíricos
-alunos_vulneraveis <- sum(notas_sim_mc < 400)
-prop_empirica <- mean(notas_sim_mc < 400)
+Assim:
 
-# Tabela Comparativa de Saída
-cat("Método          | Função R / Fórmula         | Resultado | Erro Absoluto\n")
-cat("----------------|----------------------------|-----------|---------------\n")
-cat(sprintf("Teórico Analítico| pnorm(400, 520, 80)        | %.4f%%   | 0.0000%%\n", p_a_norm * 100))
-cat(sprintf("Monte Carlo     | mean(notas_sim_mc < 400)   | %.4f%%   | %.4f%%\n", prop_empirica * 100, abs(p_a_norm - prop_empirica) * 100))
-cat("------------------------------------------------------------------------\n")
-cat("Total de alunos simulados com nota < 400:", alunos_vulneraveis, "de", N_mc, "\n")
+\[
+P(X\geq5)=1-0,8153=0,1847
+\]
+
+\[
+P(X\geq5)\approx18,47\%
+\]
+
+```{r poisson-cinco, echo=TRUE}
+p_poisson_5_ou_mais <- ppois(
+  4,
+  lambda = 3,
+  lower.tail = FALSE
+)
+
+p_poisson_5_ou_mais
+```
+
+**Interpretação:** Há aproximadamente 18,5% de risco de ocorrer um pico crítico de evasão em determinada semana.
+
+## Probabilidade de entre 2 e 4 evasões
+
+Deseja-se:
+
+\[
+P(2\leq X\leq4)
+\]
+
+\[
+P(2\leq X\leq4)=P(X=2)+P(X=3)+P(X=4)
+\]
+
+\[
+P(2\leq X\leq4)=0,2240+0,2240+0,1680
+\]
+
+\[
+P(2\leq X\leq4)\approx0,6161
+\]
+
+\[
+P(2\leq X\leq4)\approx61,61\%
+\]
+
+```{r poisson-intervalo, echo=TRUE}
+p_poisson_2_4 <-
+  ppois(4, lambda = 3) -
+  ppois(1, lambda = 3)
+
+p_poisson_2_4
+```
+
+**Interpretação:** Em mais de 60% do tempo, o município opera na faixa de 2 a 4 evasões semanais, segundo o modelo.
+
+## Probabilidade de exatamente 7 evasões em duas semanas
+
+Quando o intervalo de tempo dobra:
+
+\[
+\lambda'=3\times2=6
+\]
+
+Assim:
+
+\[
+Y\sim Poisson(6)
+\]
+
+Deseja-se:
+
+\[
+P(Y=7)=\frac{e^{-6}6^7}{7!}
+\]
+
+\[
+P(Y=7)\approx0,1377
+\]
+
+\[
+P(Y=7)\approx13,77\%
+\]
+
+```{r poisson-duas-semanas, echo=TRUE}
+p_poisson_7 <- dpois(
+  7,
+  lambda = 6
+)
+
+p_poisson_7
+```
+
+## Esperança e variância teóricas
+
+Na distribuição de Poisson, o parâmetro \(\lambda\) define ambos os momentos:
+
+\[
+E[X]=\lambda=3,0
+\]
+
+\[
+Var(X)=\lambda=3,0
+\]
+
+A esperança é de 3 alunos por semana e a variância é de 3 em unidades de contagem ao quadrado.
+
+```{r momentos-poisson, echo=TRUE}
+lambda_poisson <- 3
+
+esperanca_poisson <- lambda_poisson
+variancia_poisson <- lambda_poisson
+
+esperanca_poisson
+variancia_poisson
+```
+
+# PARTE 4 – TEMPO DE ESPERA NO ATENDIMENTO (DISTRIBUIÇÃO EXPONENCIAL)
+
+## Modelo probabilístico
+
+Modelo:
+
+\[
+T\sim Exp(\beta=12\text{ minutos})
+\]
+
+A média é de 12 minutos e a taxa é:
+
+\[
+\lambda=\frac{1}{12}\approx0,0833
+\]
+
+Variável contínua modelando tempo até a ocorrência de um evento. Apresenta a propriedade exclusiva da Falta de Memória.
+
+## Probabilidade de espera superior a 20 minutos
+
+Deseja-se:
+
+\[
+P(T>20)
+\]
+
+A função de sobrevivência é:
+
+\[
+P(T>t)=e^{-\lambda t}
+\]
+
+Logo:
+
+\[
+P(T>20)=e^{-20/12}
+\]
+
+\[
+P(T>20)=e^{-1,6667}\approx0,1889
+\]
+
+\[
+P(T>20)\approx18,89\%
+\]
+
+```{r exponencial-maior-20, echo=TRUE}
+p_exp_maior_20 <- pexp(
+  20,
+  rate = 1 / 12,
+  lower.tail = FALSE
+)
+
+p_exp_maior_20
+```
+
+**Interpretação:** Quase 19% dos pais aguardam mais de 20 minutos, sugerindo gargalos na recepção em horários de pico.
+
+## Probabilidade de espera inferior a 5 minutos
+
+Deseja-se:
+
+\[
+P(T<5)=1-e^{-5/12}
+\]
+
+\[
+P(T<5)=1-e^{-0,4167}
+\]
+
+\[
+P(T<5)\approx1-0,6592=0,3408
+\]
+
+\[
+P(T<5)\approx34,08\%
+\]
+
+```{r exponencial-menor-5, echo=TRUE}
+p_exp_menor_5 <- pexp(
+  5,
+  rate = 1 / 12
+)
+
+p_exp_menor_5
+```
+
+**Interpretação:** Cerca de um terço dos atendimentos é resolvido de forma rápida em até 5 minutos.
+
+## Tempo mediano de espera – Percentil 50
+
+A mediana \(t_m\) satisfaz:
+
+\[
+P(T\leq t_m)=0,50
+\]
+
+Logo:
+
+\[
+1-e^{-\lambda t_m}=0,50
+\]
+
+\[
+e^{-\lambda t_m}=0,50
+\]
+
+\[
+t_m=\frac{\ln(2)}{\lambda}
+\]
+
+Como a média é de 12 minutos:
+
+\[
+t_m=12\ln(2)
+\]
+
+\[
+t_m=12(0,69315)\approx8,32\text{ minutos}
+\]
+
+```{r exponencial-mediana, echo=TRUE}
+mediana_exp <- qexp(
+  0.50,
+  rate = 1 / 12
+)
+
+mediana_exp
+```
+
+**Interpretação:** A mediana é menor que a média (12 min) devido à assimetria positiva da distribuição.
+
+## Espera adicional de 8 minutos para quem já esperou 10 minutos
+
+Deseja-se:
+
+\[
+P(T>18\mid T>10)
+\]
+
+Pela propriedade de falta de memória da distribuição exponencial:
+
+\[
+P(T>t+s\mid T>t)=P(T>s)
+\]
+
+Assim:
+
+\[
+P(T>10+8\mid T>10)=P(T>8)
+\]
+
+\[
+P(T>8)=e^{-8/12}
+\]
+
+\[
+P(T>8)=e^{-0,6667}\approx0,5134
+\]
+
+\[
+P(T>18\mid T>10)\approx51,34\%
+\]
+
+```{r exponencial-condicional, echo=TRUE}
+p_exp_condicional <- pexp(
+  8,
+  rate = 1 / 12,
+  lower.tail = FALSE
+)
+
+p_exp_condicional
+```
+
+**Interpretação:** O tempo já decorrido na fila não altera a distribuição de probabilidade do tempo restante.
+
+## Simulação de 1.000 tempos e validação
+
+```{r simulacao-exponencial, echo=TRUE}
+set.seed(123)
+
+tempos_sim <- rexp(
+  1000,
+  rate = 1 / 12
+)
+
+media_exp_sim <- mean(tempos_sim)
+
+media_exp_sim
+```
+
+A simulação apresenta assimetria acentuada à direita. O relatório original apresenta uma média simulada próxima de 11,95 minutos.
+
+```{r grafico-exponencial, echo=TRUE}
+hist(
+  tempos_sim,
+  probability = TRUE,
+  breaks = 25,
+  main = "Simulação de 1.000 tempos de espera",
+  xlab = "Tempo de espera (minutos)",
+  ylab = "Densidade"
+)
+
+curve(
+  dexp(x, rate = 1 / 12),
+  add = TRUE,
+  lwd = 2
+)
+```
+
+O padrão decrescente é compatível com a densidade teórica da distribuição exponencial.
+
+# PARTE 5 – ALTURA DOS ALUNOS DO 9º ANO (DISTRIBUIÇÃO WEIBULL)
+
+## Modelo probabilístico
+
+Modelo:
+
+\[
+H\sim Weibull(k=2,\lambda=160\text{ cm})
+\]
+
+Com forma \(k=2\), equivale à Distribuição Rayleigh. Modela tempos de vida, resistências e medidas biológicas com taxa de falha ou crescimento variável.
+
+## Probabilidade de altura inferior a 140 cm
+
+A função de distribuição acumulada é:
+
+\[
+F(h)=1-\exp\left[-\left(\frac{h}{\lambda}\right)^k\right]
+\]
+
+Para \(h=140\):
+
+\[
+F(140)=1-\exp\left[-\left(\frac{140}{160}\right)^2\right]
+\]
+
+\[
+F(140)=1-\exp[-(0,875)^2]
+\]
+
+\[
+F(140)=1-\exp(-0,765625)
+\]
+
+\[
+F(140)\approx1-0,4650=0,5350
+\]
+
+\[
+P(H<140)\approx53,50\%
+\]
+
+```{r weibull-140, echo=TRUE}
+p_weibull_140 <- pweibull(
+  140,
+  shape = 2,
+  scale = 160
+)
+
+p_weibull_140
+```
+
+## Probabilidade da altura estar entre 150 cm e 175 cm
+
+Deseja-se:
+
+\[
+P(150\leq H\leq175)
+\]
+
+Para 150 cm:
+
+\[
+F(150)=1-\exp\left[-\left(\frac{150}{160}\right)^2\right]
+\]
+
+\[
+F(150)\approx0,5847
+\]
+
+Para 175 cm:
+
+\[
+F(175)=1-\exp\left[-\left(\frac{175}{160}\right)^2\right]
+\]
+
+\[
+F(175)\approx0,6977
+\]
+
+Portanto:
+
+\[
+P(150\leq H\leq175)=0,6977-0,5847
+\]
+
+\[
+P(150\leq H\leq175)\approx0,1130
+\]
+
+\[
+P(150\leq H\leq175)\approx11,30\%
+\]
+
+```{r weibull-intervalo, echo=TRUE}
+p_weibull_150_175 <-
+  pweibull(175, shape = 2, scale = 160) -
+  pweibull(150, shape = 2, scale = 160)
+
+p_weibull_150_175
+```
+
+## Percentil 90 das alturas
+
+Deseja-se encontrar \(h_{0,90}\) tal que:
+
+\[
+P(H\leq h_{0,90})=0,90
+\]
+
+Logo:
+
+\[
+1-\exp\left[-\left(\frac{h_{0,90}}{160}\right)^2\right]=0,90
+\]
+
+\[
+\exp\left[-\left(\frac{h}{160}\right)^2\right]=0,10
+\]
+
+Tomando o logaritmo:
+
+\[
+-\left(\frac{h}{160}\right)^2=\ln(0,10)
+\]
+
+\[
+\ln(0,10)\approx-2,3026
+\]
+
+\[
+\frac{h}{160}=\sqrt{2,3026}\approx1,5174
+\]
+
+\[
+h_{0,90}=160(1,5174)
+\]
+
+\[
+h_{0,90}\approx242,79\text{ cm}
+\]
+
+```{r weibull-percentil, echo=TRUE}
+p90_weibull <- qweibull(
+  0.90,
+  shape = 2,
+  scale = 160
+)
+
+p90_weibull
+```
+
+**Interpretação:** O resultado é um modelo teórico com cauda longa.
+
+## Cálculo analítico da média e do desvio padrão
+
+A esperança da distribuição Weibull é:
+
+\[
+E[H]=\lambda\Gamma\left(1+\frac{1}{k}\right)
+\]
+
+Assim:
+
+\[
+E[H]=160\Gamma(1,5)
+\]
+
+Como:
+
+\[
+\Gamma(1,5)=0,5\sqrt{\pi}\approx0,88623
+\]
+
+temos:
+
+\[
+E[H]=160(0,88623)\approx141,80\text{ cm}
+\]
+
+A variância é:
+
+\[
+Var(H)=\lambda^2
+\left[
+\Gamma\left(1+\frac{2}{k}\right)
+-
+\Gamma\left(1+\frac{1}{k}\right)^2
+\right]
+\]
+
+Para \(k=2\):
+
+\[
+Var(H)=160^2\left[\Gamma(2)-(0,88623)^2\right]
+\]
+
+Como:
+
+\[
+\Gamma(2)=1
+\]
+
+temos:
+
+\[
+Var(H)=25600[1-0,7854]\approx5493,76
+\]
+
+O desvio padrão é:
+
+\[
+\sigma=\sqrt{5493,76}\approx74,12\text{ cm}
+\]
+
+```{r momentos-weibull, echo=TRUE}
+k_weibull <- 2
+lambda_weibull <- 160
+
+media_weibull <-
+  lambda_weibull * gamma(1 + 1 / k_weibull)
+
+variancia_weibull <-
+  lambda_weibull^2 *
+  (
+    gamma(1 + 2 / k_weibull) -
+    gamma(1 + 1 / k_weibull)^2
+  )
+
+desvio_weibull <- sqrt(variancia_weibull)
+
+media_weibull
+variancia_weibull
+desvio_weibull
+```
+
+## Função de risco (Hazard) e interpretação biológica
+
+A função de risco é:
+
+\[
+h(t)=\frac{k}{\lambda}
+\left(\frac{t}{\lambda}\right)^{k-1}
+\]
+
+Para \(k=2\) e \(\lambda=160\):
+
+\[
+h(t)=\frac{2}{160}\left(\frac{t}{160}\right)
+\]
+
+ou:
+
+\[
+h(t)=\frac{2t}{160^2}
+\]
+
+Como:
+
+\[
+k=2>1
+\]
+
+o risco é estritamente crescente, significando que a taxa instantânea de atingir determinada estatura aumenta proporcionalmente à altura acumulada no modelo matemático adotado.
+
+# PARTE 6 – PRECIPITAÇÃO MENSAL NA REGIÃO (DISTRIBUIÇÃO GAMA)
+
+## Modelo probabilístico
+
+Modelo:
+
+\[
+X\sim Gama(\alpha=4,\beta=0,02)
+\]
+
+Variável contínua positiva modelando volumes de chuva.
+
+O parâmetro de forma é:
+
+\[
+\alpha=4
+\]
+
+e a taxa:
+
+\[
+\beta=0,02
+\]
+
+A escala é:
+
+\[
+\theta=\frac{1}{\beta}=50\text{ mm}
+\]
+
+## Probabilidade de chuva superior a 300 mm
+
+Deseja-se:
+
+\[
+P(X>300)
+\]
+
+Para \(\alpha=4\) inteiro, a função de sobrevivência da Gama pode ser relacionada à distribuição de Poisson:
+
+\[
+P(X>300)=e^{-\beta x}
+\sum_{i=0}^{\alpha-1}\frac{(\beta x)^i}{i!}
+\]
+
+Calculando:
+
+\[
+\beta x=0,02(300)=6
+\]
+
+Então:
+
+\[
+P(X>300)=e^{-6}
+\left[
+1+6+\frac{6^2}{2!}+\frac{6^3}{3!}
+\right]
+\]
+
+\[
+P(X>300)=0,0024787[1+6+18+36]
+\]
+
+\[
+P(X>300)=0,0024787(61)
+\]
+
+\[
+P(X>300)\approx0,1512
+\]
+
+\[
+P(X>300)\approx15,12\%
+\]
+
+```{r gama-maior-300, echo=TRUE}
+p_gama_maior_300 <- pgamma(
+  300,
+  shape = 4,
+  rate = 0.02,
+  lower.tail = FALSE
+)
+
+p_gama_maior_300
+```
+
+##  Probabilidade de chuva entre 150 mm e 250 mm
+
+Deseja-se:
+
+\[
+P(150\leq X\leq250)
+\]
+
+Utilizando a função de distribuição acumulada:
+
+```{r gama-intervalo, echo=TRUE}
+F250 <- pgamma(
+  250,
+  shape = 4,
+  rate = 0.02
+)
+
+F150 <- pgamma(
+  150,
+  shape = 4,
+  rate = 0.02
+)
+
+prob_150_250 <- F250 - F150
+
+F250
+F150
+prob_150_250
+```
+
+O relatório original apresenta como referências:
+
+\[
+F(250)=0,7350
+\]
+
+e:
+
+\[
+F(150)=0,3528
+\]
+
+Logo:
+
+\[
+P(150\leq X\leq250)=0,7350-0,3528
+\]
+
+\[
+P(150\leq X\leq250)=0,3822
+\]
+
+\[
+P(150\leq X\leq250)=38,22\%
+\]
+
+**Interpretação:** Em quase 40% dos meses, a precipitação fica na faixa moderada considerada no relatório para drenagem urbana escolar.
+
+## Percentil 95 – Evento pluviométrico extremo
+
+O percentil 95 é calculado utilizando:
+
+```{r gama-percentil, echo=TRUE}
+p95_gama <- qgamma(
+  0.95,
+  shape = 4,
+  rate = 0.02
+)
+
+p95_gama
+```
+
+O relatório original apresenta como referência:
+
+\[
+P_{95}=387,70\text{ mm}
+\]
+
+**Interpretação:** Precipitações acima do percentil 95 representam os 5% mais chuvosos segundo o modelo, exigindo atenção ao planejamento e à contingência para alagamentos.
+
+##  Média e variância teóricas
+
+Para a distribuição Gama parametrizada por forma \(\alpha\) e taxa \(\beta\):
+
+\[
+E[X]=\frac{\alpha}{\beta}
+\]
+
+Logo:
+
+\[
+E[X]=\frac{4}{0,02}=200,0\text{ mm}
+\]
+
+A variância é:
+
+\[
+Var(X)=\frac{\alpha}{\beta^2}
+\]
+
+\[
+Var(X)=\frac{4}{(0,02)^2}
+\]
+
+\[
+Var(X)=\frac{4}{0,0004}=10000\text{ mm}^2
+\]
+
+O desvio padrão é:
+
+\[
+\sigma=\sqrt{10000}=100,0\text{ mm}
+\]
+
+```{r momentos-gama, echo=TRUE}
+alpha_gama <- 4
+beta_gama <- 0.02
+
+media_gama <- alpha_gama / beta_gama
+
+variancia_gama <-
+  alpha_gama / (beta_gama^2)
+
+desvio_gama <- sqrt(variancia_gama)
+
+media_gama
+variancia_gama
+desvio_gama
+```
+
+##  Simulação de 120 meses (10 anos) no R
+
+```{r simulacao-gama, echo=TRUE}
+set.seed(123)
+
+chuvas_sim <- rgamma(
+  120,
+  shape = 4,
+  rate = 0.02
+)
+
+media_chuvas <- mean(chuvas_sim)
+
+media_chuvas
+```
+
+O relatório original apresenta como referência uma média empírica próxima de 202,4 mm. O resultado exato depende da sequência de simulação.
+
+O histograma evidencia a assimetria positiva típica de dados pluviométricos.
+
+```{r grafico-gama, echo=TRUE}
+hist(
+  chuvas_sim,
+  probability = TRUE,
+  breaks = 15,
+  main = "Precipitação Mensal Simulada - 120 Meses",
+  xlab = "Precipitação (mm)",
+  ylab = "Densidade"
+)
+
+curve(
+  dgamma(
+    x,
+    shape = 4,
+    rate = 0.02
+  ),
+  add = TRUE,
+  lwd = 2
+)
+```
+
+#  PARTE 7 – ANÁLISE INTEGRADA E DISCUSSÃO PEDAGÓGICA
+
+##  Simulação de Monte Carlo com N = 10.000 iterações
+
+### Notas do ENEM
+
+A simulação de Monte Carlo utiliza a geração de 10.000 notas a partir de uma distribuição normal com média 520 e desvio padrão 80.
+
+```{r monte-carlo, echo=TRUE}
+set.seed(123)
+
+notas_sim <- rnorm(
+  10000,
+  mean = 520,
+  sd = 80
+)
+
+quantidade_menor_400 <- sum(
+  notas_sim < 400
+)
+
+proporcao_empirica <- mean(
+  notas_sim < 400
+)
+
+quantidade_menor_400
+proporcao_empirica
+```
+
+O relatório original apresenta uma simulação com 664 alunos com nota inferior a 400 pontos, resultando em proporção empírica de 0,0664 (6,64%). A sequência exata depende da semente e do procedimento de geração utilizado.
+
+##  Comparação entre método teórico e Monte Carlo
+
+A comparação apresentada no relatório é:
+
+| Método de Apuração | Fórmula / Função R | Resultado P(X < 400) | Erro Absoluto |
+|---|---|---:|---:|
+| Teórico Analítico | `pnorm(400, 520, 80)` | 6,6807% | 0,0000% (Referência) |
+| Monte Carlo (N=10.000) | `mean(notas_sim < 400)` | 6,6400% | 0,0407% |
+
+A comparação pode ser reproduzida no R:
+
+```{r comparacao-monte-carlo, echo=TRUE}
+resultado_teorico <- pnorm(
+  400,
+  mean = 520,
+  sd = 80
+)
+
+resultado_monte_carlo <- mean(
+  notas_sim < 400
+)
+
+erro_absoluto <-
+  abs(resultado_teorico - resultado_monte_carlo)
+
+comparacao_monte_carlo <- data.frame(
+  Metodo = c(
+    "Teórico Analítico",
+    "Monte Carlo (N=10.000)"
+  ),
+  Funcao_R = c(
+    "pnorm(400, 520, 80)",
+    "mean(notas_sim < 400)"
+  ),
+  Resultado = c(
+    resultado_teorico,
+    resultado_monte_carlo
+  ),
+  Percentual = c(
+    resultado_teorico * 100,
+    resultado_monte_carlo * 100
+  )
+)
+
+knitr::kable(
+  comparacao_monte_carlo,
+  digits = 5,
+  caption = "Comparação entre probabilidade teórica e simulação de Monte Carlo"
+)
+```
+
+## Discussão pedagógica e importância da simulação no Ensino Médio
+
+A convergência entre o valor empírico da simulação e o valor teórico oferece um poderoso recurso didático para superar a abstração excessiva das fórmulas probabilísticas.
+
+### Significação Conceitual
+
+A simulação de Monte Carlo transforma a probabilidade em uma frequência relativa observável de ocorrências simuladas.
+
+### Investigação Científica – BNCC
+
+Permite aos alunos formular hipóteses, alterar parâmetros em tempo real na linguagem R e visualizar a Lei dos Grandes Números.
+
+### Modelagem de Problemas Sociais
+
+Ao conectar as distribuições à evasão, notas e clima local, a Estatística consolida-se como ferramenta de cidadania e gestão comunitária.
+
+#  SÍNTESE DOS MODELOS PROBABILÍSTICOS
+
+As distribuições especiais abordadas no relatório podem ser sintetizadas da seguinte forma:
+
+| Parte | Fenômeno | Distribuição | Parâmetros |
+|---|---|---|---|
+| 1 | Desempenho no ENEM | Normal | \(\mu=520,\sigma=80\) |
+| 2 | Aprovação em Olimpíadas | Binomial | \(n=20,p=0,25\) |
+| 3 | Evasão escolar semanal | Poisson | \(\lambda=3\) |
+| 4 | Tempo de espera | Exponencial | Média = 12 min; taxa = 1/12 |
+| 5 | Altura dos alunos | Weibull | \(k=2,\lambda=160\) cm |
+| 6 | Precipitação mensal | Gama | \(\alpha=4,\beta=0,02\) |
+| 7 | Análise integrada | Monte Carlo | \(N=10.000\) |
+
+#  CONCLUSÃO
+
+O relatório apresentou modelos probabilísticos fundamentais aplicados a situações relacionadas ao ambiente educacional, social e ambiental.
+
+A Distribuição Normal foi utilizada para modelar o desempenho no ENEM, permitindo calcular probabilidades, percentis e probabilidades envolvendo médias amostrais.
+
+A Distribuição Binomial foi utilizada para representar o número de alunos classificados em uma olimpíada, permitindo estudar probabilidades de sucesso em ensaios independentes.
+
+A Distribuição de Poisson foi aplicada ao número de evasões escolares por semana, possibilitando avaliar a ocorrência de eventos em intervalos fixos.
+
+A Distribuição Exponencial foi utilizada para modelar tempos de espera na secretaria, destacando a propriedade de falta de memória.
+
+A Distribuição Weibull foi utilizada para modelar alturas dos alunos, incluindo o cálculo de probabilidades, percentis, média, variância e função de risco.
+
+A Distribuição Gama foi aplicada à precipitação mensal, permitindo analisar eventos pluviométricos, percentis extremos, média, variância e simulações.
+
+Finalmente, a simulação de Monte Carlo demonstrou empiricamente a proximidade entre resultados teóricos e observados. A comparação entre os resultados analíticos e simulados permite compreender como as frequências relativas se aproximam das probabilidades teóricas em simulações suficientemente grandes.
+
+Do ponto de vista pedagógico, a utilização do R permite aproximar os conceitos abstratos de probabilidade de situações concretas, favorecendo a investigação, a interpretação de dados, a formulação de hipóteses e a compreensão da variabilidade.
+
+A integração entre modelagem matemática, Estatística, programação e problemas da realidade escolar contribui para o desenvolvimento das competências previstas pela BNCC, especialmente aquelas relacionadas à interpretação de fenômenos aleatórios, análise de dados e tomada de decisões fundamentadas.
+
+#  REFERÊNCIAS BIBLIOGRÁFICAS
+
+1. BRASIL. Ministério da Educação. **Base Nacional Comum Curricular (BNCC)**. Brasília: MEC, 2018.
+
+2. BUSSAB, Wilton de O.; MORETTIN, Pedro A. **Estatística Básica**. 9. ed. São Paulo: Saraiva, 2017.
+
+3. R CORE TEAM. **R: A language and environment for statistical computing**. R Foundation for Statistical Computing, Vienna, Austria, 2026.
+
+4. TRIOLA, Mario F. **Introdução à Estatística**. 12. ed. Rio de Janeiro: LTC, 2017.
+
+5. WALPOLE, Ronald E. et al. **Probabilidade e Estatística para Engenharia e Ciências**. 8. ed. São Paulo: Pearson, 2009.
+
+#  CÓDIGOS COMPLEMENTARES DAS DISTRIBUIÇÕES
+
+Esta seção reúne as principais funções do R utilizadas nos cálculos do relatório para facilitar a reprodução dos resultados.
+
+##  Distribuição Normal
+
+```{r codigos-normal, echo=TRUE}
+# Probabilidade de nota inferior a 400
+pnorm(400, mean = 520, sd = 80)
+
+# Probabilidade entre 500 e 650
+pnorm(650, mean = 520, sd = 80) -
+  pnorm(500, mean = 520, sd = 80)
+
+# Percentil 10
+qnorm(0.10, mean = 520, sd = 80)
+
+# Probabilidade de média amostral superior a 550
+1 - pnorm(
+  550,
+  mean = 520,
+  sd = 80 / sqrt(25)
+)
+```
+
+##  Distribuição Binomial
+
+```{r codigos-binomial, echo=TRUE}
+# Nenhum aluno classificado
+dbinom(0, size = 20, prob = 0.25)
+
+# No máximo 3 alunos classificados
+pbinom(3, size = 20, prob = 0.25)
+
+# 8 ou mais alunos classificados
+pbinom(
+  7,
+  size = 20,
+  prob = 0.25,
+  lower.tail = FALSE
+)
+
+# Esperança
+20 * 0.25
+
+# Variância
+20 * 0.25 * 0.75
+```
+
+##  Distribuição Poisson
+
+```{r codigos-poisson, echo=TRUE}
+# Nenhuma evasão
+dpois(0, lambda = 3)
+
+# 5 ou mais evasões
+ppois(4, lambda = 3, lower.tail = FALSE)
+
+# Entre 2 e 4 evasões
+ppois(4, lambda = 3) -
+  ppois(1, lambda = 3)
+
+# Exatamente 7 evasões em duas semanas
+dpois(7, lambda = 6)
+```
+
+##  Distribuição Exponencial
+
+```{r codigos-exponencial, echo=TRUE}
+# Espera superior a 20 minutos
+pexp(20, rate = 1 / 12, lower.tail = FALSE)
+
+# Espera inferior a 5 minutos
+pexp(5, rate = 1 / 12)
+
+# Mediana
+qexp(0.50, rate = 1 / 12)
+
+# Espera adicional de 8 minutos
+pexp(8, rate = 1 / 12, lower.tail = FALSE)
+```
+
+##  Distribuição Weibull
+
+```{r codigos-weibull, echo=TRUE}
+# Altura inferior a 140 cm
+pweibull(140, shape = 2, scale = 160)
+
+# Altura entre 150 e 175 cm
+pweibull(175, shape = 2, scale = 160) -
+  pweibull(150, shape = 2, scale = 160)
+
+# Percentil 90
+qweibull(0.90, shape = 2, scale = 160)
+
+# Média teórica
+160 * gamma(1 + 1 / 2)
+```
+
+##  Distribuição Gama
+
+```{r codigos-gama, echo=TRUE}
+# Chuva superior a 300 mm
+pgamma(
+  300,
+  shape = 4,
+  rate = 0.02,
+  lower.tail = FALSE
+)
+
+# Chuva entre 150 e 250 mm
+pgamma(250, shape = 4, rate = 0.02) -
+  pgamma(150, shape = 4, rate = 0.02)
+
+# Percentil 95
+qgamma(0.95, shape = 4, rate = 0.02)
+
+# Média teórica
+4 / 0.02
+
+# Variância teórica
+4 / (0.02^2)
+```
+
+##  Simulações complementares
+
+```{r simulacoes-complementares, echo=TRUE}
+set.seed(123)
+
+# Simulação Normal
+notas_sim <- rnorm(
+  10000,
+  mean = 520,
+  sd = 80
+)
+
+# Simulação Binomial
+turmas_sim <- rbinom(
+  1000,
+  size = 20,
+  prob = 0.25
+)
+
+# Simulação Exponencial
+tempos_sim <- rexp(
+  1000,
+  rate = 1 / 12
+)
+
+# Simulação Gama
+chuvas_sim <- rgamma(
+  120,
+  shape = 4,
+  rate = 0.02
+)
+
+# Resumo das simulações
+resumo_simulacoes <- data.frame(
+  Distribuicao = c(
+    "Normal",
+    "Binomial",
+    "Exponencial",
+    "Gama"
+  ),
+  Media_Simulada = c(
+    mean(notas_sim),
+    mean(turmas_sim),
+    mean(tempos_sim),
+    mean(chuvas_sim)
+  ),
+  Desvio_Padrao_Simulado = c(
+    sd(notas_sim),
+    sd(turmas_sim),
+    sd(tempos_sim),
+    sd(chuvas_sim)
+  )
+)
+
+knitr::kable(
+  resumo_simulacoes,
+  digits = 4,
+  caption = "Resumo das simulações computacionais"
+)
+```
+
+#  ENCERRAMENTO
+
+**RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA — Luciano Vaz**
+
+**Distribuições especiais de probabilidade segundo BNCC**
+
+**Data de entrega: 07/10/2026**
