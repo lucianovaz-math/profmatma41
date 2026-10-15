@@ -1,6 +1,6 @@
 ---
 title: "RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA"
-subtitle: "Distribuições especiais de probabilidade segundo BNCC"
+subtitle: "Distribuições especiais de probabilidade segundo BNCC **Atuação:** Coordenador do Lab. de Estatística **Formato:** Relatório Técnico-Pedagógico"
 author: "Luciano Vaz"
 date: "07/10/2026"
 output:
@@ -12,15 +12,6 @@ output:
     df_print: paged
 ---
 
-# RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA
-
-**Autor:** Luciano Vaz
-
-**Data de Entrega:** 07/10/2026
-
-**Atuação:** Coordenador do Lab. de Estatística
-
-**Formato:** Relatório Técnico-Pedagógico
 
 ## Contextualização Profissional
 

@@ -1642,7 +1642,8 @@ display: none;
 <h1 class="title toc-ignore">RELATÓRIO 05 DE PROBABILIDADE E
 ESTATÍSTICA</h1>
 <h3 class="subtitle">Distribuições especiais de probabilidade segundo
-BNCC</h3>
+BNCC <strong>Atuação:</strong> Coordenador do Lab. de Estatística
+<strong>Formato:</strong> Relatório Técnico-Pedagógico</h3>
 <h4 class="author">Luciano Vaz</h4>
 <h4 class="date">07/10/2026</h4>
 
@@ -1650,153 +1651,142 @@ BNCC</h3>
 
 <div id="TOC">
 <ul>
-<li><a href="#relat%C3%B3rio-05-de-probabilidade-e-estat%C3%ADstica" id="toc-relatório-05-de-probabilidade-e-estatística"><span class="toc-section-number">1</span> RELATÓRIO 05 DE PROBABILIDADE E
-ESTATÍSTICA</a>
-<ul>
-<li><a href="#contextualiza%C3%A7%C3%A3o-profissional" id="toc-contextualização-profissional"><span class="toc-section-number">1.1</span> Contextualização
+<li><a href="#contextualiza%C3%A7%C3%A3o-profissional" id="toc-contextualização-profissional"><span class="toc-section-number">0.1</span> Contextualização
 Profissional</a></li>
-</ul></li>
-<li><a href="#contextualiza%C3%A7%C3%A3o-e-objetivos-did%C3%A1ticos" id="toc-contextualização-e-objetivos-didáticos"><span class="toc-section-number">2</span> CONTEXTUALIZAÇÃO E OBJETIVOS
+<li><a href="#contextualiza%C3%A7%C3%A3o-e-objetivos-did%C3%A1ticos" id="toc-contextualização-e-objetivos-didáticos"><span class="toc-section-number">1</span> CONTEXTUALIZAÇÃO E OBJETIVOS
 DIDÁTICOS</a></li>
-<li><a href="#parte-1-desempenho-no-enem-distribui%C3%A7%C3%A3o-normal" id="toc-parte-1-desempenho-no-enem-distribuição-normal"><span class="toc-section-number">3</span> PARTE 1 – DESEMPENHO NO ENEM
+<li><a href="#parte-1-desempenho-no-enem-distribui%C3%A7%C3%A3o-normal" id="toc-parte-1-desempenho-no-enem-distribuição-normal"><span class="toc-section-number">2</span> PARTE 1 – DESEMPENHO NO ENEM
 (DISTRIBUIÇÃO NORMAL)</a>
 <ul>
-<li><a href="#modelo-probabil%C3%ADstico" id="toc-modelo-probabilístico"><span class="toc-section-number">3.1</span> Modelo probabilístico</a></li>
-<li><a href="#probabilidade-de-nota-inferior-a-400-pontos" id="toc-probabilidade-de-nota-inferior-a-400-pontos"><span class="toc-section-number">3.2</span> Probabilidade de nota inferior a
+<li><a href="#modelo-probabil%C3%ADstico" id="toc-modelo-probabilístico"><span class="toc-section-number">2.1</span> Modelo probabilístico</a></li>
+<li><a href="#probabilidade-de-nota-inferior-a-400-pontos" id="toc-probabilidade-de-nota-inferior-a-400-pontos"><span class="toc-section-number">2.2</span> Probabilidade de nota inferior a
 400 pontos</a></li>
-<li><a href="#probabilidade-da-nota-estar-entre-500-e-650-pontos" id="toc-probabilidade-da-nota-estar-entre-500-e-650-pontos"><span class="toc-section-number">3.3</span> Probabilidade da nota estar entre
+<li><a href="#probabilidade-da-nota-estar-entre-500-e-650-pontos" id="toc-probabilidade-da-nota-estar-entre-500-e-650-pontos"><span class="toc-section-number">2.3</span> Probabilidade da nota estar entre
 500 e 650 pontos</a></li>
-<li><a href="#nota-limite-para-os-10-inferiores-percentil-10" id="toc-nota-limite-para-os-10-inferiores-percentil-10"><span class="toc-section-number">3.4</span> Nota limite para os 10% inferiores
+<li><a href="#nota-limite-para-os-10-inferiores-percentil-10" id="toc-nota-limite-para-os-10-inferiores-percentil-10"><span class="toc-section-number">2.4</span> Nota limite para os 10% inferiores
 – Percentil 10</a></li>
-<li><a href="#probabilidade-da-m%C3%A9dia-de-25-alunos-ser-superior-a-550" id="toc-probabilidade-da-média-de-25-alunos-ser-superior-a-550"><span class="toc-section-number">3.5</span> Probabilidade da média de 25
+<li><a href="#probabilidade-da-m%C3%A9dia-de-25-alunos-ser-superior-a-550" id="toc-probabilidade-da-média-de-25-alunos-ser-superior-a-550"><span class="toc-section-number">2.5</span> Probabilidade da média de 25
 alunos ser superior a 550</a></li>
-<li><a href="#simula%C3%A7%C3%A3o-de-1.000-notas-no-r-e-compara%C3%A7%C3%A3o-te%C3%B3rica" id="toc-simulação-de-1.000-notas-no-r-e-comparação-teórica"><span class="toc-section-number">3.6</span> Simulação de 1.000 notas no R e
+<li><a href="#simula%C3%A7%C3%A3o-de-1.000-notas-no-r-e-compara%C3%A7%C3%A3o-te%C3%B3rica" id="toc-simulação-de-1.000-notas-no-r-e-comparação-teórica"><span class="toc-section-number">2.6</span> Simulação de 1.000 notas no R e
 comparação teórica</a></li>
 </ul></li>
-<li><a href="#parte-2-aprova%C3%A7%C3%A3o-em-olimp%C3%ADadas-distribui%C3%A7%C3%A3o-binomial" id="toc-parte-2-aprovação-em-olimpíadas-distribuição-binomial"><span class="toc-section-number">4</span> PARTE 2 – APROVAÇÃO EM OLIMPÍADAS
+<li><a href="#parte-2-aprova%C3%A7%C3%A3o-em-olimp%C3%ADadas-distribui%C3%A7%C3%A3o-binomial" id="toc-parte-2-aprovação-em-olimpíadas-distribuição-binomial"><span class="toc-section-number">3</span> PARTE 2 – APROVAÇÃO EM OLIMPÍADAS
 (DISTRIBUIÇÃO BINOMIAL)</a>
 <ul>
-<li><a href="#modelo-probabil%C3%ADstico-1" id="toc-modelo-probabilístico-1"><span class="toc-section-number">4.1</span> Modelo probabilístico</a></li>
-<li><a href="#probabilidade-de-nenhum-aluno-se-classificar" id="toc-probabilidade-de-nenhum-aluno-se-classificar"><span class="toc-section-number">4.2</span> Probabilidade de nenhum aluno se
+<li><a href="#modelo-probabil%C3%ADstico-1" id="toc-modelo-probabilístico-1"><span class="toc-section-number">3.1</span> Modelo probabilístico</a></li>
+<li><a href="#probabilidade-de-nenhum-aluno-se-classificar" id="toc-probabilidade-de-nenhum-aluno-se-classificar"><span class="toc-section-number">3.2</span> Probabilidade de nenhum aluno se
 classificar</a></li>
-<li><a href="#probabilidade-de-no-m%C3%A1ximo-3-alunos-se-classificarem" id="toc-probabilidade-de-no-máximo-3-alunos-se-classificarem"><span class="toc-section-number">4.3</span> Probabilidade de no máximo 3
+<li><a href="#probabilidade-de-no-m%C3%A1ximo-3-alunos-se-classificarem" id="toc-probabilidade-de-no-máximo-3-alunos-se-classificarem"><span class="toc-section-number">3.3</span> Probabilidade de no máximo 3
 alunos se classificarem</a></li>
-<li><a href="#probabilidade-de-8-ou-mais-alunos-se-classificarem" id="toc-probabilidade-de-8-ou-mais-alunos-se-classificarem"><span class="toc-section-number">4.4</span> Probabilidade de 8 ou mais alunos
+<li><a href="#probabilidade-de-8-ou-mais-alunos-se-classificarem" id="toc-probabilidade-de-8-ou-mais-alunos-se-classificarem"><span class="toc-section-number">3.4</span> Probabilidade de 8 ou mais alunos
 se classificarem</a></li>
-<li><a href="#esperan%C3%A7a-vari%C3%A2ncia-e-desvio-padr%C3%A3o-te%C3%B3ricos" id="toc-esperança-variância-e-desvio-padrão-teóricos"><span class="toc-section-number">4.5</span> Esperança, variância e desvio
+<li><a href="#esperan%C3%A7a-vari%C3%A2ncia-e-desvio-padr%C3%A3o-te%C3%B3ricos" id="toc-esperança-variância-e-desvio-padrão-teóricos"><span class="toc-section-number">3.5</span> Esperança, variância e desvio
 padrão teóricos</a></li>
-<li><a href="#simula%C3%A7%C3%A3o-de-1.000-turmas-e-compara%C3%A7%C3%A3o-de-frequ%C3%AAncias" id="toc-simulação-de-1.000-turmas-e-comparação-de-frequências"><span class="toc-section-number">4.6</span> Simulação de 1.000 turmas e
+<li><a href="#simula%C3%A7%C3%A3o-de-1.000-turmas-e-compara%C3%A7%C3%A3o-de-frequ%C3%AAncias" id="toc-simulação-de-1.000-turmas-e-comparação-de-frequências"><span class="toc-section-number">3.6</span> Simulação de 1.000 turmas e
 comparação de frequências</a></li>
 </ul></li>
-<li><a href="#parte-3-evas%C3%A3o-escolar-por-semana-distribui%C3%A7%C3%A3o-poisson" id="toc-parte-3-evasão-escolar-por-semana-distribuição-poisson"><span class="toc-section-number">5</span> PARTE 3 – EVASÃO ESCOLAR POR SEMANA
+<li><a href="#parte-3-evas%C3%A3o-escolar-por-semana-distribui%C3%A7%C3%A3o-poisson" id="toc-parte-3-evasão-escolar-por-semana-distribuição-poisson"><span class="toc-section-number">4</span> PARTE 3 – EVASÃO ESCOLAR POR SEMANA
 (DISTRIBUIÇÃO POISSON)</a>
 <ul>
-<li><a href="#modelo-probabil%C3%ADstico-2" id="toc-modelo-probabilístico-2"><span class="toc-section-number">5.1</span> Modelo probabilístico</a></li>
-<li><a href="#probabilidade-de-nenhuma-evas%C3%A3o-em-uma-semana" id="toc-probabilidade-de-nenhuma-evasão-em-uma-semana"><span class="toc-section-number">5.2</span> Probabilidade de nenhuma evasão em
+<li><a href="#modelo-probabil%C3%ADstico-2" id="toc-modelo-probabilístico-2"><span class="toc-section-number">4.1</span> Modelo probabilístico</a></li>
+<li><a href="#probabilidade-de-nenhuma-evas%C3%A3o-em-uma-semana" id="toc-probabilidade-de-nenhuma-evasão-em-uma-semana"><span class="toc-section-number">4.2</span> Probabilidade de nenhuma evasão em
 uma semana</a></li>
-<li><a href="#probabilidade-de-5-ou-mais-evas%C3%B5es-em-uma-semana" id="toc-probabilidade-de-5-ou-mais-evasões-em-uma-semana"><span class="toc-section-number">5.3</span> Probabilidade de 5 ou mais evasões
+<li><a href="#probabilidade-de-5-ou-mais-evas%C3%B5es-em-uma-semana" id="toc-probabilidade-de-5-ou-mais-evasões-em-uma-semana"><span class="toc-section-number">4.3</span> Probabilidade de 5 ou mais evasões
 em uma semana</a></li>
-<li><a href="#probabilidade-de-entre-2-e-4-evas%C3%B5es" id="toc-probabilidade-de-entre-2-e-4-evasões"><span class="toc-section-number">5.4</span> Probabilidade de entre 2 e 4
+<li><a href="#probabilidade-de-entre-2-e-4-evas%C3%B5es" id="toc-probabilidade-de-entre-2-e-4-evasões"><span class="toc-section-number">4.4</span> Probabilidade de entre 2 e 4
 evasões</a></li>
-<li><a href="#probabilidade-de-exatamente-7-evas%C3%B5es-em-duas-semanas" id="toc-probabilidade-de-exatamente-7-evasões-em-duas-semanas"><span class="toc-section-number">5.5</span> Probabilidade de exatamente 7
+<li><a href="#probabilidade-de-exatamente-7-evas%C3%B5es-em-duas-semanas" id="toc-probabilidade-de-exatamente-7-evasões-em-duas-semanas"><span class="toc-section-number">4.5</span> Probabilidade de exatamente 7
 evasões em duas semanas</a></li>
-<li><a href="#esperan%C3%A7a-e-vari%C3%A2ncia-te%C3%B3ricas" id="toc-esperança-e-variância-teóricas"><span class="toc-section-number">5.6</span> Esperança e variância
+<li><a href="#esperan%C3%A7a-e-vari%C3%A2ncia-te%C3%B3ricas" id="toc-esperança-e-variância-teóricas"><span class="toc-section-number">4.6</span> Esperança e variância
 teóricas</a></li>
 </ul></li>
-<li><a href="#parte-4-tempo-de-espera-no-atendimento-distribui%C3%A7%C3%A3o-exponencial" id="toc-parte-4-tempo-de-espera-no-atendimento-distribuição-exponencial"><span class="toc-section-number">6</span> PARTE 4 – TEMPO DE ESPERA NO
+<li><a href="#parte-4-tempo-de-espera-no-atendimento-distribui%C3%A7%C3%A3o-exponencial" id="toc-parte-4-tempo-de-espera-no-atendimento-distribuição-exponencial"><span class="toc-section-number">5</span> PARTE 4 – TEMPO DE ESPERA NO
 ATENDIMENTO (DISTRIBUIÇÃO EXPONENCIAL)</a>
 <ul>
-<li><a href="#modelo-probabil%C3%ADstico-3" id="toc-modelo-probabilístico-3"><span class="toc-section-number">6.1</span> Modelo probabilístico</a></li>
-<li><a href="#probabilidade-de-espera-superior-a-20-minutos" id="toc-probabilidade-de-espera-superior-a-20-minutos"><span class="toc-section-number">6.2</span> Probabilidade de espera superior a
+<li><a href="#modelo-probabil%C3%ADstico-3" id="toc-modelo-probabilístico-3"><span class="toc-section-number">5.1</span> Modelo probabilístico</a></li>
+<li><a href="#probabilidade-de-espera-superior-a-20-minutos" id="toc-probabilidade-de-espera-superior-a-20-minutos"><span class="toc-section-number">5.2</span> Probabilidade de espera superior a
 20 minutos</a></li>
-<li><a href="#probabilidade-de-espera-inferior-a-5-minutos" id="toc-probabilidade-de-espera-inferior-a-5-minutos"><span class="toc-section-number">6.3</span> Probabilidade de espera inferior a
+<li><a href="#probabilidade-de-espera-inferior-a-5-minutos" id="toc-probabilidade-de-espera-inferior-a-5-minutos"><span class="toc-section-number">5.3</span> Probabilidade de espera inferior a
 5 minutos</a></li>
-<li><a href="#tempo-mediano-de-espera-percentil-50" id="toc-tempo-mediano-de-espera-percentil-50"><span class="toc-section-number">6.4</span> Tempo mediano de espera –
+<li><a href="#tempo-mediano-de-espera-percentil-50" id="toc-tempo-mediano-de-espera-percentil-50"><span class="toc-section-number">5.4</span> Tempo mediano de espera –
 Percentil 50</a></li>
-<li><a href="#espera-adicional-de-8-minutos-para-quem-j%C3%A1-esperou-10-minutos" id="toc-espera-adicional-de-8-minutos-para-quem-já-esperou-10-minutos"><span class="toc-section-number">6.5</span> Espera adicional de 8 minutos para
+<li><a href="#espera-adicional-de-8-minutos-para-quem-j%C3%A1-esperou-10-minutos" id="toc-espera-adicional-de-8-minutos-para-quem-já-esperou-10-minutos"><span class="toc-section-number">5.5</span> Espera adicional de 8 minutos para
 quem já esperou 10 minutos</a></li>
-<li><a href="#simula%C3%A7%C3%A3o-de-1.000-tempos-e-valida%C3%A7%C3%A3o" id="toc-simulação-de-1.000-tempos-e-validação"><span class="toc-section-number">6.6</span> Simulação de 1.000 tempos e
+<li><a href="#simula%C3%A7%C3%A3o-de-1.000-tempos-e-valida%C3%A7%C3%A3o" id="toc-simulação-de-1.000-tempos-e-validação"><span class="toc-section-number">5.6</span> Simulação de 1.000 tempos e
 validação</a></li>
 </ul></li>
-<li><a href="#parte-5-altura-dos-alunos-do-9%C2%BA-ano-distribui%C3%A7%C3%A3o-weibull" id="toc-parte-5-altura-dos-alunos-do-9º-ano-distribuição-weibull"><span class="toc-section-number">7</span> PARTE 5 – ALTURA DOS ALUNOS DO 9º
+<li><a href="#parte-5-altura-dos-alunos-do-9%C2%BA-ano-distribui%C3%A7%C3%A3o-weibull" id="toc-parte-5-altura-dos-alunos-do-9º-ano-distribuição-weibull"><span class="toc-section-number">6</span> PARTE 5 – ALTURA DOS ALUNOS DO 9º
 ANO (DISTRIBUIÇÃO WEIBULL)</a>
 <ul>
-<li><a href="#modelo-probabil%C3%ADstico-4" id="toc-modelo-probabilístico-4"><span class="toc-section-number">7.1</span> Modelo probabilístico</a></li>
-<li><a href="#probabilidade-de-altura-inferior-a-140-cm" id="toc-probabilidade-de-altura-inferior-a-140-cm"><span class="toc-section-number">7.2</span> Probabilidade de altura inferior a
+<li><a href="#modelo-probabil%C3%ADstico-4" id="toc-modelo-probabilístico-4"><span class="toc-section-number">6.1</span> Modelo probabilístico</a></li>
+<li><a href="#probabilidade-de-altura-inferior-a-140-cm" id="toc-probabilidade-de-altura-inferior-a-140-cm"><span class="toc-section-number">6.2</span> Probabilidade de altura inferior a
 140 cm</a></li>
-<li><a href="#probabilidade-da-altura-estar-entre-150-cm-e-175-cm" id="toc-probabilidade-da-altura-estar-entre-150-cm-e-175-cm"><span class="toc-section-number">7.3</span> Probabilidade da altura estar
+<li><a href="#probabilidade-da-altura-estar-entre-150-cm-e-175-cm" id="toc-probabilidade-da-altura-estar-entre-150-cm-e-175-cm"><span class="toc-section-number">6.3</span> Probabilidade da altura estar
 entre 150 cm e 175 cm</a></li>
-<li><a href="#percentil-90-das-alturas" id="toc-percentil-90-das-alturas"><span class="toc-section-number">7.4</span> Percentil 90 das alturas</a></li>
-<li><a href="#c%C3%A1lculo-anal%C3%ADtico-da-m%C3%A9dia-e-do-desvio-padr%C3%A3o" id="toc-cálculo-analítico-da-média-e-do-desvio-padrão"><span class="toc-section-number">7.5</span> Cálculo analítico da média e do
+<li><a href="#percentil-90-das-alturas" id="toc-percentil-90-das-alturas"><span class="toc-section-number">6.4</span> Percentil 90 das alturas</a></li>
+<li><a href="#c%C3%A1lculo-anal%C3%ADtico-da-m%C3%A9dia-e-do-desvio-padr%C3%A3o" id="toc-cálculo-analítico-da-média-e-do-desvio-padrão"><span class="toc-section-number">6.5</span> Cálculo analítico da média e do
 desvio padrão</a></li>
-<li><a href="#fun%C3%A7%C3%A3o-de-risco-hazard-e-interpreta%C3%A7%C3%A3o-biol%C3%B3gica" id="toc-função-de-risco-hazard-e-interpretação-biológica"><span class="toc-section-number">7.6</span> Função de risco (Hazard) e
+<li><a href="#fun%C3%A7%C3%A3o-de-risco-hazard-e-interpreta%C3%A7%C3%A3o-biol%C3%B3gica" id="toc-função-de-risco-hazard-e-interpretação-biológica"><span class="toc-section-number">6.6</span> Função de risco (Hazard) e
 interpretação biológica</a></li>
 </ul></li>
-<li><a href="#parte-6-precipita%C3%A7%C3%A3o-mensal-na-regi%C3%A3o-distribui%C3%A7%C3%A3o-gama" id="toc-parte-6-precipitação-mensal-na-região-distribuição-gama"><span class="toc-section-number">8</span> PARTE 6 – PRECIPITAÇÃO MENSAL NA
+<li><a href="#parte-6-precipita%C3%A7%C3%A3o-mensal-na-regi%C3%A3o-distribui%C3%A7%C3%A3o-gama" id="toc-parte-6-precipitação-mensal-na-região-distribuição-gama"><span class="toc-section-number">7</span> PARTE 6 – PRECIPITAÇÃO MENSAL NA
 REGIÃO (DISTRIBUIÇÃO GAMA)</a>
 <ul>
-<li><a href="#modelo-probabil%C3%ADstico-5" id="toc-modelo-probabilístico-5"><span class="toc-section-number">8.1</span> Modelo probabilístico</a></li>
-<li><a href="#probabilidade-de-chuva-superior-a-300-mm" id="toc-probabilidade-de-chuva-superior-a-300-mm"><span class="toc-section-number">8.2</span> Probabilidade de chuva superior a
+<li><a href="#modelo-probabil%C3%ADstico-5" id="toc-modelo-probabilístico-5"><span class="toc-section-number">7.1</span> Modelo probabilístico</a></li>
+<li><a href="#probabilidade-de-chuva-superior-a-300-mm" id="toc-probabilidade-de-chuva-superior-a-300-mm"><span class="toc-section-number">7.2</span> Probabilidade de chuva superior a
 300 mm</a></li>
-<li><a href="#probabilidade-de-chuva-entre-150-mm-e-250-mm" id="toc-probabilidade-de-chuva-entre-150-mm-e-250-mm"><span class="toc-section-number">8.3</span> Probabilidade de chuva entre 150
+<li><a href="#probabilidade-de-chuva-entre-150-mm-e-250-mm" id="toc-probabilidade-de-chuva-entre-150-mm-e-250-mm"><span class="toc-section-number">7.3</span> Probabilidade de chuva entre 150
 mm e 250 mm</a></li>
-<li><a href="#percentil-95-evento-pluviom%C3%A9trico-extremo" id="toc-percentil-95-evento-pluviométrico-extremo"><span class="toc-section-number">8.4</span> Percentil 95 – Evento
+<li><a href="#percentil-95-evento-pluviom%C3%A9trico-extremo" id="toc-percentil-95-evento-pluviométrico-extremo"><span class="toc-section-number">7.4</span> Percentil 95 – Evento
 pluviométrico extremo</a></li>
-<li><a href="#m%C3%A9dia-e-vari%C3%A2ncia-te%C3%B3ricas" id="toc-média-e-variância-teóricas"><span class="toc-section-number">8.5</span> Média e variância
+<li><a href="#m%C3%A9dia-e-vari%C3%A2ncia-te%C3%B3ricas" id="toc-média-e-variância-teóricas"><span class="toc-section-number">7.5</span> Média e variância
 teóricas</a></li>
-<li><a href="#simula%C3%A7%C3%A3o-de-120-meses-10-anos-no-r" id="toc-simulação-de-120-meses-10-anos-no-r"><span class="toc-section-number">8.6</span> Simulação de 120 meses (10 anos)
+<li><a href="#simula%C3%A7%C3%A3o-de-120-meses-10-anos-no-r" id="toc-simulação-de-120-meses-10-anos-no-r"><span class="toc-section-number">7.6</span> Simulação de 120 meses (10 anos)
 no R</a></li>
 </ul></li>
-<li><a href="#parte-7-an%C3%A1lise-integrada-e-discuss%C3%A3o-pedag%C3%B3gica" id="toc-parte-7-análise-integrada-e-discussão-pedagógica"><span class="toc-section-number">9</span> PARTE 7 – ANÁLISE INTEGRADA E
+<li><a href="#parte-7-an%C3%A1lise-integrada-e-discuss%C3%A3o-pedag%C3%B3gica" id="toc-parte-7-análise-integrada-e-discussão-pedagógica"><span class="toc-section-number">8</span> PARTE 7 – ANÁLISE INTEGRADA E
 DISCUSSÃO PEDAGÓGICA</a>
 <ul>
-<li><a href="#simula%C3%A7%C3%A3o-de-monte-carlo-com-n-10.000-itera%C3%A7%C3%B5es" id="toc-simulação-de-monte-carlo-com-n-10.000-iterações"><span class="toc-section-number">9.1</span> Simulação de Monte Carlo com N =
+<li><a href="#simula%C3%A7%C3%A3o-de-monte-carlo-com-n-10.000-itera%C3%A7%C3%B5es" id="toc-simulação-de-monte-carlo-com-n-10.000-iterações"><span class="toc-section-number">8.1</span> Simulação de Monte Carlo com N =
 10.000 iterações</a>
 <ul>
-<li><a href="#notas-do-enem" id="toc-notas-do-enem"><span class="toc-section-number">9.1.1</span> Notas do ENEM</a></li>
+<li><a href="#notas-do-enem" id="toc-notas-do-enem"><span class="toc-section-number">8.1.1</span> Notas do ENEM</a></li>
 </ul></li>
-<li><a href="#compara%C3%A7%C3%A3o-entre-m%C3%A9todo-te%C3%B3rico-e-monte-carlo" id="toc-comparação-entre-método-teórico-e-monte-carlo"><span class="toc-section-number">9.2</span> Comparação entre método teórico e
+<li><a href="#compara%C3%A7%C3%A3o-entre-m%C3%A9todo-te%C3%B3rico-e-monte-carlo" id="toc-comparação-entre-método-teórico-e-monte-carlo"><span class="toc-section-number">8.2</span> Comparação entre método teórico e
 Monte Carlo</a></li>
-<li><a href="#discuss%C3%A3o-pedag%C3%B3gica-e-import%C3%A2ncia-da-simula%C3%A7%C3%A3o-no-ensino-m%C3%A9dio" id="toc-discussão-pedagógica-e-importância-da-simulação-no-ensino-médio"><span class="toc-section-number">9.3</span> Discussão pedagógica e importância
+<li><a href="#discuss%C3%A3o-pedag%C3%B3gica-e-import%C3%A2ncia-da-simula%C3%A7%C3%A3o-no-ensino-m%C3%A9dio" id="toc-discussão-pedagógica-e-importância-da-simulação-no-ensino-médio"><span class="toc-section-number">8.3</span> Discussão pedagógica e importância
 da simulação no Ensino Médio</a>
 <ul>
-<li><a href="#significa%C3%A7%C3%A3o-conceitual" id="toc-significação-conceitual"><span class="toc-section-number">9.3.1</span> Significação Conceitual</a></li>
-<li><a href="#investiga%C3%A7%C3%A3o-cient%C3%ADfica-bncc" id="toc-investigação-científica-bncc"><span class="toc-section-number">9.3.2</span> Investigação Científica –
+<li><a href="#significa%C3%A7%C3%A3o-conceitual" id="toc-significação-conceitual"><span class="toc-section-number">8.3.1</span> Significação Conceitual</a></li>
+<li><a href="#investiga%C3%A7%C3%A3o-cient%C3%ADfica-bncc" id="toc-investigação-científica-bncc"><span class="toc-section-number">8.3.2</span> Investigação Científica –
 BNCC</a></li>
-<li><a href="#modelagem-de-problemas-sociais" id="toc-modelagem-de-problemas-sociais"><span class="toc-section-number">9.3.3</span> Modelagem de Problemas
+<li><a href="#modelagem-de-problemas-sociais" id="toc-modelagem-de-problemas-sociais"><span class="toc-section-number">8.3.3</span> Modelagem de Problemas
 Sociais</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#s%C3%ADntese-dos-modelos-probabil%C3%ADsticos" id="toc-síntese-dos-modelos-probabilísticos"><span class="toc-section-number">10</span> SÍNTESE DOS MODELOS
+<li><a href="#s%C3%ADntese-dos-modelos-probabil%C3%ADsticos" id="toc-síntese-dos-modelos-probabilísticos"><span class="toc-section-number">9</span> SÍNTESE DOS MODELOS
 PROBABILÍSTICOS</a></li>
-<li><a href="#conclus%C3%A3o" id="toc-conclusão"><span class="toc-section-number">11</span> CONCLUSÃO</a></li>
-<li><a href="#refer%C3%AAncias-bibliogr%C3%A1ficas" id="toc-referências-bibliográficas"><span class="toc-section-number">12</span> REFERÊNCIAS BIBLIOGRÁFICAS</a></li>
-<li><a href="#c%C3%B3digos-complementares-das-distribui%C3%A7%C3%B5es" id="toc-códigos-complementares-das-distribuições"><span class="toc-section-number">13</span> CÓDIGOS COMPLEMENTARES DAS
+<li><a href="#conclus%C3%A3o" id="toc-conclusão"><span class="toc-section-number">10</span> CONCLUSÃO</a></li>
+<li><a href="#refer%C3%AAncias-bibliogr%C3%A1ficas" id="toc-referências-bibliográficas"><span class="toc-section-number">11</span> REFERÊNCIAS BIBLIOGRÁFICAS</a></li>
+<li><a href="#c%C3%B3digos-complementares-das-distribui%C3%A7%C3%B5es" id="toc-códigos-complementares-das-distribuições"><span class="toc-section-number">12</span> CÓDIGOS COMPLEMENTARES DAS
 DISTRIBUIÇÕES</a>
 <ul>
-<li><a href="#distribui%C3%A7%C3%A3o-normal" id="toc-distribuição-normal"><span class="toc-section-number">13.1</span> Distribuição Normal</a></li>
-<li><a href="#distribui%C3%A7%C3%A3o-binomial" id="toc-distribuição-binomial"><span class="toc-section-number">13.2</span> Distribuição Binomial</a></li>
-<li><a href="#distribui%C3%A7%C3%A3o-poisson" id="toc-distribuição-poisson"><span class="toc-section-number">13.3</span> Distribuição Poisson</a></li>
-<li><a href="#distribui%C3%A7%C3%A3o-exponencial" id="toc-distribuição-exponencial"><span class="toc-section-number">13.4</span> Distribuição Exponencial</a></li>
-<li><a href="#distribui%C3%A7%C3%A3o-weibull" id="toc-distribuição-weibull"><span class="toc-section-number">13.5</span> Distribuição Weibull</a></li>
-<li><a href="#distribui%C3%A7%C3%A3o-gama" id="toc-distribuição-gama"><span class="toc-section-number">13.6</span>
+<li><a href="#distribui%C3%A7%C3%A3o-normal" id="toc-distribuição-normal"><span class="toc-section-number">12.1</span> Distribuição Normal</a></li>
+<li><a href="#distribui%C3%A7%C3%A3o-binomial" id="toc-distribuição-binomial"><span class="toc-section-number">12.2</span> Distribuição Binomial</a></li>
+<li><a href="#distribui%C3%A7%C3%A3o-poisson" id="toc-distribuição-poisson"><span class="toc-section-number">12.3</span> Distribuição Poisson</a></li>
+<li><a href="#distribui%C3%A7%C3%A3o-exponencial" id="toc-distribuição-exponencial"><span class="toc-section-number">12.4</span> Distribuição Exponencial</a></li>
+<li><a href="#distribui%C3%A7%C3%A3o-weibull" id="toc-distribuição-weibull"><span class="toc-section-number">12.5</span> Distribuição Weibull</a></li>
+<li><a href="#distribui%C3%A7%C3%A3o-gama" id="toc-distribuição-gama"><span class="toc-section-number">12.6</span>
 Distribuição Gama</a></li>
-<li><a href="#simula%C3%A7%C3%B5es-complementares" id="toc-simulações-complementares"><span class="toc-section-number">13.7</span> Simulações
+<li><a href="#simula%C3%A7%C3%B5es-complementares" id="toc-simulações-complementares"><span class="toc-section-number">12.7</span> Simulações
 complementares</a></li>
 </ul></li>
-<li><a href="#encerramento" id="toc-encerramento"><span class="toc-section-number">14</span> ENCERRAMENTO</a></li>
+<li><a href="#encerramento" id="toc-encerramento"><span class="toc-section-number">13</span> ENCERRAMENTO</a></li>
 </ul>
 </div>
 
-<div id="relatório-05-de-probabilidade-e-estatística" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> RELATÓRIO 05 DE
-PROBABILIDADE E ESTATÍSTICA</h1>
-<p><strong>Autor:</strong> Luciano Vaz</p>
-<p><strong>Data de Entrega:</strong> 07/10/2026</p>
-<p><strong>Atuação:</strong> Coordenador do Lab. de Estatística</p>
-<p><strong>Formato:</strong> Relatório Técnico-Pedagógico</p>
-<div id="contextualização-profissional" class="section level2" number="1.1">
-<h2><span class="header-section-number">1.1</span> Contextualização
+<div id="contextualização-profissional" class="section level2" number="0.1">
+<h2><span class="header-section-number">0.1</span> Contextualização
 Profissional</h2>
 <p>Relatório desenvolvido por solicitação da Secretaria de Educação para
 fundamentar um projeto interdisciplinar de modelagem estatística em
@@ -1804,9 +1794,8 @@ escola pública. Articula soluções analíticas, simulações computacionais
 em R de 7 distribuições especiais e orientações didáticas integradas às
 competências de Matemática e suas Tecnologias da BNCC.</p>
 </div>
-</div>
-<div id="contextualização-e-objetivos-didáticos" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> CONTEXTUALIZAÇÃO E
+<div id="contextualização-e-objetivos-didáticos" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> CONTEXTUALIZAÇÃO E
 OBJETIVOS DIDÁTICOS</h1>
 <p>O ensino de Estatística na Educação Básica, estruturado pela Base
 Nacional Comum Curricular (BNCC), busca ultrapassar a mera construção
@@ -1821,11 +1810,11 @@ de suas 5 subperguntas, a interpretação sociopedagógica dos resultados
 no ambiente da comunidade escolar e a validação por meio de simulação de
 Monte Carlo.</p>
 </div>
-<div id="parte-1-desempenho-no-enem-distribuição-normal" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> PARTE 1 – DESEMPENHO NO
+<div id="parte-1-desempenho-no-enem-distribuição-normal" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> PARTE 1 – DESEMPENHO NO
 ENEM (DISTRIBUIÇÃO NORMAL)</h1>
-<div id="modelo-probabilístico" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Modelo
+<div id="modelo-probabilístico" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Modelo
 probabilístico</h2>
 <p>Modelo:</p>
 <p><span class="math display">\[
@@ -1835,8 +1824,8 @@ X \sim N(\mu=520,\sigma=80)
 discutir escores padronizados (Z) e distribuições amostrais de
 médias.</p>
 </div>
-<div id="probabilidade-de-nota-inferior-a-400-pontos" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Probabilidade de nota
+<div id="probabilidade-de-nota-inferior-a-400-pontos" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Probabilidade de nota
 inferior a 400 pontos</h2>
 <p>Deseja-se calcular:</p>
 <p><span class="math display">\[
@@ -1859,8 +1848,8 @@ P(X&lt;400)=0,0668=6,68\%
 <p><strong>Interpretação:</strong> Apenas 6,68% dos estudantes estão na
 faixa de extrema vulnerabilidade acadêmica (abaixo de 400 pontos).</p>
 </div>
-<div id="probabilidade-da-nota-estar-entre-500-e-650-pontos" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Probabilidade da nota
+<div id="probabilidade-da-nota-estar-entre-500-e-650-pontos" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Probabilidade da nota
 estar entre 500 e 650 pontos</h2>
 <p>Deseja-se calcular:</p>
 <p><span class="math display">\[
@@ -1892,8 +1881,8 @@ P(500\leq X\leq650)=54,66\%
 <p><strong>Interpretação:</strong> Mais da metade do corpo discente
 concentra-se nessa faixa intermediária-alta.</p>
 </div>
-<div id="nota-limite-para-os-10-inferiores-percentil-10" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Nota limite para os
+<div id="nota-limite-para-os-10-inferiores-percentil-10" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Nota limite para os
 10% inferiores – Percentil 10</h2>
 <p>Deseja-se encontrar <span class="math inline">\(x\)</span> tal
 que:</p>
@@ -1920,8 +1909,8 @@ x=417,48\text{ pontos}
 <p><strong>Interpretação:</strong> Alunos com notas abaixo de 417,5
 devem ser prioritariamente inscritos em programas de reforço.</p>
 </div>
-<div id="probabilidade-da-média-de-25-alunos-ser-superior-a-550" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Probabilidade da
+<div id="probabilidade-da-média-de-25-alunos-ser-superior-a-550" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Probabilidade da
 média de 25 alunos ser superior a 550</h2>
 <p>Deseja-se calcular:</p>
 <p><span class="math display">\[
@@ -1953,8 +1942,8 @@ P(\bar X&gt;550)=3,04\%
 de 25 alunos obtenha uma média superior a 550 pontos sem intervenção
 pedagógica específica.</p>
 </div>
-<div id="simulação-de-1.000-notas-no-r-e-comparação-teórica" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Simulação de 1.000
+<div id="simulação-de-1.000-notas-no-r-e-comparação-teórica" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Simulação de 1.000
 notas no R e comparação teórica</h2>
 <p>A amostragem pseudorrandômica via <code>rnorm(1000, 520, 80)</code>
 gera notas com média e desvio padrão próximos dos valores teóricos.</p>
@@ -1998,11 +1987,11 @@ distribuição normal e ilustra a aproximação entre resultados empíricos e
 teóricos.</p>
 </div>
 </div>
-<div id="parte-2-aprovação-em-olimpíadas-distribuição-binomial" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> PARTE 2 – APROVAÇÃO EM
+<div id="parte-2-aprovação-em-olimpíadas-distribuição-binomial" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> PARTE 2 – APROVAÇÃO EM
 OLIMPÍADAS (DISTRIBUIÇÃO BINOMIAL)</h1>
-<div id="modelo-probabilístico-1" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Modelo
+<div id="modelo-probabilístico-1" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Modelo
 probabilístico</h2>
 <p>Modelo:</p>
 <p><span class="math display">\[
@@ -2011,8 +2000,8 @@ X\sim Binomial(n=20,p=0,25)
 <p>Variável discreta representando a contagem de sucessos em 20 ensaios
 independentes de Bernoulli para a classificação na OBMEP.</p>
 </div>
-<div id="probabilidade-de-nenhum-aluno-se-classificar" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Probabilidade de
+<div id="probabilidade-de-nenhum-aluno-se-classificar" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Probabilidade de
 nenhum aluno se classificar</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2046,8 +2035,8 @@ turma de 20 alunos fique totalmente sem aprovados na primeira fase.</p>
 p_binomial_0</code></pre>
 <pre><code>## [1] 0.003171212</code></pre>
 </div>
-<div id="probabilidade-de-no-máximo-3-alunos-se-classificarem" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Probabilidade de no
+<div id="probabilidade-de-no-máximo-3-alunos-se-classificarem" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Probabilidade de no
 máximo 3 alunos se classificarem</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2096,8 +2085,8 @@ P(X\leq3)\approx0,2252
 P(X\leq3)\approx22,52\%
 \]</span></p>
 </div>
-<div id="probabilidade-de-8-ou-mais-alunos-se-classificarem" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> Probabilidade de 8 ou
+<div id="probabilidade-de-8-ou-mais-alunos-se-classificarem" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Probabilidade de 8 ou
 mais alunos se classificarem</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2126,8 +2115,8 @@ p_binomial_8_ou_mais</code></pre>
 <p><strong>Interpretação:</strong> Há aproximadamente 10,18% de chance
 de a turma ter um desempenho excepcional com 8 ou mais qualificados.</p>
 </div>
-<div id="esperança-variância-e-desvio-padrão-teóricos" class="section level2" number="4.5">
-<h2><span class="header-section-number">4.5</span> Esperança, variância
+<div id="esperança-variância-e-desvio-padrão-teóricos" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Esperança, variância
 e desvio padrão teóricos</h2>
 <p>Para a distribuição binomial:</p>
 <p><span class="math display">\[
@@ -2161,8 +2150,8 @@ esperanca_bin</code></pre>
 <pre class="r"><code>desvio_bin</code></pre>
 <pre><code>## [1] 1.936492</code></pre>
 </div>
-<div id="simulação-de-1.000-turmas-e-comparação-de-frequências" class="section level2" number="4.6">
-<h2><span class="header-section-number">4.6</span> Simulação de 1.000
+<div id="simulação-de-1.000-turmas-e-comparação-de-frequências" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Simulação de 1.000
 turmas e comparação de frequências</h2>
 <pre class="r"><code>set.seed(123)
 
@@ -2343,11 +2332,11 @@ binomial</caption>
 analíticas, ilustrando didaticamente a Lei dos Grandes Números.</p>
 </div>
 </div>
-<div id="parte-3-evasão-escolar-por-semana-distribuição-poisson" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> PARTE 3 – EVASÃO
+<div id="parte-3-evasão-escolar-por-semana-distribuição-poisson" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> PARTE 3 – EVASÃO
 ESCOLAR POR SEMANA (DISTRIBUIÇÃO POISSON)</h1>
-<div id="modelo-probabilístico-2" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Modelo
+<div id="modelo-probabilístico-2" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Modelo
 probabilístico</h2>
 <p>Modelo:</p>
 <p><span class="math display">\[
@@ -2356,8 +2345,8 @@ X\sim Poisson(\lambda=3)
 <p>Variável discreta de contagem para taxas de eventos num intervalo
 fixo. Essencial para planejar busca ativa e combate ao abandono.</p>
 </div>
-<div id="probabilidade-de-nenhuma-evasão-em-uma-semana" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Probabilidade de
+<div id="probabilidade-de-nenhuma-evasão-em-uma-semana" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Probabilidade de
 nenhuma evasão em uma semana</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2384,8 +2373,8 @@ p_poisson_0</code></pre>
 <p><strong>Interpretação:</strong> Em aproximadamente 5% das semanas, o
 município não registrará nenhum abandono escolar, segundo o modelo.</p>
 </div>
-<div id="probabilidade-de-5-ou-mais-evasões-em-uma-semana" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Probabilidade de 5 ou
+<div id="probabilidade-de-5-ou-mais-evasões-em-uma-semana" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Probabilidade de 5 ou
 mais evasões em uma semana</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2420,8 +2409,8 @@ p_poisson_5_ou_mais</code></pre>
 <p><strong>Interpretação:</strong> Há aproximadamente 18,5% de risco de
 ocorrer um pico crítico de evasão em determinada semana.</p>
 </div>
-<div id="probabilidade-de-entre-2-e-4-evasões" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Probabilidade de
+<div id="probabilidade-de-entre-2-e-4-evasões" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Probabilidade de
 entre 2 e 4 evasões</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2448,8 +2437,8 @@ p_poisson_2_4</code></pre>
 <p><strong>Interpretação:</strong> Em mais de 60% do tempo, o município
 opera na faixa de 2 a 4 evasões semanais, segundo o modelo.</p>
 </div>
-<div id="probabilidade-de-exatamente-7-evasões-em-duas-semanas" class="section level2" number="5.5">
-<h2><span class="header-section-number">5.5</span> Probabilidade de
+<div id="probabilidade-de-exatamente-7-evasões-em-duas-semanas" class="section level2" number="4.5">
+<h2><span class="header-section-number">4.5</span> Probabilidade de
 exatamente 7 evasões em duas semanas</h2>
 <p>Quando o intervalo de tempo dobra:</p>
 <p><span class="math display">\[
@@ -2477,8 +2466,8 @@ P(Y=7)\approx13,77\%
 p_poisson_7</code></pre>
 <pre><code>## [1] 0.137677</code></pre>
 </div>
-<div id="esperança-e-variância-teóricas" class="section level2" number="5.6">
-<h2><span class="header-section-number">5.6</span> Esperança e variância
+<div id="esperança-e-variância-teóricas" class="section level2" number="4.6">
+<h2><span class="header-section-number">4.6</span> Esperança e variância
 teóricas</h2>
 <p>Na distribuição de Poisson, o parâmetro <span class="math inline">\(\lambda\)</span> define ambos os momentos:</p>
 <p><span class="math display">\[
@@ -2500,11 +2489,11 @@ esperanca_poisson</code></pre>
 <pre><code>## [1] 3</code></pre>
 </div>
 </div>
-<div id="parte-4-tempo-de-espera-no-atendimento-distribuição-exponencial" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> PARTE 4 – TEMPO DE
+<div id="parte-4-tempo-de-espera-no-atendimento-distribuição-exponencial" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> PARTE 4 – TEMPO DE
 ESPERA NO ATENDIMENTO (DISTRIBUIÇÃO EXPONENCIAL)</h1>
-<div id="modelo-probabilístico-3" class="section level2" number="6.1">
-<h2><span class="header-section-number">6.1</span> Modelo
+<div id="modelo-probabilístico-3" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Modelo
 probabilístico</h2>
 <p>Modelo:</p>
 <p><span class="math display">\[
@@ -2517,8 +2506,8 @@ T\sim Exp(\beta=12\text{ minutos})
 <p>Variável contínua modelando tempo até a ocorrência de um evento.
 Apresenta a propriedade exclusiva da Falta de Memória.</p>
 </div>
-<div id="probabilidade-de-espera-superior-a-20-minutos" class="section level2" number="6.2">
-<h2><span class="header-section-number">6.2</span> Probabilidade de
+<div id="probabilidade-de-espera-superior-a-20-minutos" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Probabilidade de
 espera superior a 20 minutos</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2549,8 +2538,8 @@ p_exp_maior_20</code></pre>
 <p><strong>Interpretação:</strong> Quase 19% dos pais aguardam mais de
 20 minutos, sugerindo gargalos na recepção em horários de pico.</p>
 </div>
-<div id="probabilidade-de-espera-inferior-a-5-minutos" class="section level2" number="6.3">
-<h2><span class="header-section-number">6.3</span> Probabilidade de
+<div id="probabilidade-de-espera-inferior-a-5-minutos" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> Probabilidade de
 espera inferior a 5 minutos</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2575,8 +2564,8 @@ p_exp_menor_5</code></pre>
 <p><strong>Interpretação:</strong> Cerca de um terço dos atendimentos é
 resolvido de forma rápida em até 5 minutos.</p>
 </div>
-<div id="tempo-mediano-de-espera-percentil-50" class="section level2" number="6.4">
-<h2><span class="header-section-number">6.4</span> Tempo mediano de
+<div id="tempo-mediano-de-espera-percentil-50" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Tempo mediano de
 espera – Percentil 50</h2>
 <p>A mediana <span class="math inline">\(t_m\)</span> satisfaz:</p>
 <p><span class="math display">\[
@@ -2609,8 +2598,8 @@ mediana_exp</code></pre>
 <p><strong>Interpretação:</strong> A mediana é menor que a média (12
 min) devido à assimetria positiva da distribuição.</p>
 </div>
-<div id="espera-adicional-de-8-minutos-para-quem-já-esperou-10-minutos" class="section level2" number="6.5">
-<h2><span class="header-section-number">6.5</span> Espera adicional de 8
+<div id="espera-adicional-de-8-minutos-para-quem-já-esperou-10-minutos" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Espera adicional de 8
 minutos para quem já esperou 10 minutos</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2644,8 +2633,8 @@ p_exp_condicional</code></pre>
 <p><strong>Interpretação:</strong> O tempo já decorrido na fila não
 altera a distribuição de probabilidade do tempo restante.</p>
 </div>
-<div id="simulação-de-1.000-tempos-e-validação" class="section level2" number="6.6">
-<h2><span class="header-section-number">6.6</span> Simulação de 1.000
+<div id="simulação-de-1.000-tempos-e-validação" class="section level2" number="5.6">
+<h2><span class="header-section-number">5.6</span> Simulação de 1.000
 tempos e validação</h2>
 <pre class="r"><code>set.seed(123)
 
@@ -2679,11 +2668,11 @@ curve(
 distribuição exponencial.</p>
 </div>
 </div>
-<div id="parte-5-altura-dos-alunos-do-9º-ano-distribuição-weibull" class="section level1" number="7">
-<h1><span class="header-section-number">7</span> PARTE 5 – ALTURA DOS
+<div id="parte-5-altura-dos-alunos-do-9º-ano-distribuição-weibull" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> PARTE 5 – ALTURA DOS
 ALUNOS DO 9º ANO (DISTRIBUIÇÃO WEIBULL)</h1>
-<div id="modelo-probabilístico-4" class="section level2" number="7.1">
-<h2><span class="header-section-number">7.1</span> Modelo
+<div id="modelo-probabilístico-4" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Modelo
 probabilístico</h2>
 <p>Modelo:</p>
 <p><span class="math display">\[
@@ -2693,8 +2682,8 @@ H\sim Weibull(k=2,\lambda=160\text{ cm})
 Distribuição Rayleigh. Modela tempos de vida, resistências e medidas
 biológicas com taxa de falha ou crescimento variável.</p>
 </div>
-<div id="probabilidade-de-altura-inferior-a-140-cm" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> Probabilidade de
+<div id="probabilidade-de-altura-inferior-a-140-cm" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Probabilidade de
 altura inferior a 140 cm</h2>
 <p>A função de distribuição acumulada é:</p>
 <p><span class="math display">\[
@@ -2725,8 +2714,8 @@ P(H&lt;140)\approx53,50\%
 p_weibull_140</code></pre>
 <pre><code>## [1] 0.5349568</code></pre>
 </div>
-<div id="probabilidade-da-altura-estar-entre-150-cm-e-175-cm" class="section level2" number="7.3">
-<h2><span class="header-section-number">7.3</span> Probabilidade da
+<div id="probabilidade-da-altura-estar-entre-150-cm-e-175-cm" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Probabilidade da
 altura estar entre 150 cm e 175 cm</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2763,8 +2752,8 @@ P(150\leq H\leq175)\approx11,30\%
 p_weibull_150_175</code></pre>
 <pre><code>## [1] 0.1129228</code></pre>
 </div>
-<div id="percentil-90-das-alturas" class="section level2" number="7.4">
-<h2><span class="header-section-number">7.4</span> Percentil 90 das
+<div id="percentil-90-das-alturas" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Percentil 90 das
 alturas</h2>
 <p>Deseja-se encontrar <span class="math inline">\(h_{0,90}\)</span> tal
 que:</p>
@@ -2805,8 +2794,8 @@ p90_weibull</code></pre>
 <p><strong>Interpretação:</strong> O resultado é um modelo teórico com
 cauda longa.</p>
 </div>
-<div id="cálculo-analítico-da-média-e-do-desvio-padrão" class="section level2" number="7.5">
-<h2><span class="header-section-number">7.5</span> Cálculo analítico da
+<div id="cálculo-analítico-da-média-e-do-desvio-padrão" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Cálculo analítico da
 média e do desvio padrão</h2>
 <p>A esperança da distribuição Weibull é:</p>
 <p><span class="math display">\[
@@ -2871,8 +2860,8 @@ media_weibull</code></pre>
 <pre class="r"><code>desvio_weibull</code></pre>
 <pre><code>## [1] 74.12022</code></pre>
 </div>
-<div id="função-de-risco-hazard-e-interpretação-biológica" class="section level2" number="7.6">
-<h2><span class="header-section-number">7.6</span> Função de risco
+<div id="função-de-risco-hazard-e-interpretação-biológica" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Função de risco
 (Hazard) e interpretação biológica</h2>
 <p>A função de risco é:</p>
 <p><span class="math display">\[
@@ -2896,11 +2885,11 @@ de atingir determinada estatura aumenta proporcionalmente à altura
 acumulada no modelo matemático adotado.</p>
 </div>
 </div>
-<div id="parte-6-precipitação-mensal-na-região-distribuição-gama" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> PARTE 6 – PRECIPITAÇÃO
+<div id="parte-6-precipitação-mensal-na-região-distribuição-gama" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> PARTE 6 – PRECIPITAÇÃO
 MENSAL NA REGIÃO (DISTRIBUIÇÃO GAMA)</h1>
-<div id="modelo-probabilístico-5" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Modelo
+<div id="modelo-probabilístico-5" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Modelo
 probabilístico</h2>
 <p>Modelo:</p>
 <p><span class="math display">\[
@@ -2920,8 +2909,8 @@ X\sim Gama(\alpha=4,\beta=0,02)
 \theta=\frac{1}{\beta}=50\text{ mm}
 \]</span></p>
 </div>
-<div id="probabilidade-de-chuva-superior-a-300-mm" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Probabilidade de
+<div id="probabilidade-de-chuva-superior-a-300-mm" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Probabilidade de
 chuva superior a 300 mm</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -2967,8 +2956,8 @@ P(X&gt;300)\approx15,12\%
 p_gama_maior_300</code></pre>
 <pre><code>## [1] 0.1512039</code></pre>
 </div>
-<div id="probabilidade-de-chuva-entre-150-mm-e-250-mm" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Probabilidade de
+<div id="probabilidade-de-chuva-entre-150-mm-e-250-mm" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Probabilidade de
 chuva entre 150 mm e 250 mm</h2>
 <p>Deseja-se:</p>
 <p><span class="math display">\[
@@ -3017,8 +3006,8 @@ P(150\leq X\leq250)=38,22\%
 precipitação fica na faixa moderada considerada no relatório para
 drenagem urbana escolar.</p>
 </div>
-<div id="percentil-95-evento-pluviométrico-extremo" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Percentil 95 – Evento
+<div id="percentil-95-evento-pluviométrico-extremo" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Percentil 95 – Evento
 pluviométrico extremo</h2>
 <p>O percentil 95 é calculado utilizando:</p>
 <pre class="r"><code>p95_gama &lt;- qgamma(
@@ -3037,8 +3026,8 @@ P_{95}=387,70\text{ mm}
 representam os 5% mais chuvosos segundo o modelo, exigindo atenção ao
 planejamento e à contingência para alagamentos.</p>
 </div>
-<div id="média-e-variância-teóricas" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Média e variância
+<div id="média-e-variância-teóricas" class="section level2" number="7.5">
+<h2><span class="header-section-number">7.5</span> Média e variância
 teóricas</h2>
 <p>Para a distribuição Gama parametrizada por forma <span class="math inline">\(\alpha\)</span> e taxa <span class="math inline">\(\beta\)</span>:</p>
 <p><span class="math display">\[
@@ -3079,8 +3068,8 @@ media_gama</code></pre>
 <pre class="r"><code>desvio_gama</code></pre>
 <pre><code>## [1] 100</code></pre>
 </div>
-<div id="simulação-de-120-meses-10-anos-no-r" class="section level2" number="8.6">
-<h2><span class="header-section-number">8.6</span> Simulação de 120
+<div id="simulação-de-120-meses-10-anos-no-r" class="section level2" number="7.6">
+<h2><span class="header-section-number">7.6</span> Simulação de 120
 meses (10 anos) no R</h2>
 <pre class="r"><code>set.seed(123)
 
@@ -3120,14 +3109,14 @@ curve(
 <p><img role="img" aria-label src="data:image/png;base64,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" alt width="672" /></p>
 </div>
 </div>
-<div id="parte-7-análise-integrada-e-discussão-pedagógica" class="section level1" number="9">
-<h1><span class="header-section-number">9</span> PARTE 7 – ANÁLISE
+<div id="parte-7-análise-integrada-e-discussão-pedagógica" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> PARTE 7 – ANÁLISE
 INTEGRADA E DISCUSSÃO PEDAGÓGICA</h1>
-<div id="simulação-de-monte-carlo-com-n-10.000-iterações" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Simulação de Monte
+<div id="simulação-de-monte-carlo-com-n-10.000-iterações" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Simulação de Monte
 Carlo com N = 10.000 iterações</h2>
-<div id="notas-do-enem" class="section level3" number="9.1.1">
-<h3><span class="header-section-number">9.1.1</span> Notas do ENEM</h3>
+<div id="notas-do-enem" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Notas do ENEM</h3>
 <p>A simulação de Monte Carlo utiliza a geração de 10.000 notas a partir
 de uma distribuição normal com média 520 e desvio padrão 80.</p>
 <pre class="r"><code>set.seed(123)
@@ -3156,8 +3145,8 @@ inferior a 400 pontos, resultando em proporção empírica de 0,0664
 geração utilizado.</p>
 </div>
 </div>
-<div id="comparação-entre-método-teórico-e-monte-carlo" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Comparação entre
+<div id="comparação-entre-método-teórico-e-monte-carlo" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Comparação entre
 método teórico e Monte Carlo</h2>
 <p>A comparação apresentada no relatório é:</p>
 <table style="width:100%;">
@@ -3255,26 +3244,26 @@ Carlo</caption>
 </tbody>
 </table>
 </div>
-<div id="discussão-pedagógica-e-importância-da-simulação-no-ensino-médio" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Discussão pedagógica
+<div id="discussão-pedagógica-e-importância-da-simulação-no-ensino-médio" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Discussão pedagógica
 e importância da simulação no Ensino Médio</h2>
 <p>A convergência entre o valor empírico da simulação e o valor teórico
 oferece um poderoso recurso didático para superar a abstração excessiva
 das fórmulas probabilísticas.</p>
-<div id="significação-conceitual" class="section level3" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> Significação
+<div id="significação-conceitual" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Significação
 Conceitual</h3>
 <p>A simulação de Monte Carlo transforma a probabilidade em uma
 frequência relativa observável de ocorrências simuladas.</p>
 </div>
-<div id="investigação-científica-bncc" class="section level3" number="9.3.2">
-<h3><span class="header-section-number">9.3.2</span> Investigação
+<div id="investigação-científica-bncc" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Investigação
 Científica – BNCC</h3>
 <p>Permite aos alunos formular hipóteses, alterar parâmetros em tempo
 real na linguagem R e visualizar a Lei dos Grandes Números.</p>
 </div>
-<div id="modelagem-de-problemas-sociais" class="section level3" number="9.3.3">
-<h3><span class="header-section-number">9.3.3</span> Modelagem de
+<div id="modelagem-de-problemas-sociais" class="section level3" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Modelagem de
 Problemas Sociais</h3>
 <p>Ao conectar as distribuições à evasão, notas e clima local, a
 Estatística consolida-se como ferramenta de cidadania e gestão
@@ -3282,8 +3271,8 @@ comunitária.</p>
 </div>
 </div>
 </div>
-<div id="síntese-dos-modelos-probabilísticos" class="section level1" number="10">
-<h1><span class="header-section-number">10</span> SÍNTESE DOS MODELOS
+<div id="síntese-dos-modelos-probabilísticos" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> SÍNTESE DOS MODELOS
 PROBABILÍSTICOS</h1>
 <p>As distribuições especiais abordadas no relatório podem ser
 sintetizadas da seguinte forma:</p>
@@ -3342,8 +3331,8 @@ sintetizadas da seguinte forma:</p>
 </tbody>
 </table>
 </div>
-<div id="conclusão" class="section level1" number="11">
-<h1><span class="header-section-number">11</span> CONCLUSÃO</h1>
+<div id="conclusão" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> CONCLUSÃO</h1>
 <p>O relatório apresentou modelos probabilísticos fundamentais aplicados
 a situações relacionadas ao ambiente educacional, social e
 ambiental.</p>
@@ -3379,8 +3368,8 @@ competências previstas pela BNCC, especialmente aquelas relacionadas à
 interpretação de fenômenos aleatórios, análise de dados e tomada de
 decisões fundamentadas.</p>
 </div>
-<div id="referências-bibliográficas" class="section level1" number="12">
-<h1><span class="header-section-number">12</span> REFERÊNCIAS
+<div id="referências-bibliográficas" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> REFERÊNCIAS
 BIBLIOGRÁFICAS</h1>
 <ol style="list-style-type: decimal">
 <li><p>BRASIL. Ministério da Educação. <strong>Base Nacional Comum
@@ -3397,13 +3386,13 @@ para Engenharia e Ciências</strong>. 8. ed. São Paulo: Pearson,
 2009.</p></li>
 </ol>
 </div>
-<div id="códigos-complementares-das-distribuições" class="section level1" number="13">
-<h1><span class="header-section-number">13</span> CÓDIGOS COMPLEMENTARES
+<div id="códigos-complementares-das-distribuições" class="section level1" number="12">
+<h1><span class="header-section-number">12</span> CÓDIGOS COMPLEMENTARES
 DAS DISTRIBUIÇÕES</h1>
 <p>Esta seção reúne as principais funções do R utilizadas nos cálculos
 do relatório para facilitar a reprodução dos resultados.</p>
-<div id="distribuição-normal" class="section level2" number="13.1">
-<h2><span class="header-section-number">13.1</span> Distribuição
+<div id="distribuição-normal" class="section level2" number="12.1">
+<h2><span class="header-section-number">12.1</span> Distribuição
 Normal</h2>
 <pre class="r"><code># Probabilidade de nota inferior a 400
 pnorm(400, mean = 520, sd = 80)</code></pre>
@@ -3423,8 +3412,8 @@ qnorm(0.10, mean = 520, sd = 80)</code></pre>
 )</code></pre>
 <pre><code>## [1] 0.03039636</code></pre>
 </div>
-<div id="distribuição-binomial" class="section level2" number="13.2">
-<h2><span class="header-section-number">13.2</span> Distribuição
+<div id="distribuição-binomial" class="section level2" number="12.2">
+<h2><span class="header-section-number">12.2</span> Distribuição
 Binomial</h2>
 <pre class="r"><code># Nenhum aluno classificado
 dbinom(0, size = 20, prob = 0.25)</code></pre>
@@ -3447,8 +3436,8 @@ pbinom(
 20 * 0.25 * 0.75</code></pre>
 <pre><code>## [1] 3.75</code></pre>
 </div>
-<div id="distribuição-poisson" class="section level2" number="13.3">
-<h2><span class="header-section-number">13.3</span> Distribuição
+<div id="distribuição-poisson" class="section level2" number="12.3">
+<h2><span class="header-section-number">12.3</span> Distribuição
 Poisson</h2>
 <pre class="r"><code># Nenhuma evasão
 dpois(0, lambda = 3)</code></pre>
@@ -3464,8 +3453,8 @@ ppois(4, lambda = 3) -
 dpois(7, lambda = 6)</code></pre>
 <pre><code>## [1] 0.137677</code></pre>
 </div>
-<div id="distribuição-exponencial" class="section level2" number="13.4">
-<h2><span class="header-section-number">13.4</span> Distribuição
+<div id="distribuição-exponencial" class="section level2" number="12.4">
+<h2><span class="header-section-number">12.4</span> Distribuição
 Exponencial</h2>
 <pre class="r"><code># Espera superior a 20 minutos
 pexp(20, rate = 1 / 12, lower.tail = FALSE)</code></pre>
@@ -3480,8 +3469,8 @@ qexp(0.50, rate = 1 / 12)</code></pre>
 pexp(8, rate = 1 / 12, lower.tail = FALSE)</code></pre>
 <pre><code>## [1] 0.5134171</code></pre>
 </div>
-<div id="distribuição-weibull" class="section level2" number="13.5">
-<h2><span class="header-section-number">13.5</span> Distribuição
+<div id="distribuição-weibull" class="section level2" number="12.5">
+<h2><span class="header-section-number">12.5</span> Distribuição
 Weibull</h2>
 <pre class="r"><code># Altura inferior a 140 cm
 pweibull(140, shape = 2, scale = 160)</code></pre>
@@ -3497,8 +3486,8 @@ qweibull(0.90, shape = 2, scale = 160)</code></pre>
 160 * gamma(1 + 1 / 2)</code></pre>
 <pre><code>## [1] 141.7963</code></pre>
 </div>
-<div id="distribuição-gama" class="section level2" number="13.6">
-<h2><span class="header-section-number">13.6</span> Distribuição
+<div id="distribuição-gama" class="section level2" number="12.6">
+<h2><span class="header-section-number">12.6</span> Distribuição
 Gama</h2>
 <pre class="r"><code># Chuva superior a 300 mm
 pgamma(
@@ -3522,8 +3511,8 @@ qgamma(0.95, shape = 4, rate = 0.02)</code></pre>
 4 / (0.02^2)</code></pre>
 <pre><code>## [1] 10000</code></pre>
 </div>
-<div id="simulações-complementares" class="section level2" number="13.7">
-<h2><span class="header-section-number">13.7</span> Simulações
+<div id="simulações-complementares" class="section level2" number="12.7">
+<h2><span class="header-section-number">12.7</span> Simulações
 complementares</h2>
 <pre class="r"><code>set.seed(123)
 
@@ -3615,8 +3604,8 @@ knitr::kable(
 </table>
 </div>
 </div>
-<div id="encerramento" class="section level1" number="14">
-<h1><span class="header-section-number">14</span> ENCERRAMENTO</h1>
+<div id="encerramento" class="section level1" number="13">
+<h1><span class="header-section-number">13</span> ENCERRAMENTO</h1>
 <p><strong>RELATÓRIO 05 DE PROBABILIDADE E ESTATÍSTICA — Luciano
 Vaz</strong></p>
 <p><strong>Distribuições especiais de probabilidade segundo
